@@ -55,4 +55,10 @@ git config --global user.email "邮箱"  设置用户邮箱
   git pull 仓库别名 远程分支名:本地分支名  拉取一个远程分支的新内容，将其与本地分支合并，当两分支名相同时，可简写
   git pull --rebase 仓库别名 远程分支名  当远程仓库已经有与本地无关的内容，而本地已有内容并不是从远程拉取而来时，无法直接拉取或提交，使用该命令强制将远程内容拉取到本地
  page服务  生成一个网址，该网址可解析库中的html文件
+ 代理
+  git config --global http.proxy http://服务器地址  http代理
+  git config --global https.proxy https://服务器地址  https代理
+  git config --global https.proxy socks5://服务器地址  socks5代理
+  git config --global --get https.proxy  查看代理
+  git config --global --unset https.proxy  取消代理
 '''
