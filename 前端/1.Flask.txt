@@ -1,0 +1,26 @@
+'''
+from flask import Flask,render_template,request
+app = Flask(__name__)
+
+@app.route('/show/info')  相当于index=app.route('/show/info')(index)
+def index():
+  return render_template('测试1（数据的提交）.html')
+ render_template 用于读取文件中html代码，html文件的默认路径为该py文件的同级的名为templates的文件夹下的html文件
+  如果需要修改这个默认路径，需要用 app = Flask(__name__, template_folder='路径')
+ 建立 '/show/info' 和index函数之间的关系，当访问 /show/info 时，向index函数提交一个get请求，函数的返回值默认作为get请求的回应
+
+if __name__ == '__main__':
+  app.run()
+ 使网站持续运行
+
+html中格式化字符串
+ 传入变量
+  在html中用 {{变量名}} 来标识一个占位符
+  在页面函数中 return render_template('html文件', 变量名=值) 来将该值传入html中
+ 传入可迭代对象并进行循环
+  在html中有
+   {% for i in 列表名 %}
+    {{i}}  通过{{i}}来对列表中的元素进行获取
+   {% endfor %}
+  在 return render_template('html文件', 列表名=列表) 来将该列表传入html中
+'''

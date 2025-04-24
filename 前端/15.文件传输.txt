@@ -1,0 +1,27 @@
+#form上传文件
+ #<form method="post" enctype="multipart/form-data">
+ #  <input type="file" name="xxx">  成为一个文件选择框
+ #</form>
+ #当用监听器通过监听change知道input接收了一个文件后，可通过 该标签.target.files[0] 获取到该图片
+#接收文件
+ #request.FILES  不会被包含在post或get中，返回值为一个文件对象，数据类型为MultiValueDict，类似于字典 {'input的name': [<InmemaryUploadedFile:文件名(文件类型)>] }
+ #file = request.FILES.get('input的name')  获取目标文件
+ #with open('file.png', mode='wb') as f:  写入本地文件
+ #     for chunk in file.chunks():  文件项目分为chunk进行传输，通过file.chunks()获取全部文件
+ #          f.write(chunk)
+#文件保存
+ #app下的media文件夹，用于保存用户上传的文件
+ #将文件保存在数据库中时，不用保存该文件的二进制文件，而是保存该文件的路径
+
+#excel上传
+ #打开excel表
+  #pip install openpyxl
+  #from openpyxl import load_workbook
+  #wb = load_workbook('xls文件路径或一个文件对象')  打开一个xls文件
+  #sheet = wb.worksheets[0]  打开第一个表
+  #cell = sheet.cell(行数, 列数)  获取指定行列的值，返回值为一个cell对象，通过cell.value获取目标值
+ #遍历excel表中的值
+  #for row in sheet.iter_rows(min_row=行数):  从指定行数开始遍历
+  #     a = row[0].value  获取一行中的第一格的值
+
+

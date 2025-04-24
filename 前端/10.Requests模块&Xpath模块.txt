@@ -1,0 +1,42 @@
+'''
+requests
+ import requests
+ get请求
+  requests.get(url)  返回一个服务器的get响应
+  requests.get(url).encoding = 'utf-8'  将该响应内容编码
+  requests.get(url).text  得到响应中的页面源代码
+  requests.get(url).content  得到响应的二进制数据，可以通过作为二进制数据写入一个文件后用其他编码来查看该数据
+  requests.get(url).request.headers  在发送get请求时修改请求头中的内容
+ post请求
+  requests.post(url, data=发送的数据)  返回一个服务器收到该post请求后的响应，post请求的格式可以在服务器的响应的header的末尾找到
+  requests.post(url, data=发送的数据).json()  如果响应的数据为json，可这样进行转换，get请求同理
+
+ session
+  session1 = requests.session()  创建一个会话
+  req1 = session1.post('网站的登录页面的url', data={})  通过对话发送数据
+  req1.cookies  会话会自动记录下网页下的cookie
+  req2 = session1.get('需要cookie才能查看的网页的url')  自动在保留cookie的情况下发送请求
+
+
+xpath
+ from lxml import etree
+
+ 对于一个html文件的文本
+  txt = '<html lang="en">
+        <head>
+           <meta charset="UTF-8">
+           <title>Title</title>
+        </head>
+        <body>
+           <div><a href='baidu.com'></a>百度</div>
+        </body>
+        </html>
+ etree.HTML(txt)  对这个文本中的标签进行树状解析，返回一个element对象
+ etree.HTML.xpath('/html/body...')  对标签进行树状获取，返回一个element对象
+  其中， /* 可替代任意一级标签
+ etree.HTML.xpath('/html/body/div/a/text()')  可获取该标签的内容
+ etree.HTML.xpath('/html/body/div/a/@href')  可获取该标签的属性的值
+ etree.HTML.xpath('//div/a')  可从任意位置查找并获取该标签
+ etree.HTML.xpath('/html/body/div[@属性名='属性值']/a')  可通过限定父标签的属性来获取该标签
+ etree.HTML.xpath('/html/body').xpath('./div/a')  可通过在已获取的标签后使用相对位置来获取该标签
+'''

@@ -1,0 +1,133 @@
+'''
+模块(module)
+ 一个 .py 文件就是一个模块
+
+模块导入
+ import module_name
+  逐条运行被导入模块中的语句，相当于在当前模块中运行引用模块中的内容
+  并将module_name中的变量命名为 module_name.变量名 的形式
+ from module_name import 变量名
+  逐条运行被导入模块中的语句，但运行之后只会保存module_name中的目标变量
+  并直接使用 变量名 来调用目标变量
+
+__name__:
+ 当一个模块中存在变量 __name__ 时，如果模块在自我运行，那么此时 __name__ 会被赋值 '__main__' ,
+ 当模块是在被用import在调用时运行，那么此时 __name__ 会被赋值 '模块名'
+ 可以此来判断模块当前的运行环境
+
+包文件(package)：
+ 目录下有一个 __init__.py 文件时,此目录成为一个包，对该目录的导入，相当于对该目录下的 __init__.py 文件的导入
+ __init__.py 文件可以用来存储同级文件的导出，并将这些导出作为__init__.py的上级包的导出，起到整合的作用：
+        a
+  b.py    package
+         __init__.py  c.py  d.py
+  若此时将c.py和d.py导入__init__.py中，那么与package同级的b.py就可以直接用import package来实现import package.__init__同样的效果，而不用使用import package.c,package.d
+
+
+time模块
+ import time
+
+ time.time()  返回当前时间戳，浮点数形式
+  时间戳(timestamp)，以整型或浮点型表示的以秒为单位的时间间隔，这个时间间隔为从1970年1月1日至当前的世界标准时间
+
+ time.gmtime(timestamp=time.time()):
+  将时间戳转换为时间元组的形式，返回一个命名元组，不传参时时间戳默认为当前时间时间戳
+   time.struct_time(tm_year=2023, tm_mon=4, tm_mday=3, tm_hour=12, tm_min=22, tm_sec=35, tm_wday=0, tm_yday=93, tm_isdst=0)
+ time.localtime(timestamp=time.time()):
+  将时间戳转换为本地时间元组的形式，返回这个时间元组
+
+ time.mktime(时间元组):
+  将时间元组转换为时间戳。因为时间戳只有标准时间，所以此时把时间元组当作是标准时间的时间元组
+
+ time.asctime(string=time.lacaltime()):
+  将时间元组转换为字符串格式，字符串默认格式为 '星期 月份 日的号数 小时:分钟:秒'，返回这个字符串
+   time模块中格式化字符串的特殊含义：
+ time.ctime(timestamp=time.time())
+  将时间戳转换为字符串格式
+
+ time.strftime(FormattingString, timetuple=time.gmtime())
+  将时间元组转换成字符串形式，字符串中的特殊字符会被替换为对应的值
+   字符串中特殊字符
+    %a 简化星期名称，%A 完整星期名称，%b 简化月份名称，%B 完整月份名称，%d 日期的号数，%H 小时数，%m 月份数，%M 分钟数，%S 秒数(0-59)，%w 星期数，%Y 完整的年份
+     print(time.strftime('%Y-%m-%d,%H:%M:%S',time.gmtime()))  返回 2023-04-04,08:12:38
+
+ time.strptime(string,Formattingstring)
+  将以指定格式说明的时间字符串转换为时间元组
+   print(time.strptime('2023-04-04,08:12:38','%Y-%m-%d,%H:%M:%S'))
+    返回 time.struct_time(tm_year=2023, tm_mon=4, tm_mday=4, tm_hour=8, tm_min=12, tm_sec=38, tm_wday=1, tm_yday=94, tm_isdst=-1)
+
+ time.sleep(integer or float)
+  延迟一个时间，以秒为单位
+
+
+collections模块
+ import collections
+
+ collections.namedtuple(NewTuple'sName,[FirstElement'sName,SencondElement'sName,...]):
+  创建一个命名元组，即对tuple中每一个元素进行命名的元组
+   point=collections.namedtuple('point',['x','y'])  此时创建了一个新的名为point的类型，这个类型是tuple下的子类型
+   a=point(1,2)  使a成为这个新的类型
+   print(a)  返回 point(x=1, y=2)
+  命名元组中元素的取值，既可以用元组中的按索引来取值的方式，又可以用类似字典中的 .元素 的方式来取值
+
+ collections.deque(list)
+  创建一个deque双向列表。list为线性存储，当数据量大时查找效率降低
+   q=collections.deque([1,2,3])  创建deque
+   print(q)  返回deque([1, 2, 3])
+  q.append(4)  从右开始添加
+  q.appendleft(4)  从左开始添加
+  q.pop()  从右开始删除
+  q.popleft()  从左开始删除
+
+
+base64模块
+ import base64
+  base64编码原理
+   将每三个字节作为一组，在三个字节共24个bit中划分四组，每六个bit作为一组，这一组用64个字符中的一个来表示
+   64个字符
+    'A','B',...,'Z','a','b',...,'z','0','1',...,'9','/','+'
+   当字节不足三的倍数时，在末尾添加置零位，并将这些附加字节编码为'='
+
+ base64.b64encode
+  对字符串进行base64编码
+   print(base64.b64encode(b'abcd'))  返回 b'YWJjZA=='
+    b'string'表示声明'string'为字节字符串，字符串中的每一个字符都可以被一个字节所容下，例如用ASCII映射表来实现
+    而常规的'string'是用Unicode映射表来实现字符与字节的映射，其中一个字符可能被映射为多个字节
+    使用'string'.encode('utf-8')可以返回'string'通过utf-8编码后的二进制字符串
+
+ base64.b64decode
+  对字符串进行base64解码
+
+
+hashlib模块
+ import hashlib
+  摘要算法(哈希算法、散列算法)
+   把任意长度的数据转换为一个长度固定的数据串。同一数据转换成的数据串一定相同，不同数据转换成的数据串几乎不同
+
+ hashlib.md5
+  生成128bit位，用32位十六进制数表示
+   string=b'abcd'
+   hashlib.md5().update(string)  摘要一个值，对这个值使用摘要算法
+   print(hashlib.md5().hexdigest())  以十六进制返回摘要算法的结果，返回 d41d8cd98f00b204e9800998ecf8427e
+
+ hashlib.sha1
+  生成160bit位，用40位十六进制数表示
+   string=b'abcd'
+   hashlib.sha1().update(string)
+   print(hashlib.sha1().hexdigest())  返回 da39a3ee5e6b4b0d3255bfef95601890afd80709
+
+
+uuid(universally unique identifier)模块
+ uuid.uuid1()  基于mac地址，时间戳，随机数来生成随机字符串
+ uuid.uuid3()  基于名字，命名空间，md5算法来生成。当三者相同时生成的相同
+ uuid.uuid5()  基于名字，命名空间，sha1算法来生成
+
+
+random模块
+ import random
+  random.random()  生成一个大于等于0小于1的随机数
+  random.uniform(star_num,end_num)  生成一个大于等于star_num，小于等于end_num的随机数
+  random.randint(star_num,end_num)  生成一个大于等于star_num，小于等于end_num的随机整数
+  random.choice(可迭代对象)  从可迭代对象中随机获取一个元素
+  random.sample(可迭代对象，num)  从可迭代对象中随机获得num个不相同元素，并将这num个元素作为一个列表返回
+'''

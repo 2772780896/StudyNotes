@@ -1,0 +1,116 @@
+'''
+接收数据
+ $_GET  接收get方式提交的数据
+ $_POST  接收post方式提交的数据
+ $REQUEST  将get和post所提交的数据合并，当两者中有同名数据时，post的数据会覆盖get的数据
+  三者都为数组，其中元素的下标为数据的name，元素的值为数据的value
+  接收多个同名数据时，可将该数据的name设为 数据名[] 的形式，这样多个同名数据的值就会组成一个数组作为下标 数据名 的值
+ $_FILES  接收上传的文件，返回一个数组，元素的下标为数据的name，元素的值为数据的value
+  文件的value也是一个数组，有如下下标
+   name  该文件在上传方本地的名字
+   type  文件类型
+   tmp_name  接收方接收的文件所存储的临时位置的文件名
+   error  文件是否成功上传
+   size  文件大小
+  对上传的文件的操作
+   is_uploaded_file($_FILES['数据的name'][tmp_name])  判断该临时文件是否是上传的文件
+   move_uploaded_file($_FILES['数据的name'][tmp_name],临时文件的新储存位置的文件名)
+    将该临时文件移动到一个新位置使其被永久储存，否则当代码执行结束时，临时文件会被删除
+
+
+数据响应
+ php文件中的html代码以及php代码块中的输出，即 echo/print ，会作为访问php文件时的响应
+  当php文件中同时存在数据响应和html代码时，要实现当get请求时返回html，当post时返回对应数据
+   将php代码块放在html代码前方
+   在php代码中判断，当get请求时不输出任何数据，只返回html代码
+   当post请求时，输出数据，并在php代码块的末尾使用 exit/die 来结束文件读取，使得html代码不会被读取，只返回php中数据
+
+ http请求
+  请求行
+   请求方式，网页路径，协议版本  请求方式为GET或POST
+  请求头
+   Host  发出请求的主机
+   Accept  所请求的数据的数据类型
+   Accept-Language  所请求的数据的语言
+   User-Agent  发出请求的主机的浏览器信息
+   Referer  请求的来源网页
+  请求体，当请求头后空出一行，即表示请求体的开始
+   只有post有请求体，get数据跟在url之后
+   数据名1=数据值1&数据名2=数据值2
+ http响应
+  响应行
+   协议版本 状态码 状态消息
+    状态码与状态消息
+     200 ok  访问成功
+     403 Forbidden  没有访问权限
+     404 Not Found  未找到页面
+     500 Server Internal Error  服务器内部错误
+  响应头，当响应头后空出一行，即表示响应体的开始
+   Date  时间
+   Server  服务器信息
+   Last-Modified  所请求文件在服务器最后被修改的时间
+   Content-Length  响应体的字节数
+   Content-Type  内容类型
+  响应体
+
+ header('响应头中的数据')  对响应头数据进行设置
+  header('Content-type:text/html;charset=utf-8')  设置响应体的数据类型和编码类型
+  header('Location:/index.php')  设置重定向至另一个页面，当浏览器解析至Location时，停止接下来的解析并直接跳转
+  header('Refresh:3;url=/index.php')  设置经过指定秒数后重定向至另一个页面，解析至Refresh之后仍然会解析之后的内容
+  文件传递
+   header('Content-type:application/octem-stream')  以文件流的格式向浏览器传递数据
+   header('Accept-ranges:bytes')  以字节传输
+   header('Content-disposition:attachment;filename=xxx.jpg')  不解析页面，将页面作为一个附件下载，并指定文件名
+   header('Accept-length:文件大小')  设置文件大小
+
+ cookie
+  由服务器生成，后发送至客户端，当客户端再次连接至服务器时，发送cookie
+  $_COOKIE  获取cookie的值
+  setcookie(cookie名,cookie值,时间戳,作用范围,有效域名)  设置cookie，实质为在响应头设置Set-Cookie字段，后返回给浏览器
+   cookie名为字符串
+   值为数字或字符串，可省略，当值为空时即表示删除该cookie
+   时间戳为过期时间，格式为格林威治时间，即1970至今的秒数，可通过time()获取，可省略，省略时或为0时为关闭浏览器即过期
+   当一个php脚本A设置了cookie1，他的父文件夹的同级的php脚本B设置了cookie2，此时脚本A可获取到cookie1和cookie2，而脚本B只可获取到
+   cookie2，即下层文件夹中设置的cookie无法被上层文件夹访问，那么将所有的cookie的作用范围设为根文件夹，即 / 可解决该问题
+   当a.xxx.com设置了cookie时，b.xxx.com不能访问该cookie，可通过设置有效域名为xxx.com使相同主机下的子域互访cookie
+  在php中用数组展示cookie
+   setcookie(cookie名[下标1],cookie值1)  在浏览器中会将 cookie名[下标1] 整体作为一个cookie名，但当php执行到[]时，会开始创建
+                                       数组，使得php将这些不同名的cookie以数组展示
+
+ session  基于cookie和服务器端存储
+  $_SESSION  一个数组，只存在于服务器，该变量并不被预先定义
+  sessionid  一个cookie名，值随机生成，该值指向一个session文件
+  session文件  当脚本执行结束时，将$_SESSION序列化后的数据，只存在于服务器，可反序列化为$_SESSION
+  服务器创建sessionid与其对应的session文件，后反序列化session文件生成$_SESSION，在其中添加与客户端有关的元素
+  session_start()  获取sessionid，定义$_SESSION，寻找sessionid对应的session文件，将文件反序列化为$_SESSION
+  session_name()  获取sessionid
+  session_id('字符串')  参数可为空，为空时，获取session的值，不为空时，为在session_start()之前就将字符串作为sessionid的值
+  session配置
+   在php.ini中修改session.name的值，该值为sessionid
+   在php.ini中修改session.auto_start的值为0或1，设置是否自动运行session_start()
+   在php.ini中修改session.save_handler的值，设置session文件的格式
+   在php.ini中修改session.save_path的值，设置session文件的路径
+   在php.ini中修改session.cookie_lifetime的值，同cookie的过期时间
+   在php.ini中修改session.cookie_path的值，同cookie的作用范围
+   在php.ini中修改session.cookie_domain的值，同cookie的有效域名
+   在php.ini中修改session.gc_maxlifetime的值，设置session文件的最大生命周期，当每次寻找session文件后，都有概率执行垃圾回收，删除
+   超过生命周期的文件，生命周期为距文件最后一次修改后经过的时间，单位为秒
+   在php.ini中修改session.gc_probability的值，设置触发垃圾回收的概率的分子
+   在php.ini中修改session.gc_divisor的值，设置触发垃圾回收的概率的分母
+  session_destroy()  删除session_start()中得到的session文件
+
+
+连接数据库
+ mysql_connect(服务器地址,用户名,密码)  建立mysql连接
+ mysql_query('sql语句')  向mysql发送sql语句，当发送查询语句时，返回查询的结果，当发送其他语句时，返回执行的TRUE或FALSE
+  查询语句的返回
+   查询成功时返回一个类型为资源的数据，如 resource(1) of type (mysql result)
+   mysql_num_rows(资源数据)  返回该资源中的sql行数
+   mysql_fetch_assoc(资源数据)  返回一个数组，该数组的下标为一行的列名，值为一行的值
+   mysql_fetch_row(资源数据)  返回一个数组，该数组的下标为索引，值为一行的值
+   mysql_fetch_array(资源数据)  返回一个数组，即mysql_fetch_assoc()和mysql_fetch_row()获取的元素
+   当三者获取资源中的一行后，会将资源中的行指针向下移，使下一次执行时获取下一行的数据
+   mysql_num_fields(资源数据)  返回该资源中的sql列数
+   mysql_fields_name(资源数据,索引)  返回该资源中指定列的列名
+ mysql_close()  关闭mysql连接
+'''

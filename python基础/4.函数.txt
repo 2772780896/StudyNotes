@@ -1,0 +1,131 @@
+'''
+函数格式
+ def 函数名 (参数1, 参数2...):
+  函数体
+
+返回值
+ 函数体中可以用 return 返回值 来表示该函数的返回值，返回值不能是赋值语句
+  如果没有返回值，函数只是一个过程，而没有输出
+  变量名 = 函数名()  用变量来接收一个函数的返回值
+
+参数
+ 关键字参数
+  可以不遵循输入参数(实参)与定义参数(形参)的顺序对应
+   def print1(a,b):
+   print(a,b)
+   print1(b=1,a=2)  结果为 2 1
+ 默认参数
+  如果没有传递参数，就使用默认参数的值
+   def print2(a,b=2):
+   print(a,b)
+   print2(0)  结果为 0 2
+  当需要给默认参数传值时，不需要用关键字参数的传值方法，直接传值即可，值的位置与默认参数的位置对应
+   print2(a,9)  结果为 0 9
+ 不定长参数
+  在变量前加星号，变量会以元组的形式存放所有多出的实参
+   def func1(*arguments):
+   print(arguments)
+   func1(5)  结果为(5,)
+   如果 *arguments 被传参，并且不定长参数以 arguments 的形式被调用，那么arguments的值为一个元组 (argument1,argument2,...)
+   如果 *arguments 被传参，并且不定长参数以 *arguments 的形式被调用，那么*arguments的值与传入参数的原数据格式一致
+  在变量前加两个星号，变量会以字典的形式存放所有多出的关键字参数
+   def func2(**keyword_arguments):
+   print(keyword_arguments)
+   func2(a=4)  结果为 {'a': 4}
+   如果 **keyword_arguments 被传参，并且不定长参数以 keyword_arguments 的形式被调用，那么arguments的值为一个字典 {被传入关键字: 被传入值}
+   如果 **keyword_arguments 被传参，并且不定长参数以 **keyword_arguments 的形式被调用，那么**keyword_arguments的值与传入参数的原数据格式一致
+ **解释字典参数
+  def func1(a, b): return
+  dict = {'a': 1; 'b': 2}
+  func1(**dict)  在调用函数时使用 **dict ，相当于 func1(a=1, b=2)
+
+参数传递：
+ 值传递：当参数是不可变类型数据时的传递
+  值传递函数的运行方式：并不直接对参数所处的存储空间的值进行修改，而是将其复制到一个新的存储空间，在后者位置的值进行操作
+ 引用传递：当参数是可变类型数据时的传递
+  引用传递函数的运行方式：直接对参数所处的存储空间的值进行修改
+ 如果想创建一个新的存储空间来复制可变类型数据的值，可以用列表的内置函数list.copy()来实现，即浅拷贝
+  import copy
+  l1=[1,2,3]
+  l2=l1.copy()
+  l1.append(4)
+  print(l2)
+  此时打印结果会是[1,2,3]，因为l1.copy()函数为l2创建了一个新的存储空间
+
+函数名
+ 函数名是一个指向该函数的变量
+  def f():
+  pass
+  print(f)  输出结果为 <function f at 0x000002D3D3523E20>
+ 函数名字可以被赋值给一个变量
+  def add(a,b):
+   print(a+b)
+  c=add
+  c(1,2)  结果为 3
+
+作用域
+ 作用域划分：
+  1.局部作用域 2.闭包函数外到函数中 3.全局作用域 4.内建作用域
+ 查找变量时查找作用域的顺序：
+  1-->2-->3-->4
+ 只有函数，模块，类中才会创建新的局部作用域，其它的如if，else，while，for等条件语句中不会创建新作用域。
+ global
+  通过声明变量为全局变量来在函数，模块，类中创建全局变量
+   a=30
+   def f():
+      a = 10
+      def f1():
+          global a  将f1()函数这个局部作用域中的所有a都变成了全局变量，包括后面的%a中的a
+          a = 20
+      print('1.%d'%a)
+   f1()
+   print('2.%d'%a)
+   f()
+   print('3.%d'%a)
+   输出结果为1.20  2.10  3.20
+ 在一个局部作用域中，相同名字的变量只能存在一个，不能同时存在分别属于不同作用域的同名变量：
+  a= 0
+  def f():
+     a=a+1  这个赋值语句的意思是在使用了全局变量a的情况下，创建了一个局部变量a，看起来是行得通的，可是因为一个局部作用域中不能同时存在分别属于不同作用域的同名变量，所以报错
+ 如果下层函数想修改上层函数中的变量，需要用nonlocal a这个变量声明方式
+
+闭包
+ def func1():
+  def func2():
+ return func2
+ f =func1()  即 f=func2, f()=func2() ，也就是说在func1()这个函数之外使用了函数内的func2()
+
+装饰器
+ def 函数名(*arguments,**keyword_arguments): return
+ def 装饰器名(函数名):
+  def inner(*arguments,**keyword_arguments):
+      调用 函数名(*arguments,**keyword_arguments) 并进行任意操作
+      return
+  return inner
+ 当在装饰器中传入任意函数，都可以通过 新函数名 = 装饰器名(函数名) 来得到一个对 函数名 进行装饰后的新函数
+@装饰器名
+ 在定义一个函数前使用 @装饰器函数名 ，使下方定义函数的函数名成为装饰器的参数，并且赋值给原函数名
+  @装饰器名
+  def func2():
+  return
+  @装饰器名实现了 func2 = 装饰器名(func2) 这一赋值语句
+ @装饰器名(参数)
+  实现了 func2 = 装饰器名(func2)(func2所需参数)
+多个装饰器时的执行顺序
+ @wrapper1
+ @wrapper2
+ @wrapper3
+ def func4(): return
+ 相当于
+  func4=wrapper3(func4)
+  func4=wrapper2(func4)
+  func4=wrapper1(func4)
+
+生成器
+ 用yield替代return即可使函数成为生成器，此时yield后的值就是生成器的输出值
+ 变量名 = 生成器名()  使用 next(变量名) 可以得到生成器的下一个输出值
+ 生成器的输出值不等于生成器的返回值，返回值类似函数的返回值，是一个指向生成器的存储地址
+迭代器
+ 可以被next()函数调用，不断生成一个值，同时可以被用于for循环
+ 生成器是一种迭代器
+'''

@@ -1,0 +1,27 @@
+'''
+安装图片生成模块，导入模块
+ 终端运行 pip install pillow
+ from pillow import Image,ImageDraw,ImageFont
+生成一张图片
+ img = Image.new(mode='RGB', size=(长度的数值,宽度的数值), color=(255,255,255))
+创建一个画笔
+ draw = ImageDraw.Draw(img, mode='RGB')
+画一个点
+ draw.point([横坐标,纵坐标], fill=(255,255,255))
+画一条线
+ draw.line((起始横坐标,起始纵坐标,结束横坐标,结束纵坐标), fill=(255,255,255))
+画一些字符
+ draw.text([横坐标,纵坐标], '字符', (255,255,255))
+设置字符的字体
+ font = ImageFont.truetype('字体文件路径', 字体大小数值)
+ draw.text([横坐标,纵坐标], '字符', (255,255,255), font=font)
+打开一个文件，将图片保存在该文件中
+ with open('file.png', mode='wb') as f:
+      img.save(f, format='png')
+给网页返回一个图片
+ from io import BytesIO
+ stream = BytesIO()  在内存中创建一个二进制文件
+ img.save(stream, 'png')
+ def imgshow(request):
+  return HttpResponse(stream.getvalue())  直接以二进制获取到这个图片
+'''

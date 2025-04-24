@@ -1,0 +1,73 @@
+'''
+Form，用于在html代码中生成form标签中的输入框
+ 在views.py中
+  form django import forms
+  class Form1(forms.Form):
+      数据名 = forms.标签类型(
+         widget=forms.插件类型(attrs={'class':'xxx'})  设置生成的标签类型和标签属性
+         required=True  为false时表示允许空值
+         initial=初始值  设置数据的初始值
+      )
+  form1 = Form1()
+  当在html文件中调用 {{ form1.数据名 }} 时，生成一个标签
+  <input type="根据标签类型和插件类型生成对应的input框类型" name="数据名" value="初始值" class="xxx" id="id_数据名">
+   标签类型与插件类型
+    标签类型为CharField，插件类型为TextInput，生成<input type="text">
+    标签类型为CharField，插件类型为PasswordInput，生成<input type="password">
+    标签类型为IntegerField，插件类型为NumberInput，生成<input type="number">
+    标签类型为DateField，插件类型为DateInput，生成<input type="date">
+    标签类型为CharField，插件类型为Textarea，生成<textarea>
+
+ModelForm，用于根据数据库中的表自动生成对应数据输入框，并进行数据验证和数据保存
+ 在models.py中
+  class 表名(models.Model):
+      列名1 = models.数据类型(参数)
+      列名2 = models.数据类型(参数)
+ 在views.py中
+  class Form2(forms.ModelForm):
+      class Meta:
+          model = models.表名  指定关联的表
+          fields = ['列名1', '列名2']  指定所需的表中的列。当需要表中的所有列时， fields = '__all__'
+          widgets = {
+              '列名1': forms.插件类型(attrs={'class': 'xxx'})  可在此处设置该标签的类型和属性
+          }
+   根据数据表的列的数据类型自动生成对应的标签类型
+  form2 = Form2()
+  标签生成
+   当在html文件中调用 {{ form2.列名 }} 时，生成一个标签
+   <input type="根据标签类型和插件类型生成对应的input框类型" name="列名" class="xxx">
+    可通过对form2使用for循环得到其中的每个 form2.列名
+  数据接收与写入
+   def func2(request):
+       if request.method == 'POST':
+           data = Form2(data=request.POST)  接收数据，可通过 data.cleaned_data 来获取原request.POST的数据
+           if data.is_valid():  当数据合法时，进行处理
+               data.save()  数据保存，将数据名与对应的值自动存储到数据表中
+  错误信息
+   def func3(request):
+       if request.method = "POST":
+           form = Form2(data=request.POST)
+           if form.cleaned_data['列名1'] != 某个值:
+               form.add_error('列名1', '错误信息')  #错误信息将显示在该input框的下方
+               return render(request, 'xxx.html', {form: form})
+
+
+创建中间件
+ 在app下创建middleware文件夹，创建一个middleware.py文件
+ from django.utils.deprecation import MiddlewareMixin  导入中间件模块
+ class MiddleWare1(MiddlewareMixin):
+  def process_request(self, request):  当执行一个视图函数时，先执行此函数，当无返回值时，向后执行，当有返回值时，不向后执行
+      return
+  def process_response(self, request, response):  当视图函数return时，先执行此函数
+      return response
+
+应用中间件
+ 在settings.py中的MIDDLEWARE中
+  添加 app名.middleware.middleware.MiddleWare1 ，MIDDLEWARE中谁在前先执行谁，先进后出
+
+设置豁免网页
+ 中间件对所有网页函数生效，若要设置某个网页函数不运行中间件中的某个命令，为
+ def process_request(self,request):
+      if request.path_info == "/网页名/":  request.path_info获取当前网页名，当为豁免网页时，直接返回去执行网页函数，而不执行接下来的命令
+          return
+'''

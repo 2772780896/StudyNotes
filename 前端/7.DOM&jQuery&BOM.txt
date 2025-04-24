@@ -1,0 +1,153 @@
+'''
+DOM模块
+ 获取标签
+  根据id获取某个标签
+   <div id="名字"></div>
+   <script type="text/javascript">
+     var 变量名1 = document.getElementById("名字");  获取该标签，此时是引用传递，对变量名1的修改也会对该标签生效
+   </script>
+    当一个html中存在两个标签具有相同的id时，只能识别到第一个具有该id的标签
+  根据类名获取一个标签
+   <div class="类名"></div>
+   <script type="text/javascript">
+     var 变量名1 = document.querySelector(".类名");  根据类名获取该标签，标签选择器，属性选择器，后代选择器也可用
+   </script>
+    变量名1 的数据类型为NodeList，类似于js中的数组
+    需要批量获取时，var 变量名 = document.querySelectorAll(".类名");
+  根据标签名获取一个标签
+   document.getElementByTagName("标签名")  返回值为一个NodeList
+  获取一个标签的父标签
+   该标签.parentNode  返回值为一个标签
+  获取一个标签的子标签
+   该标签.children  返回值为一个NodeList
+   该标签.children[索引]  用索引获取该标签的子标签中的一个标签
+   该标签.children.querySelector(".类名")  在该标签的子标签中进行筛选
+    对id的选择会在全文中查找而不是限于该标签的子标签
+    不可在子标签中通过标签名查找，不过可以通过遍历子标签，条件判断 标签.tagName=="标签名" 来得到一个标签
+
+ 获取标签的属性
+  该标签.属性名.次级属性名
+   var 变量名 = 标签.innerText;  获取该标签的内容
+   变量名.innerText = ...  因为是引用传递，此时也会修改标签内的内容
+
+ 创建一个标签
+  <div id="名字"></div>
+  <script type="text/javascript>
+    var 变量名1 = document.creatElement("span");  创建该标签
+    var 变量名2 = document.getElement("名字");  获取父标签
+    变量名2.appendChild(变量名1)  将该标签添加到父标签中
+  </script>
+ 通过图片的base64编码创建一个图片标签
+  <script type="text/javascript>
+    import imgObj from '图片路径'  获取该图片的base64编码
+    var 变量名1 = document.creatElement("img");  创建该标签
+    变量名1.src = imgObj;  设置标签的src为base64编码
+    document.getElement("名字").appendChild(变量名1)  将该标签添加到父标签中
+  </script>
+
+ 绑定一个点击事件
+  <input type="button" id="名字" onclick="函数名()"/>;  创建一个按钮，并绑定一个点击事件
+  <script type="text/javascript>
+    function 函数名() {
+    }
+  </script>
+
+ 事件监听器
+  获取到的标签.addEventListener(event, function(event) {})
+   event  可为'change'，'click'，'mouseover'
+  对获取到的该标签进行监听，当一个事件发生时，将该事件作为event传入，由function对该事件进行处理
+   可在function中通过event.target来得到作为事件的对象的该标签
+
+ 表单数据批量获取
+  const form = document.querySelector('.表单类名')
+  const data = serialize(form, {hash: true, empty: true})
+   serialize获取到表单中的数据名和值
+   当hash为true时，返回一个字典，为false时，返回一个 数据名1=值1&数据名2=值2 的字符串
+   empty用于设置当数据值为空时是否获取该值
+
+ cookie
+  设置cookie
+   document.cookie="cookie名=cookie值; expires=Thu, 18 Dec 2043 12:00:00 GMT; path=/";
+    expires参数用于指定cookie的过期时间，省略时，浏览器在关闭时删除cookie
+    path参数用于指定cookie生效的网页路径，省略时，在当前主机下的所有路径生效
+  读取cookie
+   document.cookie
+
+
+jQuery模块，用于简化DOM模块的代码
+ 导入jQuery
+  <script src="../static/js/jquery-3.7.1.js"></script>
+
+ 获取标签
+  $("#标签的id")  根据id获取标签
+  $(".类名")  根据类进行获取
+  $("标签名")  根据标签名进行获取
+  $("标签名[属性名='属性值']")  根据属性进行获取
+  $(".类名 标签名")  根据后代进行获取
+  $("标签名.类名")  复合获取，获取标签名符合且有该类的标签
+  $("#名字1,#名字2)  可同时选择多个目标
+  $("#名字").prev()  获取同一个父标签下的该标签的上一个标签
+  $("#名字").next()  获取同一个父标签下的该标签的下一个标签
+  $("#名字").siblings()  获取该标签的父标签下的所有标签
+  $("#名字").siblings(".类名")  获取该标签的父标签下的所有标签中的某个标签，其他选择器方式也可用
+  $("#名字").parent()  获取该标签的父标签
+  $("#名字").children()  获取改标签的子标签
+  $("#名字").children(".类名")  获取改标签的子标签中的某个标签，其他选择器方式也可用
+  $("#名字").find(".类名")  获取该便签的所有下级标签中的某个标签
+
+ 创建标签
+  $("标签名").text("内容")  创建一个标签，并给该标签添加内容，返回值为这个标签整体
+ 添加标签
+  $("父标签的名字").append(该标签)  将一个标签添加到一个父标签下
+ 删除一个标签
+  $("#名字").remove()
+
+ 对标签的类进行操作
+  $("#名字").hasClass("类名")  判断一个标签是否拥有某个类，返回值为ture或false
+  $("#名字").addClass("类名")  给一个标签添加类
+  $("#名字").removeClass("类名")  移除一个标签所拥有的类
+
+ 对input标签进行操作
+  $("#名字").val()  获取一个输入框的输入的值
+  $("#名字").val(修改后的值)  修改一个输入框的输入的值
+
+ 事件绑定
+  为一个标签绑定一个点击事件
+  $("#名字").click(函数名 (参数) {
+    行为
+  })
+   在函数内可用 $(this) 表示当前点击的标签这一整体
+
+ 遍历一个字典，对其中每一项执行函数
+  $.each(字典, function (字典中的键, 字典中的值) {
+       pass
+  })
+
+
+BOM，基于浏览器进行操作
+ windows对象，表示浏览器窗口
+  window.innerHeight  获取浏览器窗口的内部高度
+  window.innerWidth  获取浏览器窗口的内部宽度
+  window.open()  打开新窗口
+  window.close()  关闭当前窗口
+  window.moveTo()  移动当前窗口
+  window.resizeTo()  调整当前窗口的尺寸
+  windows.location，可省略windows
+   location.href  返回当前页面的url
+   location.hostname  返回当前服务器的域名
+   location.pathname  返回当前页面的域名之后的路径和文件名
+   location.port  返回当前服务器的端口
+   location.protocol  返回所使用的web协议，如http或https
+  弹框，可省略windows
+   alter("...")  弹框显示内容
+   confirm("...")  弹框显示内容，并提供确认和取消按钮，分别对应该函数返回 true 或 false
+   prompt("...", "默认值")  弹框显示内容，并在输入框中提供默认值，该函数返回 输入值 或 null
+  定时器，可省略windows
+   setInterval(函数, 毫秒数)  每间隔指定毫秒数就执行一次函数
+   clearInterval(setInterval函数名)  清除该定时器
+   setTimeout(函数, 毫秒数)  在间隔指定毫秒数后执行一次函数
+   clearTimeout(setTimeout函数名)  清除该定时器
+  localStorge，可省略windows
+   localStorage.setItem('数据名', '值');  往localStorage中存入数据，常用来存cookie，但无法跨域共享或设置过期时间
+   localStorage.getItem('数据名');  读取数据
+'''

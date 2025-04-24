@@ -1,0 +1,38 @@
+'''
+异常处理
+ try:
+    test_statement
+ except error_type:
+    statement_of_reporting_error
+ else:
+    statement_while_no_error
+ try运行test_statement，如果test_statement报错
+ 并且错误的类型被包含在error_type中,那么终止运行test_statement,运行statement_of_reporting_error
+ 并且错误的类型没有被包含在error_type中，那么终止运行test_statement，层层上报，直到python也无法解决，最后报错
+ 如果test_statement没有报错，那么在运行完test_statement后接着运行statement_while_no_error
+
+ else语句可以被替换为finally语句，
+ finally:
+    statement_whatever_if_error
+ 无论在try后的test_statement语句是否报错，finally后的statement_whatever_if_error语句，都会被运行
+
+ 如果语句在try框架之外时，那么当test_statement语句没报错时或者当报错但错误被捕获时，执行这个语句
+
+pdb，一种在终端按步运行python代码的方式
+ python -m pdb 文件名
+ 界面：
+  > 文件地址 文件名.py(将要运行代码的第几行)<module>()
+  -> 将要运行的代码
+  (Pdb) 输入操作命令
+ 操作命令：
+  n：单步执行代码
+  p：变量名：查看这个变量名的值
+  q：退出pdb
+ 指定使用pdb调试并指定调试开始点：
+  import pbd
+  在调试开始点插入 pdb.set_trace()
+  在执行文件使用pdb调试时可省略 -m pbd 命令
+
+debug，一种在IDE(integrated development environment)集成开发环境中按步运行代码的方式
+ 在PyCharm中的代码界面的左边的行数上标上红点，对文件运行调试，可有多个依据红点或不依据红点的对代码逐步运行的方式
+'''

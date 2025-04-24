@@ -1,0 +1,62 @@
+'''
+#正则表达式
+ #正则表达式使用正则字符来匹配普通字符
+ #正则表达式用r''表明，r表示之后的字符串中的\不进行转义
+
+#正则字符
+ #[chars]  匹配一个与任意一个char相同的字符
+ #[^chars]  匹配一个除了chars之外的任意一个字符
+ #chars?  表示用0或1个chars进行匹配
+ #chars*  表示用0至无限个chars进行匹配，相当于charscharschars...
+ #chars*?  表示非贪婪匹配，常用于在一个开始字符和一个结束字符之间匹配任意长度的字符串
+ #chars+  表示用1至无限个chars进行匹配
+ #chars{number}  表示用number个chars进行匹配
+ #chars{number,}  表示用number至无限个chars进行匹配
+ #chars{number1,numbe r2}  表示用number1至number2个chars进行匹配
+ #chars1|chars2  表示用chars1或chars2进行匹配
+ #.  匹配除换行符以外的所有字符，相当于[^\n]
+ #\d  匹配任意一个数字字符，相当于[0-9]
+ #\D  相当于[^0-9]
+ #\w  匹配任意一个数字和字母和下划线字符，相当于[0-9a-zA-Z_]
+ #\W  相当于[^0-9a-zA-Z_]
+ #\s  匹配任意一个空白符(空格，换行，回车，换页，制表符等)，相当于[ \n\r\f\t]
+ #\S  相当于[^ \n\r\f\t]
+ #\特殊字符  匹配?*+|^这些特殊字符，相当于将这些字符转义
+
+#匹配模式
+ #^chars  表示只在字符串开头用chars进行匹配
+ #chars$  表示只在字符串末尾用chars进行匹配
+
+
+#re模块，用于将一种字符的模式与一个字符匹配
+ #import re
+
+ #re.search(pattern, string, flags=0)
+  #用正则表达式pattern对string进行匹配，只运行至匹配到第一个匹配成功的string中的字符
+  #若成功匹配，返回值为 包含成功匹配的位置和所匹配到的string中的字符的 match对象，否则为None
+   #print(re.search(r'a','a$bcdAin sa'))
+   #返回 <re.Match object; span=(0, 1), match='a'>  span表示匹配到的字符串开始与结束的位置，包含开始位，不包含结束位
+
+ #re.search(pattern, string, flags=0).group(组号)
+  #若pattern中有括号，则将括号内的pattern作为子pattren，其所匹配到的string记录为一个组
+  #根据括号在pattern中由外至内，由左至右的顺序来给这些组从1开始顺次分配组号
+  #整个pattern所匹配到的string也会被记为一组，组号为0
+  #可以在pattern中用 (?P<name>chars) 的形式来为chars匹配到的组命名，那么这个组的组号就是 'name'
+  #返回值为组匹配到的string的内容
+   #print(re.search(r'a(bc)d','abcd').group(1))  返回 bc
+
+ #re.search(pattern, string, flags=0).groupdict()
+  #返回一个字典，键为被命名的组名，值为该组匹配到的字符串
+
+ #re.findall(pattern, string, flags=0)
+  #用正则表达式pattern对string进行匹配，匹配所有可以匹配成功的string中的字符
+  #若匹配成功，返回成功匹配的string中的字符为元素组成的列表，否则返回一个空列表
+
+ #re.finditer(pattern, string, flags=0)
+  #用正则表达式pattern对string进行匹配，匹配所有可以匹配成功的string中的字符
+  #若匹配成功，返回一个可以生成成功匹配到的string中的字符的生成器
+
+ #re.sub(pattern, repl, string, count=0, flags=0)
+  #将正则表达式pattern匹配到的string用repl替换，返回替换后的string
+'''
+
