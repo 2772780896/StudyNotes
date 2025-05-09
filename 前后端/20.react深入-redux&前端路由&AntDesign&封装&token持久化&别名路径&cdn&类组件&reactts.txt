@@ -97,13 +97,14 @@ react-router-dom  用于实现前端路由，在访问不同网页时返回不�
   export default 路径名
  编写网页jsx和网页路径的对应关系
   在src下新建router文件夹，其下有index.js，在index.js中编写
-  import { createBrowserRouter } form 'react-router-dom'
-  import 路径名 form '../page/路径名'
-  const router = createBrowserRouter([{ path: '/路径', element: <路径名 />}, ...])
+  import { createBrowserRouter } from 'react-router-dom'
+  import 路径名 from '../page/路径名'
+  const router = createBrowserRouter([{ path: '/路径', element: {<路径名 />}}, ...])
   export default router
  应用路由组件
   在根index.js中
   import router from './router'
+  import { RouterProvider } form 'react-router-dom'
   root.render(<RouterProvider router={router}></RouterProvider>);
 
 路由跳转，在两个网页间跳转
@@ -113,7 +114,7 @@ react-router-dom  用于实现前端路由，在访问不同网页时返回不�
  命令式跳转
   import { useNavigate } from 'react-router-dom'
   const 路径名 = () == {
-    const navigate = useNaivgate()
+    const navigate = useNavigate()
     return (<button onClick={() => navigate('/路径名')}></button>)}  当执行 navigate('/路径名') 时立刻进行跳转
  传参
   SearchParams
@@ -263,7 +264,7 @@ token持久化
    }
  路径提示
   jsconfig.json中编写
-   {"compilerOptions": {"baseUrl": "./", "path": {
+   {"compilerOptions": {"baseUrl": "./", "paths": {
       "@/*": ["src/*"]  配置别名与路径对应关系，当输入 @/ 时自动提示 src/ 下的文件
    }}}
 

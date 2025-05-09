@@ -52,6 +52,13 @@ html标签
    <textarea> </textarea>  可输入多行文本
     rows  限制多行文本的高度
    <!-- -->  注释
+   <video> </video>  视频标签
+    controls  如果存在该属性，则显示播放按钮
+    poster  声明视频封面
+    <source />  资源标签，位于视频标签中
+     src  指定视频的地址
+     type  指定视频的文件类型
+
 
  标签样式，标签可通过style设置各项样式属性，样式属性之间用 ; 分隔
   如<div style="样式属性1: 值1; 样式属性2: 值2"></div>
@@ -87,6 +94,7 @@ html标签
    border: 数值px solid 颜色  设置边框的厚度，边框线，颜色
    cursor: point  当鼠标移至该标签时变为用手指着的样式
    vertical-align: top  当一个图片有着和他同行的元素时，默认该图片与另一个元素的底部对齐，该设置修改为顶部对齐
+   aspectRatio: '16/9'  自动设置宽高比
 
 
 css，Cascading Style Sheets，层叠式样式表，统一设置标签的样式

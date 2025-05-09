@@ -1,6 +1,13 @@
 '''
+下载
+ https://downloads.mysql.com/archives/installer/
+安装
+ 安装-Custom-MySQL Servers-Advanced Options-配置安装路径-设置密码
+环境变量
+ 此电脑-属性-高级系统设置-环境变量-Path-新建-添加bin文件夹
+
 连接到mysql
- mysql路径> mysql -u 用户名 -p
+ mysql路径> mysql -u root -p
 设置用户密码
  mysql> set password = password('密码');
 退出连接
@@ -64,6 +71,11 @@
  select 列名字 from 数据表名字;  查看一列的数据
  select * from 数据表名字 where 列名字=值;  查看一行的数据
  select 列名字 from 数据表名字 where 条件;  查看符合条件的那一行的那一列的数据
+
+数据库数据导出
+ mysqldunp -u root -p 数据库名 > 数据库名.sql
+数据库数据导入
+ mysql -u root -p 数据库名 < 数据库.sql
 
 
 pymysql
