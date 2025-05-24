@@ -1,93 +1,93 @@
 '''
 create-react-app  快速创建react环境
- npx create-react-app react项目名
-  npx用于下载该包并运行，在运行文件夹下创建 react项目名 的包文件夹
-  其中存在src文件夹，用于存放静态文件，只需保留App.js和index.js，存在public文件夹中有index.html
- npm start  在react包文件夹下执行，启动web服务在3000端口
+    npx create-react-app react项目名
+        npx用于下载该包并运行，在运行文件夹下创建 react项目名 的包文件夹
+        其中存在src文件夹，用于存放静态文件，只需保留App.js和index.js，存在public文件夹中有index.html
+    npm start  在react包文件夹下执行，启动web服务在3000端口
 
- index.js  项目入口，从此开始运行项目
-  import React from 'react'; import ReactDOM from 'react-dom/client';  导入核心包
-  import App from './App';  导入根组件
-  const root = ReactDOM.createRoot(document.getElementById('root'));root.render(<App />);
-   获取index.html中的标签，将根组件渲染到该标签中
+    index.js  项目入口，从此开始运行项目
+        import React from 'react'; import ReactDOM from 'react-dom/client';  导入核心包
+        import App from './App';  导入根组件
+        const root = ReactDOM.createRoot(document.getElementById('root'));root.render(<App />);
+            获取index.html中的标签，将根组件渲染到该标签中
 
- App.js，项目的根组件
-  根组件
-   fubction APP() {return ...}  该函数返回一个jsx，index.js将该jsx导入index.html中
+    App.js，项目的根组件
+        根组件
+            fubction APP() {return ...}  该函数返回一个jsx，index.js将该jsx导入index.html中
 
-  jsx  javascript和xml的缩写，表示在js中编写html标签，实际上为 html代码、jsx模板文本、组件标签 的组合
-   jsx中模板语法
-    {数据}  数据可为字符串，变量名，函数的调用，对象。
-     当传入一个元素为html标签的列表时，自动按照标签顺序生成对应标签
-    {条件 && 数据}  &&相当于and，当条件为真时，才会渲染数据
-    {条件 ? 数据1 : 数据2}  相当于条件判断，当条件为真时，渲染数据1，当条件为假时，渲染数据2
-    onClick={函数名}  当该模板在标签头中时，表示为该标签绑定点击事件，当点击时执行目标函数
-    onClick={() => 函数名(参数)}  当函数需要传参时的写法
-    onClick={(e) => 函数名(参数)}  当函数既需要传参，也需要传递事件参数e时的写法
-     此时e也需要在函数被定义时传入，当函数传入了事件参数e时，可在函数内通过e获取到该次点击的信息
-    {dict.map(item) => <div key={item.id}></div>}
-     当需要将对象中的数据批量渲染成标签时，react中每个标签需要有key属性，其值为唯一值，来提高渲染效率
+        jsx  javascript和xml的缩写，表示在js中编写html标签，实际上为 html代码、jsx模板文本、组件标签 的组合
+            jsx中模板语法
+                {数据}  数据可为字符串，变量名，函数的调用，对象。
+                    当传入一个元素为html标签的列表时，自动按照标签顺序生成对应标签
+                {条件 && 数据}  &&相当于and，当条件为真时，才会渲染数据
+                {条件 ? 数据1 : 数据2}  相当于条件判断，当条件为真时，渲染数据1，当条件为假时，渲染数据2
+                onClick={函数名}  当该模板在标签头中时，表示为该标签绑定点击事件，当点击时执行目标函数
+                onClick={() => 函数名(参数)}  当函数需要传参时的写法
+                onClick={(e) => 函数名(参数)}  当函数既需要传参，也需要传递事件参数e时的写法
+                    此时e也需要在函数被定义时传入，当函数传入了事件参数e时，可在函数内通过e获取到该次点击的信息
+                {dict.map(item) => <div key={item.id}></div>}
+                    当需要将对象中的数据批量渲染成标签时，react中每个标签需要有key属性，其值为唯一值，来提高渲染效率
 
-  组件  定义一个首字母大写的函数就是一个组件，函数的返回值为jsx
-   调用
-    组件可以通过 <组件函数名 /> 或 <组件函数名></组件函数名> 的方式来在其他组件函数的jsx中被调用
-    调用组件即得到组件函数的返回值jsx
-   跨组件通信
-    在子组件中获取父组件中的变量
-     function Parent () {const 变量名1 = 'xxx'; return <div><Son 变量名2={变量名1} /></div>};
-      在父组件中调用子组件时在标签头传入 变量名={变量名}
-     function Son (props) {return <div>props.变量名2</div>};
-      在子组件中传入props对象，通过 props.变量名2 得到父组件传入的变量，但不能修改props中数据
-      可通过解构赋值 function Son ({ 变量名2 }) {} 直接获取变量
-    在子组件中获取父组件传入的标签
-     当父组件中通过 <Son><div></div></Son> 的方式调用子组件时，并不会直接在渲染子组件时渲染该div，而需要在子组件中通过 props.children 得到该div进行调用
-    在父组件中获取子组件中的变量
-     可通过在父组价中 const [var,setVar] = useState('') 创建变量和修改变量的函数
-     在调用子组件时通过 return <Son setVar={setVar} /> 将修改函数传入子组件，
-     后在子组件中通过 setVar(变量名) 修改变量的值，使得父组件可通过var获取子组件中变量名的值
-    跨多层组件中通信
-     function Top() {const 变量名1 = 'xxx'; return (<ValueContext.Provider value={变量名1}> <Bottom/> <ValueContext.Provider>)}
-      在顶层组件中用<ValueContext.Provider>将要传递变量的底层组件包裹，并在标签头中通过value传入变量
-     function Bottom() {const 变量名2 = useContext(ValueContext); return ({变量名2})}
-      通过 useContext(MsgContext) 获取传递的变量
+        组件  定义一个首字母大写的函数就是一个组件，函数的返回值为jsx
+            调用
+                组件可以通过 <组件函数名 /> 或 <组件函数名></组件函数名> 的方式来在其他组件函数的jsx中被调用
+                调用组件即得到组件函数的返回值jsx
+            跨组件通信
+                在子组件中获取父组件中的变量
+                    function Parent () {const 变量名1 = 'xxx'; return <div><Son 变量名2={变量名1} /></div>};
+                        在父组件中调用子组件时在标签头传入 变量名={变量名}
+                    function Son (props) {return <div>props.变量名2</div>};
+                        在子组件中传入props对象，通过 props.变量名2 得到父组件传入的变量，但不能修改props中数据
+                        可通过解构赋值 function Son ({ 变量名2 }) {} 直接获取变量
+                在子组件中获取父组件传入的标签
+                    当父组件中通过 <Son><div></div></Son> 的方式调用子组件时，并不会直接在渲染子组件时渲染该div，而需要在子组件中通过 props.children 得到该div进行调用
+                在父组件中获取子组件中的变量
+                    可通过在父组价中 const [var,setVar] = useState('') 创建变量和修改变量的函数
+                    在调用子组件时通过 return <Son setVar={setVar} /> 将修改函数传入子组件，
+                    后在子组件中通过 setVar(变量名) 修改变量的值，使得父组件可通过var获取子组件中变量名的值
+                跨多层组件中通信
+                    function Top() {const 变量名1 = 'xxx'; return (<ValueContext.Provider value={变量名1}> <Bottom/> <ValueContext.Provider>)}
+                        在顶层组件中用<ValueContext.Provider>将要传递变量的底层组件包裹，并在标签头中通过value传入变量
+                    function Bottom() {const 变量名2 = useContext(ValueContext); return ({变量名2})}
+                        通过 useContext(MsgContext) 获取传递的变量
 
-  hook函数  只能在组件中或其他hook函数中使用使用，也不能在if或for语句中使用
-   useState
-    import {useState} from 'react'
-    const [count, setCoust] = useState(状态变量)
-     useState()返回一个数组，数组中第一个值为状态变量，第二个值为可设置状态变量的函数，用结构赋值来接收这两个变量
-    setCount(新值)  会将新值赋值给count
-     state的值只可通过setCount进行修改，如 state[0]=新值 等直接修改state的方式会报错
-     setCount设置新的state值时必须传递一个新的内存引用以引起state的组件的动态更新
-     当setCount执行后，会导致整个组件的重新渲染，同时记录该值，当组件重新渲染时运行到useState时，不会使用初始的状态变量，而是拿到上次记录的值，将其作为新的状态变量
-    useState与input绑定，用于动态获取输入内容
-     const [value,setValue] = useState('')
-     <input type="text" value={value} onChange={(e) => setValue(e.target.value)}/>
-      通过e.target.value获取到当前输入的值，并通过setValue改变value实现动态渲染
+        hook函数  只能在组件中或其他hook函数中使用使用，也不能在if或for语句中使用
+            useState
+                import {useState} from 'react'
+                const [count, setCoust] = useState(状态变量)
+                    useState()返回一个数组，数组中第一个值为状态变量，第二个值为可设置状态变量的函数，用结构赋值来接收这两个变量
+                setCount(新值)  会将新值赋值给count
+                    state的值只可通过setCount进行修改，如 state[0]=新值 等直接修改state的方式会报错
+                    setCount设置新的state值时必须传递一个新的内存引用以引起state的组件的动态更新
+                    当setCount执行后，会导致整个组件的重新渲染，同时记录该值，当组件重新渲染时运行到useState时，不会使用初始的状态变量，而是拿到上次记录的值，将其作为新的状态变量
+                useState与input绑定，用于动态获取输入内容
+                    const [value,setValue] = useState('')
+                    <input type="text" value={value} onChange={(e) => setValue(e.target.value)}/>
+                        通过e.target.value获取到当前输入的值，并通过setValue改变value实现动态渲染
 
-   useRef  绑定标签，可用于替代dom中的获取标签
-    const 变量名Ref = useRef(null)  创建一个绑定对象，默认值为空
-    <div ref={变量名Ref}></div>  在jsx中的标签的标签头中设置该属性
-    可通过 变量名Ref.current 获取到该标签
+            useRef  绑定标签，可用于替代dom中的获取标签
+                const 变量名Ref = useRef(null)  创建一个绑定对象，默认值为空
+                <div ref={变量名Ref}></div>  在jsx中的标签的标签头中设置该属性
+                可通过 变量名Ref.current 获取到该标签
 
-   useEffect  用于在当网页渲染完成后执行函数
-    import { useEffect } from 'react'
-    useEffect(() => {}, 参数2)
-     第一个参数为页面渲染完成后执行的函数
-     参数2为空时表示函数会在初始渲染和组件更新后执行，为空列表时表示只在初始渲染后执行，当列表中元素为由useState创建的变量名时，当初始渲染和该变量发生改变后执行
-     当第一个参数的函数体的返回值为一个函数时，该函数会在组件中的jsx的渲染被取消时被执行
+            useEffect  用于在当网页渲染完成后执行函数
+                import { useEffect } from 'react'
+                useEffect(() => {}, 参数2)
+                    第一个参数为页面渲染完成后执行的函数
+                    参数2为空时表示函数会在初始渲染和组件更新后执行，为空列表时表示只在初始渲染后执行，当列表中元素为由useState创建的变量名时，当初始渲染和该变量发生改变后执行
+                    当第一个参数的函数体的返回值为一个函数时，该函数会在组件中的jsx的渲染被取消时被执行
 
-   useLocation  获取当前url信息
-    const location = useLocation()
-    path = location.pathname  获取url中主机之后的路径
+            useLocation  获取当前url信息
+                const location = useLocation()
+                path = location.pathname  获取url中主机之后的路径
 
-   自定义hook函数  本质就是一个js函数，但在其中使用其他hook函数实现业务逻辑
-    function use首字母大写函数名 () { const [value, setValue] = useState();
-      return {value, setValue}
-    }
+            自定义hook函数  本质就是一个js函数，但在其中使用其他hook函数实现业务逻辑
+                function use首字母大写函数名 () { const [value, setValue] = useState();
+                        return {value, setValue}
+                }
 
-  css导入
-   import './xxx.css'  css可直接导入至App.js中，而后可在jsx中通过与html中相同的方式来引用css类
+        css导入
+            import './xxx.css'  css可直接导入至App.js中，而后可在jsx中通过与html中相同的方式来引用css类
 '''
 
 

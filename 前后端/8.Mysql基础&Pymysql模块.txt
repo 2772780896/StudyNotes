@@ -1,114 +1,114 @@
 '''
 下载
- https://downloads.mysql.com/archives/installer/
+    https://downloads.mysql.com/archives/installer/
 安装
- 安装-Custom-MySQL Servers-Advanced Options-配置安装路径-设置密码
+    安装-Custom-MySQL Servers-Advanced Options-配置安装路径-设置密码
 环境变量
- 此电脑-属性-高级系统设置-环境变量-Path-新建-添加bin文件夹
+    此电脑-属性-高级系统设置-环境变量-Path-新建-添加bin文件夹
 
 连接到mysql
- mysql路径> mysql -u root -p
+    mysql路径> mysql -u root -p
 设置用户密码
- mysql> set password = password('密码');
+    mysql> set password = password('密码');
 退出连接
- mysql>exit
+    mysql>exit
 
 查看已有的数据库(数据库相当于文件夹)
- show databases;
+    show databases;
 创建数据库
- create database 数据库名字 DEFAULT CHARSET utf8 COLLATE utf8_general_ci;  #默认用utf-8编码以及显示
+    create database 数据库名字 DEFAULT CHARSET utf8 COLLATE utf8_general_ci;  #默认用utf-8编码以及显示
 删除数据库
- drop database 数据库名字;
+    drop database 数据库名字;
 进入数据库
- use 数据库名字;
+    use 数据库名字;
 
 查看数据库下的所有数据表(数据表相当于文件)
- show tables;
+    show tables;
 创建数据表
- create table 数据表名字(
-   列名字1 数据类型1 特殊参数,
-   列名字2 数据类型2...
- )default charset=utf8;
-  常见数据类型：
-   int  有符号的整型，取值范围为-2147483648~2147483647
-   int unsigned  无符号的整型，取值范围为0~4294967295
-   tinyint  有符号的小范围整型，取值范围为-128~127
-   tinyint unsigned  无符号的小范围整型，取值范围为0~255
-   decimal(整个数字的位数，小数位数)  小数，整个数字的位数的最大值是65，小数位数的最大值是30
-   char(字符个数)  长度不可变的字符串，固定占用所传的字符个数的空间，字符个数最大为255
-   varchar(字符最大个数)  长度可变的字符串，占用空间根据实际字符个数变化，最大不超过字符最大个数，字节个数最大为65535
-   text  字符串，最大字符数为65535
-   date  日期，格式为YYYY-MM-DD
-   datetime  日期和时间，格式为YYYY-MM-DD HH:MM:SS
-  常见特殊参数：
-   not null  该列数据不允许为空
-   default 值  设置该列在不传入数据时的默认值
-   primary key  该列为主键，不允许为空，不允许重复
-   auto_increment  该列不用再传入数据，每当创建一行数据时，该列的值+1
+    create table 数据表名字(
+            列名字1 数据类型1 特殊参数,
+            列名字2 数据类型2...
+    )default charset=utf8;
+        常见数据类型：
+            int  有符号的整型，取值范围为-2147483648~2147483647
+            int unsigned  无符号的整型，取值范围为0~4294967295
+            tinyint  有符号的小范围整型，取值范围为-128~127
+            tinyint unsigned  无符号的小范围整型，取值范围为0~255
+            decimal(整个数字的位数，小数位数)  小数，整个数字的位数的最大值是65，小数位数的最大值是30
+            char(字符个数)  长度不可变的字符串，固定占用所传的字符个数的空间，字符个数最大为255
+            varchar(字符最大个数)  长度可变的字符串，占用空间根据实际字符个数变化，最大不超过字符最大个数，字节个数最大为65535
+            text  字符串，最大字符数为65535
+            date  日期，格式为YYYY-MM-DD
+            datetime  日期和时间，格式为YYYY-MM-DD HH:MM:SS
+        常见特殊参数：
+            not null  该列数据不允许为空
+            default 值  设置该列在不传入数据时的默认值
+            primary key  该列为主键，不允许为空，不允许重复
+            auto_increment  该列不用再传入数据，每当创建一行数据时，该列的值+1
 查看数据表创建时的信息
- desc 数据表名字;
+    desc 数据表名字;
 修改数据表名
- alter table 表名 rename 表名
+    alter table 表名 rename 表名
 删除数据表
- drop table 数据表名字;
+    drop table 数据表名字;
 
 修改表中的列的设置
- alter table 表名 change 原列名 新列名 数据类型 特殊参数;
+    alter table 表名 change 原列名 新列名 数据类型 特殊参数;
 增加表中的列
- alter table 表名 add 列名2 数据类型 特殊参数 after 列名1;  #在列名1之后加上列名2
+    alter table 表名 add 列名2 数据类型 特殊参数 after 列名1;  #在列名1之后加上列名2
 删除表中的列
- alter table 表名 drop 列名;
+    alter table 表名 drop 列名;
 
 在数据表中写入数据
- insert into 数据表名字(列名字1,列名字2) value("值1","值2"),("值3","值4");  值1和值3属于列名字1，值2和值4属于列名字2
-  列名字不需要加引号
+    insert into 数据表名字(列名字1,列名字2) value("值1","值2"),("值3","值4");  值1和值3属于列名字1，值2和值4属于列名字2
+        列名字不需要加引号
 删除数据表中的数据
- delete from 数据表名字 where 条件
+    delete from 数据表名字 where 条件
 修改数据表中的数据
- update 数据表名字 set 列名字=值 where 条件;  将符合条件的那一行的那一列的值更改
+    update 数据表名字 set 列名字=值 where 条件;  将符合条件的那一行的那一列的值更改
 查看数据表中的数据
- select * from 数据表名字;  查看所有数据
- select 列名字 from 数据表名字;  查看一列的数据
- select * from 数据表名字 where 列名字=值;  查看一行的数据
- select 列名字 from 数据表名字 where 条件;  查看符合条件的那一行的那一列的数据
+    select * from 数据表名字;  查看所有数据
+    select 列名字 from 数据表名字;  查看一列的数据
+    select * from 数据表名字 where 列名字=值;  查看一行的数据
+    select 列名字 from 数据表名字 where 条件;  查看符合条件的那一行的那一列的数据
 
 数据库数据导出
- mysqldunp -u root -p 数据库名 > 数据库名.sql
+    mysqldunp -u root -p 数据库名 > 数据库名.sql
 数据库数据导入
- mysql -u root -p 数据库名 < 数据库.sql
+    mysql -u root -p 数据库名 < 数据库.sql
 
 
 pymysql
- import pymysql
+    import pymysql
 
 与mysql之间创建一个连接
- connection = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='xxx',charset='utf8', db='数据库名字')
+    connection = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='xxx',charset='utf8', db='数据库名字')
 
 与mysql之间创建一个命令发送者
- cursor = connection.cursor(cursor=pymysql.cursors.DictCursor)
+    cursor = connection.cursor(cursor=pymysql.cursors.DictCursor)
 
 向mysql发送写入，修改，删除命令
- cursor.execute('sql命令')
-  在sql命令中使用字符串格式化的方式
-   cursor.execute('sql写入命令, %s, %s', [格式化字符串的值1, 格式化字符串的值2])
-    只能用%s而不能用%d和%f，pymysql会根据列数据的数据类型自动转换输入数据的数据类型
-    不直接使用 "sql写入命令, '%s', '%s'"%(格式化字符串的值1, 格式化字符串的值2) 的形式是为了防范sql注入
-   也可以通过字典的键来传值
-    cursor.execute('sql写入命令, %(键名1)s, %(键名2)s', {键名1: 值1, 键名2: 值2})
+    cursor.execute('sql命令')
+        在sql命令中使用字符串格式化的方式
+            cursor.execute('sql写入命令, %s, %s', [格式化字符串的值1, 格式化字符串的值2])
+                只能用%s而不能用%d和%f，pymysql会根据列数据的数据类型自动转换输入数据的数据类型
+                不直接使用 "sql写入命令, '%s', '%s'"%(格式化字符串的值1, 格式化字符串的值2) 的形式是为了防范sql注入
+            也可以通过字典的键来传值
+                cursor.execute('sql写入命令, %(键名1)s, %(键名2)s', {键名1: 值1, 键名2: 值2})
 
 将发送的写入命令提交到数据库执行
- connection.commit()
+    connection.commit()
 
 向mysql发送查询命令
- cursor.execute('sql查询命令')
+    cursor.execute('sql查询命令')
 
 获取查询命令返回的结果
- print(cursor.fetchall())
-  返回值为 [{列名1: 值1, 列名2: 值2}, {列名1: 值3, 列名2: 值4}, ...] ，一个字典中的值是一行的数据
-  cursor.fetchall()在每次执行时会返回储存的所有查询数据，当第二次再次执行时，游标移至上次输出的数据之后，所以无法再输出前一次
-  执行时获取的数据。所以需要在第一次执行时就将返回的数据赋值出来
+    print(cursor.fetchall())
+        返回值为 [{列名1: 值1, 列名2: 值2}, {列名1: 值3, 列名2: 值4}, ...] ，一个字典中的值是一行的数据
+        cursor.fetchall()在每次执行时会返回储存的所有查询数据，当第二次再次执行时，游标移至上次输出的数据之后，所以无法再输出前一次
+        执行时获取的数据。所以需要在第一次执行时就将返回的数据赋值出来
 
 关闭命令发送者和连接
- cursor.close()
- connection.close()
+    cursor.close()
+    connection.close()
 '''

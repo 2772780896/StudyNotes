@@ -1,19 +1,19 @@
 '''
 数据提交，数据提交有两种方式，get和post
- get：提交的数据会在地址栏中网站地址的后面以 ?数据名1=数据值1&数据名2=数据名2 的形式被看到
- post：提交的数据不会在地址栏中被看到
+    get：提交的数据会在地址栏中网站地址的后面以 ?数据名1=数据值1&数据名2=数据名2 的形式被看到
+    post：提交的数据不会在地址栏中被看到
 <form> </form>  包含被提交的数据块，需要在有其中<input type='submit'/>来进行提交
- 只会对有name属性的标签进行提交，并且提交的是该标签的name属性的值和value属性的值。
- 也可以通过在javascript中使用 该<form>标签.submit() 来提交该标签块，而不是在标签块内使用<input type='submit'/>按钮
- method属性  标明提交数据的方式
- action属性  表明数据被提交到的地址
+    只会对有name属性的标签进行提交，并且提交的是该标签的name属性的值和value属性的值。
+    也可以通过在javascript中使用 该<form>标签.submit() 来提交该标签块，而不是在标签块内使用<input type='submit'/>按钮
+    method属性  标明提交数据的方式
+    action属性  表明数据被提交到的地址
 
 数据接收，可以通过查看request.method的值为'POST'还是'GET'，来得知接收到的数据是由get提交还是由post提交
- 由get提交到的数据被接收到request.args
- 由post提交到的数据被接收到request.form
- 两者的值的数据类型是ImmutableMultiDict(不可变的多重的字典)，类似于字典，但是允许多个相同的键存在，同时是不可变的。
+    由get提交到的数据被接收到request.args
+    由post提交到的数据被接收到request.form
+    两者的值的数据类型是ImmutableMultiDict(不可变的多重的字典)，类似于字典，但是允许多个相同的键存在，同时是不可变的。
 @app.route('/show/info', methods=['GET'])
-    def index(): return
- 关键字参数methods表明网站接收数据的方式，默认为GET，一个网址可以同时存在多种接收数据的方式
+                def index(): return
+    关键字参数methods表明网站接收数据的方式，默认为GET，一个网址可以同时存在多种接收数据的方式
 '''
 

@@ -1,112 +1,112 @@
 '''
 创建窗口
- from tkinter import Tk
- window=Tk()
+    from tkinter import Tk
+    window=Tk()
 修改窗口标题
- window.title('abc')
+    window.title('abc')
 修改窗口大小和位置
- window.geometry('500x500+300+100')
+    window.geometry('500x500+300+100')
 运行窗口，在所有组件装配完成后执行
- window.mainloop()
+    window.mainloop()
 
 创建标签组件，标签组件用于显示文本和位图
- from tkinter import Label
- label=Label(window)
+    from tkinter import Label
+    label=Label(window)
 修改标签组件的文本
- label=Label(window,text='text')
+    label=Label(window,text='text')
 将组件装配上窗口
- label.pack()
+    label.pack()
 
 创建按钮组件
- from tkinter import Button
- def function1():
-  print(1)
- button=Button(window,text='button',command=function1)
+    from tkinter import Button
+    def function1():
+        print(1)
+    button=Button(window,text='button',command=function1)
 通过invoke来调用按钮中的方法
- button.invoke()
+    button.invoke()
 将组件装配上窗口
- button.pack()
+    button.pack()
 
 创建选择按钮组件
- from tkinter import Checkbutton
- 闭包封装状态，实现状态切换
-  def function2():
-      count=0
-      def print1():
-          nonlocal count
-              if count%2==0:
-              print(2)
-              count+=1
-      return print1
-  checkbutton=Checkbutton(window,text='checkbutton',command=function2())
-  checkbutton.pack()
+    from tkinter import Checkbutton
+    闭包封装状态，实现状态切换
+        def function2():
+                        count=0
+                        def print1():
+                                        nonlocal count
+                                                        if count%2==0:
+                                                        print(2)
+                                                        count+=1
+                        return print1
+        checkbutton=Checkbutton(window,text='checkbutton',command=function2())
+        checkbutton.pack()
 
 创建一个变量
- from tkinter import Variable
+    from tkinter import Variable
 variable=Variable()
 变量可以被设定一个值
- variable.set(123)
- print(variable.get())
+    variable.set(123)
+    print(variable.get())
 
 创建一个输入组件
- from tkinter import Entry
- entry=Entry(window)
- entry.pack()
+    from tkinter import Entry
+    entry=Entry(window)
+    entry.pack()
 得到输入组件的值
- entry.get()
+    entry.get()
 
 创建文本组件，用于显示多行文本
- from tkinter import Text
- text=Text(window,width=30,height=4) #width为文本栏宽度，height为文本栏高度，文本内容可滑动
- text.pack()
+    from tkinter import Text
+    text=Text(window,width=30,height=4) #width为文本栏宽度，height为文本栏高度，文本内容可滑动
+    text.pack()
 将多行文本插入文本组件中
- text.insert('insert', '123')
+    text.insert('insert', '123')
 
 创建列表组件，用于显示多行可选择文本
- from tkinter import Listbox
- listbox=Listbox(window,width=30,height=4)
+    from tkinter import Listbox
+    listbox=Listbox(window,width=30,height=4)
 将多行列表插入列表组件中
- listbox.insert('end','1','2','3')
-  参数 'end' 表示在列表的后端添加插入值，'active' 可以表示在列表的前端添加插入值
- listbox.pack()
+    listbox.insert('end','1','2','3')
+        参数 'end' 表示在列表的后端添加插入值，'active' 可以表示在列表的前端添加插入值
+    listbox.pack()
 获取某一项列表的内容
- listbox.get(1)
+    listbox.get(1)
 判断某一个项是否被选中
- listbox.select_includes(1)
+    listbox.select_includes(1)
 获取当前鼠标所选中列表的索引
- listbox.curselection()
+    listbox.curselection()
 
 绑定事件
- 组件.bind(操作, 事件)  当对组件触发对应操作时，执行对应事件
- 操作：
-  '<Button-1>' 鼠标左键单击
-  '<Button-2>' 鼠标滚轮
-  '<Button-3>' 鼠标右键单击
-  '<Double-Button-1>' 鼠标左键双击
-  '<Bx-Motion>' 鼠标左键按住移动
-  '<ButtonRelease-1>' 鼠标左键松开
-  '<Key>' 按键
-  '<Alt-a>' 组合按键
- 事件
-  定义事件时需要加入event参数
-  def 事件(event):
-     pass
-  事件中可使用的特殊属性：
-     event.x 鼠标点击时的x轴坐标
-     event.y 鼠标点击时的y轴坐标
-     event.char 按键时的所按键盘的名称
+    组件.bind(操作, 事件)  当对组件触发对应操作时，执行对应事件
+    操作：
+        '<Button-1>' 鼠标左键单击
+        '<Button-2>' 鼠标滚轮
+        '<Button-3>' 鼠标右键单击
+        '<Double-Button-1>' 鼠标左键双击
+        '<Bx-Motion>' 鼠标左键按住移动
+        '<ButtonRelease-1>' 鼠标左键松开
+        '<Key>' 按键
+        '<Alt-a>' 组合按键
+    事件
+        定义事件时需要加入event参数
+        def 事件(event):
+                    pass
+        事件中可使用的特殊属性：
+                    event.x 鼠标点击时的x轴坐标
+                    event.y 鼠标点击时的y轴坐标
+                    event.char 按键时的所按键盘的名称
 
 装配组件时的布局
- 绝对布局
-  lanbel1=Label(window,text='lanbel1')
-  lanbel1.place(x=10,y=10)  以左上角为原点的x,y坐标
- 相对布局
-  用组件.pack() 实现相对布局，下一个执行pack()的组件在上一个执行pack()的组件的下方，并居中对齐
-  用组件frame实现相对布局：
-   from tkinter import Frame
-   frame1=Frame(window,width=2,height=2)  创建frame组件，frame组件透明不可见，但却占据空间
-   frame1.pack()
-   frame组件内可容纳其它组件，通过设置pack()内不同的side参数可实现相对布局
-   frame2=Frame(frame1,width=1,height=2)
-   frame2.pack(side='left'/'right'/'top'/'bottom')
+    绝对布局
+        lanbel1=Label(window,text='lanbel1')
+        lanbel1.place(x=10,y=10)  以左上角为原点的x,y坐标
+    相对布局
+        用组件.pack() 实现相对布局，下一个执行pack()的组件在上一个执行pack()的组件的下方，并居中对齐
+        用组件frame实现相对布局：
+            from tkinter import Frame
+            frame1=Frame(window,width=2,height=2)  创建frame组件，frame组件透明不可见，但却占据空间
+            frame1.pack()
+            frame组件内可容纳其它组件，通过设置pack()内不同的side参数可实现相对布局
+            frame2=Frame(frame1,width=1,height=2)
+            frame2.pack(side='left'/'right'/'top'/'bottom')
 '''

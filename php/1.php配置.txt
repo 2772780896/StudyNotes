@@ -1,45 +1,45 @@
 '''
 配置服务器默认根目录
- 在conf下的httpd.conf中修改ServerRoot的参数为服务器所在目录  #该目录一般为Apache24
+    在conf下的httpd.conf中修改ServerRoot的参数为服务器所在目录  #该目录一般为Apache24
 
 配置默认站点
- 在conf下的httpd.conf中修改DocumentRoot的参数为站点所在的目录  #该目录一般为htdocs
-  当访问主机时，主机的默认网页为htdocs下的index.html，要访问其他网页，用 主机名/htdocs下的网页文件的文件名 的方式
+    在conf下的httpd.conf中修改DocumentRoot的参数为站点所在的目录  #该目录一般为htdocs
+        当访问主机时，主机的默认网页为htdocs下的index.html，要访问其他网页，用 主机名/htdocs下的网页文件的文件名 的方式
 
 配置默认主机名
- 在conf下的httpd.conf中修改ServerName的参数为主机名  #该主机名一般为localhost
+    在conf下的httpd.conf中修改ServerName的参数为主机名  #该主机名一般为localhost
 
 配置所用的主机端口
- 在conf下的httpd.conf中修改Listen的参数为端口号  #该端口号默认为80
+    在conf下的httpd.conf中修改Listen的参数为端口号  #该端口号默认为80
 
 检测配置文件是否合法
- 终端执行 httpd.exe -t
+    终端执行 httpd.exe -t
 
 配置dns解析
- 在C:\Windows\System32\drivers\etc下的hosts中添加 ip地址   主机名   #一般为 127.0.0.1    localhost
+    在C:\Windows\System32\drivers\etc下的hosts中添加 ip地址   主机名   #一般为 127.0.0.1    localhost
 
 启动httpd服务
- 终端执行 httpd.exe
+    终端执行 httpd.exe
 
 配置httpd所用的php解释器
- 在conf下的httpd.conf中添加 LoadModule php_module 'E:\Program Files\php-8.3.12-Win32-vs16-x64\php8apache2_4.dll'
+    在conf下的httpd.conf中添加 LoadModule php_module 'E:\Program Files\php-8.3.12-Win32-vs16-x64\php8apache2_4.dll'
 
 查看加载的模块
- 终端执行 httpd.exe -M
+    终端执行 httpd.exe -M
 
 配置php模块解释.php文件
- 在conf下的httpd.conf中添加 AddType application/x-httpd-php .php
+    在conf下的httpd.conf中添加 AddType application/x-httpd-php .php
 
 配置httpd加载php的配置文件
- 复制php的php.ini-development文件，命名为php.ini
- 在conf下的httpd.conf中添加 PHPIniDir 'E:\Program Files\php-8.3.12-Win32-vs16-x64\php5'  #此处ini文件不用加后缀
+    复制php的php.ini-development文件，命名为php.ini
+    在conf下的httpd.conf中添加 PHPIniDir 'E:\Program Files\php-8.3.12-Win32-vs16-x64\php5'  #此处ini文件不用加后缀
 
 配置php加载mysql的配置文件
- 在php.ini中取消 extension=mysqli 和 extension=pdo_mysql 的注释
+    在php.ini中取消 extension=mysqli 和 extension=pdo_mysql 的注释
 
 配置php的拓展文件的位置，即mysqli和pdo_mysql等的位置
- 在php.ini中添加 extension_dir = "E:\Program Files\php-8.3.12-Win32-vs16-x64\ext"  #拓展文件储存在ext文件夹中                                                                                  #该文件夹路径为绝对路径，因为php.ini被导入至httpd后，相对路径会改变
+    在php.ini中添加 extension_dir = "E:\Program Files\php-8.3.12-Win32-vs16-x64\ext"  #拓展文件储存在ext文件夹中                                                                                  #该文件夹路径为绝对路径，因为php.ini被导入至httpd后，相对路径会改变
 
 配置php的时区
- 在php.ini中添加 date.timezone = PRC
+    在php.ini中添加 date.timezone = PRC
 '''

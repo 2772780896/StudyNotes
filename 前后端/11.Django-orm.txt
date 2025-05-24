@@ -1,107 +1,107 @@
 '''
 ORM，Object-Relational Mapping，对象关系映射
- 用于将python中的类映射为数据库中的表，并与数据库建立连接
+    用于将python中的类映射为数据库中的表，并与数据库建立连接
 
- mysql连接设置
-  在setting.py中进行连接时的默认设置
-  DATABASES = {
-     'default': {
-         'ENGINE': 'django.db.backends.mysql',
-         'NAME': '数据库名',
-         'USER': '用户名',
-         'PASSWORD': '用户密码',
-         'HOST': '数据库所在主机地址，主机为本机时地址为127.0.0.1',
-         'PORT': '3306',
-     }
-  }
+    mysql连接设置
+        在setting.py中进行连接时的默认设置
+        DATABASES = {
+                    'default': {
+                                    'ENGINE': 'django.db.backends.mysql',
+                                    'NAME': '数据库名',
+                                    'USER': '用户名',
+                                    'PASSWORD': '用户密码',
+                                    'HOST': '数据库所在主机地址，主机为本机时地址为127.0.0.1',
+                                    'PORT': '3306',
+                    }
+        }
 
- 创建表
-  在app的models.py中添加类来实现通过django创建表
-  class 表名(models.Model):
-     列名字 = models.数据类型(参数)
-   数据类型
-    CharField  字符串类型，参数为 max_length=最大长度
-    IntegerField  整数类型
-    DecimalField   小数类型，参数为 max_digits=总位数个数， decimal_places=小数位数个数
-   当参数为primary_key=True时表示创建主键
-  实际写在数据库中的表名为 app名_表名
-  外键关联
-   class 表名1(models.Model):
-      列名1 = models.数据类型(参数)
-   class 表名2(models.Model):
-      列名2 = models.ForeignKey(to='表名1', to_field='列名1', on_delete=models.特殊参数)
-    对列名2的查询会到表名1中查找列名1
-    列名2会在数据库被命名为 表名1_列名1
-    特殊参数
-     CASCAD  级联删除，当列名1中的某行的值被删除时，列名2中相同值所在的行也会被删除
-     PROTECT  受保护，只要列名2中还存在对列名1中数据的引用，就不能删除列名1中对应数据
-     SET_NULL  当列名1中的某行的值被删除时，列名2中的相同值会被置为空值，需先指定该列值可为空
-     SET_DEFAULT  如果列名1中的某行的值被删除时，列名2中的相同值会被置为默认值，需先指定该列的默认值
-  django提供选择约束
-   choice_obj = ((1, 该选择对应的值), (2, 该选择对应的值))
-   class 表名(models.Model):
-      列名 = models.SmallIntegerField(choices=chioce_obj)
-    在列名中写入的值只能为chioce_obj中存在的选项，此时该选项的数据类型为tinyint，且只能为1或2
-    当在view.py中获取数据库中对应列的数据后，可以通过 数据.get_choice_obj_display() 获取该选项对应的值
+    创建表
+        在app的models.py中添加类来实现通过django创建表
+        class 表名(models.Model):
+                    列名字 = models.数据类型(参数)
+            数据类型
+                CharField  字符串类型，参数为 max_length=最大长度
+                IntegerField  整数类型
+                DecimalField   小数类型，参数为 max_digits=总位数个数， decimal_places=小数位数个数
+            当参数为primary_key=True时表示创建主键
+        实际写在数据库中的表名为 app名_表名
+        外键关联
+            class 表名1(models.Model):
+                        列名1 = models.数据类型(参数)
+            class 表名2(models.Model):
+                        列名2 = models.ForeignKey(to='表名1', to_field='列名1', on_delete=models.特殊参数)
+                对列名2的查询会到表名1中查找列名1
+                列名2会在数据库被命名为 表名1_列名1
+                特殊参数
+                    CASCAD  级联删除，当列名1中的某行的值被删除时，列名2中相同值所在的行也会被删除
+                    PROTECT  受保护，只要列名2中还存在对列名1中数据的引用，就不能删除列名1中对应数据
+                    SET_NULL  当列名1中的某行的值被删除时，列名2中的相同值会被置为空值，需先指定该列值可为空
+                    SET_DEFAULT  如果列名1中的某行的值被删除时，列名2中的相同值会被置为默认值，需先指定该列的默认值
+        django提供选择约束
+            choice_obj = ((1, 该选择对应的值), (2, 该选择对应的值))
+            class 表名(models.Model):
+                        列名 = models.SmallIntegerField(choices=chioce_obj)
+                在列名中写入的值只能为chioce_obj中存在的选项，此时该选项的数据类型为tinyint，且只能为1或2
+                当在view.py中获取数据库中对应列的数据后，可以通过 数据.get_choice_obj_display() 获取该选项对应的值
 
- 将表转移到mysql中
-  在manage.py的父目录中执行
-   python manage.py makemigrations
-   python manage.py migrate
-  当需要修改某个表或列的设置时，在models.py中进行修改，之后再次执行表的转移即可
-  新增列时，由于已存在的行中没有此列的数据，需要为该列设置默认值，或将该列设置为允许为空值
-   列名字 = models.数据类型(参数, default=值)
-   列名字 = models.数据类型(参数, null=True, blank=True)
+    将表转移到mysql中
+        在manage.py的父目录中执行
+            python manage.py makemigrations
+            python manage.py migrate
+        当需要修改某个表或列的设置时，在models.py中进行修改，之后再次执行表的转移即可
+        新增列时，由于已存在的行中没有此列的数据，需要为该列设置默认值，或将该列设置为允许为空值
+            列名字 = models.数据类型(参数, default=值)
+            列名字 = models.数据类型(参数, null=True, blank=True)
 
- 在表中写入数据
-  在views.py中执行
-   from app名 import models
-   models.表名.objects.create(列名1=值1, 列名2=值2)
-    相当于，insert into app名_表名(列名1,列名2) value(“值1”,“值2”)
-   models.表名.object.create()  将修改请求传输给数据库
+    在表中写入数据
+        在views.py中执行
+            from app名 import models
+            models.表名.objects.create(列名1=值1, 列名2=值2)
+                相当于，insert into app名_表名(列名1,列名2) value(“值1”,“值2”)
+            models.表名.object.create()  将修改请求传输给数据库
 
- 获取表中的数据
-  获取一个表中的全部数据，在views.py中执行
-   models.表名.objects.all()
-    返回值为queryset，类似于列表 <QuerySet [<表名: 表名 object (1)>, <表名: 表名 object (2)>]> ，
-    列表中的一个项为数据表中的一行整合而成的一个对象，一行中的列的值可由 该对象.列名 来得到
-   models.表名.objects.all().values('列名1','列名2')  得到每一项的数据类型为字典的queryset，字典的键为列名，值为对应值
-   models.表名.objects.all().values_list('列名1','列名2')  得到项的数据类型为列表的queryset，列表的值为每一行的值
-   models.表名.objects.all().order_by('列名')  获取排序后的数据，根据每行的该列的值对行从小到大进行排序，使用 '-列名' 将根据每行的该列的值对行从大到小进行排序
-  获取一个表中的符合某条件的数据，在views.py中执行
-   models.表名.objects.filter(列名1=值1, 列名2=值2...)
-   models.表名.objects.filter(列名=值).exists()  查询某个值是否存在，返回值为True或False
-    条件查找时使用不等式
-     models.表名.objects.filter(列名__gt=数字)  大于
-     models.表名.objects.filter(列名__gte=数字)  大于等于
-     models.表名.objects.filter(列名__lt=数字)  小于
-     models.表名.objects.filter(列名__lte=数字)  小于等于
-    条件查找字符串时
-     models.表名.objects.filter(列名__startswith='字符串')  以该字符串开头
-     models.表名.objects.filter(列名__endswith='字符串')  以该字符串结尾
-     models.表名.objects.filter(列名__contains='字符串')  包含该字符串
-   models.表名.objects.exclude(列名=值)  获取除了该条件之外的所有数据，即排除该条件
-    返回值同上，当没有符合条件的数据时，返回值为None
+    获取表中的数据
+        获取一个表中的全部数据，在views.py中执行
+            models.表名.objects.all()
+                返回值为queryset，类似于列表 <QuerySet [<表名: 表名 object (1)>, <表名: 表名 object (2)>]> ，
+                列表中的一个项为数据表中的一行整合而成的一个对象，一行中的列的值可由 该对象.列名 来得到
+            models.表名.objects.all().values('列名1','列名2')  得到每一项的数据类型为字典的queryset，字典的键为列名，值为对应值
+            models.表名.objects.all().values_list('列名1','列名2')  得到项的数据类型为列表的queryset，列表的值为每一行的值
+            models.表名.objects.all().order_by('列名')  获取排序后的数据，根据每行的该列的值对行从小到大进行排序，使用 '-列名' 将根据每行的该列的值对行从大到小进行排序
+        获取一个表中的符合某条件的数据，在views.py中执行
+            models.表名.objects.filter(列名1=值1, 列名2=值2...)
+            models.表名.objects.filter(列名=值).exists()  查询某个值是否存在，返回值为True或False
+                条件查找时使用不等式
+                    models.表名.objects.filter(列名__gt=数字)  大于
+                    models.表名.objects.filter(列名__gte=数字)  大于等于
+                    models.表名.objects.filter(列名__lt=数字)  小于
+                    models.表名.objects.filter(列名__lte=数字)  小于等于
+                条件查找字符串时
+                    models.表名.objects.filter(列名__startswith='字符串')  以该字符串开头
+                    models.表名.objects.filter(列名__endswith='字符串')  以该字符串结尾
+                    models.表名.objects.filter(列名__contains='字符串')  包含该字符串
+            models.表名.objects.exclude(列名=值)  获取除了该条件之外的所有数据，即排除该条件
+                返回值同上，当没有符合条件的数据时，返回值为None
 
- 删除表中的数据
-  删除一个表中的全部数据，在views.py中执行
-   models.表名.objects.all().delete()
-  删除一个表中的符合某条件的数据
-   models.表名.objects.filter(列名=值).delete()
-    相当于，delete from app名_表名 where 列名=值
+    删除表中的数据
+        删除一个表中的全部数据，在views.py中执行
+            models.表名.objects.all().delete()
+        删除一个表中的符合某条件的数据
+            models.表名.objects.filter(列名=值).delete()
+                相当于，delete from app名_表名 where 列名=值
 
- 修改表中的数据
-  修改一个表中的符合某条件的数据
-   models.表名.objects.filter(检索值所在列名=值1).update(修改值所在列名=值2)
-    相当于， update app名_表名 set 修改值所在列名=值2 where 检索值所在列名=值1
+    修改表中的数据
+        修改一个表中的符合某条件的数据
+            models.表名.objects.filter(检索值所在列名=值1).update(修改值所在列名=值2)
+                相当于， update app名_表名 set 修改值所在列名=值2 where 检索值所在列名=值1
 
 
 sqlite，django默认使用的数据库，并在views.py中进行直接连接
- import sqlite3
- connect = sqlite3.connect('数据库名.db')  创建连接，当数据库不存在时会创建
- cursor = connect.cursor()  建立指针
- cursor.execute(sql语句)  执行sql语句
- cursor.fetchall()  查询语句的结果，返回值为一个列表，列表中每一个元素是一个元组，元组中每一个元素是表中一个列的值
- cursor.close()  关闭指针
- connect.close()  关闭连接
+    import sqlite3
+    connect = sqlite3.connect('数据库名.db')  创建连接，当数据库不存在时会创建
+    cursor = connect.cursor()  建立指针
+    cursor.execute(sql语句)  执行sql语句
+    cursor.fetchall()  查询语句的结果，返回值为一个列表，列表中每一个元素是一个元组，元组中每一个元素是表中一个列的值
+    cursor.close()  关闭指针
+    connect.close()  关闭连接
 '''

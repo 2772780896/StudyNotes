@@ -1,3 +1,2 @@
 # 说明
-
-同一行中以双空格进行注解，不同行中以缩进单空格进行注解
+包含Python、Flask、HTML、CSS、JS、Django、Ajax、Nodejs、Typescript、git、React、Mockjs、PHP的学习笔记

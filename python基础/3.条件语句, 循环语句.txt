@@ -1,32 +1,32 @@
 '''
 条件判断
- if 判断条件1:
-  执行语句1
- elif 判断条件2:
-  执行语句2
- else:
-  执行语句3
- 当判断条件为真时执行执行语句，elif可以有任意多个，当所有的if和elif的判断语句都不为真时，执行else中的执行语句
- 只要有一个执行语句被执行，那么就跳过接下来的if语句
- 条件
-  False(布尔值为假),None(空值),0  条件为假的情况
-  True(布尔值为真)，除了假的一切情况  条件为真的情况
+    if 判断条件1:
+        执行语句1
+    elif 判断条件2:
+        执行语句2
+    else:
+        执行语句3
+    当判断条件为真时执行执行语句，elif可以有任意多个，当所有的if和elif的判断语句都不为真时，执行else中的执行语句
+    只要有一个执行语句被执行，那么就跳过接下来的if语句
+    条件
+        False(布尔值为假),None(空值),0  条件为假的情况
+        True(布尔值为真)，除了假的一切情况  条件为真的情况
 
 循环遍历
- for x in iterable_object  iterable_object为可迭代对象，即list,tuple,dict,string
- 将iterable_object中的每一个元素按顺序赋值给x，直到取完iterable_object中的元素为止
+    for x in iterable_object  iterable_object为可迭代对象，即list,tuple,dict,string
+    将iterable_object中的每一个元素按顺序赋值给x，直到取完iterable_object中的元素为止
 
 range配合for循环生成列表
- range([startnumber,]endnumber[,step])
-  startnumber:开始的数字，将自己包含在列表内，默认为0
-  endnumber:结束的数字，不将自己包含在列表内
-  step:步长，默认为1
- 用在for_x_in语句中按上述规则生成一个列表
-  sum=0
-  for a in range(1,101):
-     sum=sum+a
+    range([startnumber,]endnumber[,step])
+        startnumber:开始的数字，将自己包含在列表内，默认为0
+        endnumber:结束的数字，不将自己包含在列表内
+        step:步长，默认为1
+    用在for_x_in语句中按上述规则生成一个列表
+        sum=0
+        for a in range(1,101):
+                    sum=sum+a
 
 循环跳出
- continue 跳出本次循环，进行下一次循环
- break 跳出循环
+    continue 跳出本次循环，进行下一次循环
+    break 跳出循环
 '''

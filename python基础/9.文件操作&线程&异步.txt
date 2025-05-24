@@ -1,116 +1,116 @@
 '''
 #创建路径
- #file_path=r'C:\Users\Alisfear\AppData\Local\Programs\Python\Python310\练习\abc11.py'
-  #当使用反斜杠\表示路径时，r'path' 用于声明该字符串中的反斜杠不进行转义，而是表示路径
+    #file_path=r'C:\Users\Alisfear\AppData\Local\Programs\Python\Python310\练习\abc11.py'
+        #当使用反斜杠\表示路径时，r'path' 用于声明该字符串中的反斜杠不进行转义，而是表示路径
 
 #打开文件
- #def open(file, mode='r', buffering=None, encoding=None, errors=None, newline=None, closefd=True)
-  #mode用于表明将文件打开后将要执行的操作
-  #  'r': which means open for reading in text mode
-  #  'w': for writing ,if the file already exists ,truncating(截断，如果有同名原文件，将原文件截断至0字节，相当于覆盖)
-  #       already exists) it, if the file does not exists ,creat it.
-  #  'x': for creating and writing to a new file ,implies 'w' and raises an `FileExistsError`
-  #       if the file already exists.
-  #  'a': for appending (which on some Unix systems, means that all writes append to the end
-  #       of the file regardless of the current seek position).
-  #  'b': binary mode
-  #  't': text mode (default)
-  #  '+': open a disk file for updating (reading and writing)
-  #  'U': universal newline mode (deprecated)
+    #def open(file, mode='r', buffering=None, encoding=None, errors=None, newline=None, closefd=True)
+        #mode用于表明将文件打开后将要执行的操作
+        #  'r': which means open for reading in text mode
+        #  'w': for writing ,if the file already exists ,truncating(截断，如果有同名原文件，将原文件截断至0字节，相当于覆盖)
+        #       already exists) it, if the file does not exists ,creat it.
+        #  'x': for creating and writing to a new file ,implies 'w' and raises an `FileExistsError`
+        #       if the file already exists.
+        #  'a': for appending (which on some Unix systems, means that all writes append to the end
+        #       of the file regardless of the current seek position).
+        #  'b': binary mode
+        #  't': text mode (default)
+        #  '+': open a disk file for updating (reading and writing)
+        #  'U': universal newline mode (deprecated)
 
 #读取文件
- #opened_file=open(file_path,mode='r',encoding='utf-8')
- #text1=opened_file.read()
-  #read()可传参，参数用于指定读取的字符数，无参数默认为全部读取
-  #打开文件时设置一个文件描述符，当按照指定字符数读取文件时，将描述符后移至指定字符数的数量的位置，下次的读取就会从这个位置开始并再次移动描述符
+    #opened_file=open(file_path,mode='r',encoding='utf-8')
+    #text1=opened_file.read()
+        #read()可传参，参数用于指定读取的字符数，无参数默认为全部读取
+        #打开文件时设置一个文件描述符，当按照指定字符数读取文件时，将描述符后移至指定字符数的数量的位置，下次的读取就会从这个位置开始并再次移动描述符
 
 #文件描述符
- #opened_file.tell()  查看文件描述符位置
- #opened_file.seek(1)  修改文件描述符位置
+    #opened_file.tell()  查看文件描述符位置
+    #opened_file.seek(1)  修改文件描述符位置
 
 #写入文件
- #将数据写入缓冲区
-  #opened_file1 = open(r'./wrote_file', mode='w', encoding='utf-8')
-  #opened_file1.write('abc')
-  #缓冲区，作为在写入命令和实际写入之间的缓冲，当缓冲区中的数据被冲出缓冲区时，这些数据被实际写入
- #将数据冲出缓冲区
-  #手动冲洗缓冲区
-   #opened_file1.flush()
-  #在文件被关闭时，会自动冲洗缓冲区
-  #在缓冲区被写满时，会自动冲洗缓冲区
+    #将数据写入缓冲区
+        #opened_file1 = open(r'./wrote_file', mode='w', encoding='utf-8')
+        #opened_file1.write('abc')
+        #缓冲区，作为在写入命令和实际写入之间的缓冲，当缓冲区中的数据被冲出缓冲区时，这些数据被实际写入
+    #将数据冲出缓冲区
+        #手动冲洗缓冲区
+            #opened_file1.flush()
+        #在文件被关闭时，会自动冲洗缓冲区
+        #在缓冲区被写满时，会自动冲洗缓冲区
 
 #关闭文件
- #open(file_path).close()
- #如果不关闭文件，占用内存
+    #open(file_path).close()
+    #如果不关闭文件，占用内存
 
 #with方式简写打开，关闭文件
- #with open(file_path, encoding='utf-8') as opened_file:
- #  text1=opened_file.read()
-  #相当于
-  #try:
-  #     opened_file=open(file_path)
-  #     text1 = opened_file.read()
-  #finally:
-  #     opened_file.close()
- #在 with 后执行打开文件语句，在 as 后为打开文件语句命名，执行在 : 之后的语句，无论打开文件语句报错与否，都会在最后关闭文件
+    #with open(file_path, encoding='utf-8') as opened_file:
+    #  text1=opened_file.read()
+        #相当于
+        #try:
+        #     opened_file=open(file_path)
+        #     text1 = opened_file.read()
+        #finally:
+        #     opened_file.close()
+    #在 with 后执行打开文件语句，在 as 后为打开文件语句命名，执行在 : 之后的语句，无论打开文件语句报错与否，都会在最后关闭文件
 
 #在内存中创建临时文件
- #from io import StringIO
- #from io import BytesIO
- #temporary_file=StringIO()  创建一个只能保存字符串数据的临时文件
- #temporary_file=BytesIO()  创建一个只能保存字节字符串数据的临时文件
+    #from io import StringIO
+    #from io import BytesIO
+    #temporary_file=StringIO()  创建一个只能保存字符串数据的临时文件
+    #temporary_file=BytesIO()  创建一个只能保存字节字符串数据的临时文件
 #写入与读取临时文件
- #temporary_file.write('abc')
- #temporary_file.seek(0)
-  #在临时文件中，write和read共同同一个指针，所以当写入数据后，需要再将指针移至起点才能读到写入的内容
- #temporary_file.read()
- #temporary_file.getvalue()  或者通过getvalue()不用移动指针就可以得到临时文件里全部的值
+    #temporary_file.write('abc')
+    #temporary_file.seek(0)
+        #在临时文件中，write和read共同同一个指针，所以当写入数据后，需要再将指针移至起点才能读到写入的内容
+    #temporary_file.read()
+    #temporary_file.getvalue()  或者通过getvalue()不用移动指针就可以得到临时文件里全部的值
 
 
 #os模块
- #import os
- #os.getcwd()  返回当前工作目录的绝对路径
- #os.listdir(r'.')  返回指定目录下的所有文件为元素组成的列表
- #os.remove(r'path')  删除指定文件 。创建文件用 open(path, mode='w')
- #os.mkdir(r'path')  创建指定目录
- #os.rmdir(r'path')  删除指定空目录
- #os.rmtree(r'path')  删除指定目录及其包含文件
- #os.stat(r'path')  返回指定文件属性
- #os.rename(r'path')  为指定文件重命名
- #os.system(shell_command)  相当于在shell内执行命令
- #os.path.splitext(r'path')  返回将文件的路径与文件拓展名分离后分别作为其中元素的元组
- #os.path.isdir(r'path')  返回指定文件是否是目录的布尔值
+    #import os
+    #os.getcwd()  返回当前工作目录的绝对路径
+    #os.listdir(r'.')  返回指定目录下的所有文件为元素组成的列表
+    #os.remove(r'path')  删除指定文件 。创建文件用 open(path, mode='w')
+    #os.mkdir(r'path')  创建指定目录
+    #os.rmdir(r'path')  删除指定空目录
+    #os.rmtree(r'path')  删除指定目录及其包含文件
+    #os.stat(r'path')  返回指定文件属性
+    #os.rename(r'path')  为指定文件重命名
+    #os.system(shell_command)  相当于在shell内执行命令
+    #os.path.splitext(r'path')  返回将文件的路径与文件拓展名分离后分别作为其中元素的元组
+    #os.path.isdir(r'path')  返回指定文件是否是目录的布尔值
 
 
 #picle模块
- #用于将python中的数据保存在文件中或从文件中提取
- #import pickle
+    #用于将python中的数据保存在文件中或从文件中提取
+    #import pickle
 
- #picle.dumps(数据)  返回数据的特殊二进制编码，这些编码可写入文件中
-  #pickle_encoding_data=pickle.dumps({'key1':12,'key2':34})
-  #print(pickle_encoding_data)
-   #返回 b'\x80\x04\x95\x17\x00\x00\x00\x00\x00\x00\x00}\x94(\x8c\x04key1\x94K\x0c\x8c\x04key2\x94K"u.'
+    #picle.dumps(数据)  返回数据的特殊二进制编码，这些编码可写入文件中
+        #pickle_encoding_data=pickle.dumps({'key1':12,'key2':34})
+        #print(pickle_encoding_data)
+            #返回 b'\x80\x04\x95\x17\x00\x00\x00\x00\x00\x00\x00}\x94(\x8c\x04key1\x94K\x0c\x8c\x04key2\x94K"u.'
 
- #picle.dump(数据, 已打开文件)  相当于简化写入步骤
-  #opened_file=open(r'path',mode='wb')
-  #pickle.dump(数据, opened_file)  相当于 opened_file.write(pickle.dumps(对象))
+    #picle.dump(数据, 已打开文件)  相当于简化写入步骤
+        #opened_file=open(r'path',mode='wb')
+        #pickle.dump(数据, opened_file)  相当于 opened_file.write(pickle.dumps(对象))
 
- #picle.loads(已编码数据)  将二进制字符串中dumps编码的数据解码
- #picle. oad(已打开文件)
-  #opened_file=open(r'path',mode='rb')
-  #pickle.load(opened_file)  相当于 pickle.loads(opened_file.read())
+    #picle.loads(已编码数据)  将二进制字符串中dumps编码的数据解码
+    #picle. oad(已打开文件)
+        #opened_file=open(r'path',mode='rb')
+        #pickle.load(opened_file)  相当于 pickle.loads(opened_file.read())
 
 
 #进程负责开辟一片内存，线程负责在该内存中执行命令，一个进程至少有一个主线程
- #from threading import Thread
- #def 函数名(参数): return
- #thread1 = Thread(target=函数名, args=(参数,))  创建一个线程，并为这个线程绑定一个函数
- #thread1.start()  启动这个线程
+    #from threading import Thread
+    #def 函数名(参数): return
+    #thread1 = Thread(target=函数名, args=(参数,))  创建一个线程，并为这个线程绑定一个函数
+    #thread1.start()  启动这个线程
 #线程池
- #from concurrent.futures import ThreadPoolExecutor
- #with ThreadPoolExecutor(线程池内的线程数量) as pool1:  创建一个线程池，用于自动管理线程的分配与回收
- #  pool1.submit(函数名, 参数)  将一个函数作为一个线程提交给线程池
+    #from concurrent.futures import ThreadPoolExecutor
+    #with ThreadPoolExecutor(线程池内的线程数量) as pool1:  创建一个线程池，用于自动管理线程的分配与回收
+    #  pool1.submit(函数名, 参数)  将一个函数作为一个线程提交给线程池
 
 #异步相当于对同步的进程进行手动协程，即自己定义那些本该同步执行的任务的执行顺序
- #协程关键字：await
+    #协程关键字：await
 '''

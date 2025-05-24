@@ -1,50 +1,50 @@
 '''
 格式化字符串
 
- 百分号格式化字符串
-  'xxx%d'%(值)  使用 %(值) 中的值替换字符串中的 %d 处的字符串
-  %d  指定用于替换的 值 为数字类型
-  %f  指定用于替换的 值 为浮点类型
-  %s  指定用于替换的 值 为字符串类型
+    百分号格式化字符串
+        'xxx%d'%(值)  使用 %(值) 中的值替换字符串中的 %d 处的字符串
+        %d  指定用于替换的 值 为数字类型
+        %f  指定用于替换的 值 为浮点类型
+        %s  指定用于替换的 值 为字符串类型
 
- 字符串.format()
-  默认指定
-   "{} {}".format("hello", "world")  #不设置指定位置，按默认顺序
-    'hello world'
-  索引指定
-   "{0} {1}".format("hello", "world")  #设置指定位置
-    'hello world'
-   "{1} {0} {1}".format("hello", "world")  #设置指定位置
-    'world hello world'
-  命名指定
-   "{a}, {b}".format(a="hello", b="world")  #通过变量名设置位置
-    'hello, world'
-  字典指定
-   dict = {"a": "hello", "b": "world"}  #通过字典设置参数
-   "{a}, {b}".format(**dict)
-    'hello, world'
-  列表指定
-   list = ['hello', 'world']  #通过列表索引设置参数
-   "{0[0]}, {0[1]}".format(list)  #"0"是必须存在的
-    'hello, world'
+    字符串.format()
+        默认指定
+            "{} {}".format("hello", "world")  #不设置指定位置，按默认顺序
+                'hello world'
+        索引指定
+            "{0} {1}".format("hello", "world")  #设置指定位置
+                'hello world'
+            "{1} {0} {1}".format("hello", "world")  #设置指定位置
+                'world hello world'
+        命名指定
+            "{a}, {b}".format(a="hello", b="world")  #通过变量名设置位置
+                'hello, world'
+        字典指定
+            dict = {"a": "hello", "b": "world"}  #通过字典设置参数
+            "{a}, {b}".format(**dict)
+                'hello, world'
+        列表指定
+            list = ['hello', 'world']  #通过列表索引设置参数
+            "{0[0]}, {0[1]}".format(list)  #"0"是必须存在的
+                'hello, world'
 
- f'{变量名}'  表示将该字符串中的{}中的内容进行转义，将{}中的内容作为变量名
-  arguments1 = 'hello'
-  arguments2 = 'world'
-  f"{arguments1}, {arguments2}"
-   'hello, world'
+    f'{变量名}'  表示将该字符串中的{}中的内容进行转义，将{}中的内容作为变量名
+        arguments1 = 'hello'
+        arguments2 = 'world'
+        f"{arguments1}, {arguments2}"
+            'hello, world'
 
 
 字符串切片
- string[num1:num2]  将获取该string中索引为num1到num2的字符串
- string[:num]  将获取该string中前num个字符串
- string[:-num]  将获取该string中除了后num个字符串的其他字符串
- string[num:]  将获取该string中除了前num个字符串的其他字符串
- string[-num:]  将获取该string中后num个字符串
+    string[num1:num2]  将获取该string中索引为num1到num2的字符串
+    string[:num]  将获取该string中前num个字符串
+    string[:-num]  将获取该string中除了后num个字符串的其他字符串
+    string[num:]  将获取该string中除了前num个字符串的其他字符串
+    string[-num:]  将获取该string中后num个字符串
 
 
 字符串大小比较
- 从第一个ASCII码值开始比较，直到一个值更大，那么这个字符串就更大
-  'az'>'abc'
-  'ac'>'a'
+    从第一个ASCII码值开始比较，直到一个值更大，那么这个字符串就更大
+        'az'>'abc'
+        'ac'>'a'
 '''

@@ -1,345 +1,345 @@
 '''
 redux，集中状态管理工具，用于管理跨组件的数据状态
- 定义reducer函数
-  function reducer (state = {变量名: 值}, action) {
-      if (action.type == 'xxx') {
-          return { 变量名: 新值 }
-      }
-      return state
-  }
-   创建状态的初始值state和修改state的方法action
-   当action.type的值不用时，返回不同的state
- 生成store实例
-  import { createStore } from 'redux'
-  const store = createStore(reducer)
-   store用于接收action并执行reducer以得到新的state
- 提交action
-  const action = {type: 'xxx', data: ''}
-  store.dispatch(action)
-   将action提交到reducer处理，reducer根据不同的action.type返回不同的state，在reducer中可通过action.data得到传入的参数
- 获取state
-  store.getState().变量名
-   获取到 state.变量名 的值
- 监听state
-  store.subscribe(() => {})
-   当store中的store发生变化时执行该函数
+    定义reducer函数
+        function reducer (state = {变量名: 值}, action) {
+                        if (action.type == 'xxx') {
+                                        return { 变量名: 新值 }
+                        }
+                        return state
+        }
+            创建状态的初始值state和修改state的方法action
+            当action.type的值不用时，返回不同的state
+    生成store实例
+        import { createStore } from 'redux'
+        const store = createStore(reducer)
+            store用于接收action并执行reducer以得到新的state
+    提交action
+        const action = {type: 'xxx', data: ''}
+        store.dispatch(action)
+            将action提交到reducer处理，reducer根据不同的action.type返回不同的state，在reducer中可通过action.data得到传入的参数
+    获取state
+        store.getState().变量名
+            获取到 state.变量名 的值
+    监听state
+        store.subscribe(() => {})
+            当store中的store发生变化时执行该函数
 
 redux/toolkit  用于简化redux编写
- npm i @reduxjs/toolkit
- 创建store文件夹，其下有modules文件夹和index.js文件，modules用于存放子模块，index用于导入子模块并导出store
- 在modules文件夹下的 子模块名.js 文件中编写
-  import  { createSlice } from "@reduxjs/toolkit"
-  const 模块名Store = createSlice({
-     name: 'xxx'  模块名,
-     initialState: {  定义变量名和初始值
-         变量名: 值
-     },
-     reducers: {  定义修改state中变量的函数action
-         函数名1 (state, action) {
-             对 state.变量名 的操作。此处可通过 action.payload 得到参数的值
-         },
-         ...
-     }
-  })
-  export const  { 函数名1 } = 模块名Store.actions  从 模块名Store 中解构出actions，并用命名导出
-  const reduser = 模块名Store.reduser  获取reduser
-  export default reduser  用默认导出来导出reducer
-  异步使用action时，还需要编写
-   const 异步函数名 = (参数) => {
-       return async (dispatch) => {
-           const data = await 异步操作
-           dispatch( 从 模块名Store.actions 中解构出的函数名(data) )  当通过异步操作得到数据后执行action
-       }
-   }
-   在App.js中使用异步函数时，通过 dispatch(异步函数名(参数)) 的方式
- 在index.js中编写
-  import { configureStore } from "@reduxjs/toolkit"
-  import 子模块名Redecer from './modules/子模块名Store'  导入子模块
-  store = configureStore({  组合reduser和action、
-     reducer: {
-         子模块名: 子模块名Redecer
-     }
-  })
-  export default store
+    npm i @reduxjs/toolkit
+    创建store文件夹，其下有modules文件夹和index.js文件，modules用于存放子模块，index用于导入子模块并导出store
+    在modules文件夹下的 子模块名.js 文件中编写
+        import  { createSlice } from "@reduxjs/toolkit"
+        const 模块名Store = createSlice({
+                    name: 'xxx'  模块名,
+                    initialState: {  定义变量名和初始值
+                                    变量名: 值
+                    },
+                    reducers: {  定义修改state中变量的函数action
+                                    函数名1 (state, action) {
+                                                    对 state.变量名 的操作。此处可通过 action.payload 得到参数的值
+                                    },
+                                    ...
+                    }
+        })
+        export const  { 函数名1 } = 模块名Store.actions  从 模块名Store 中解构出actions，并用命名导出
+        const reduser = 模块名Store.reduser  获取reduser
+        export default reduser  用默认导出来导出reducer
+        异步使用action时，还需要编写
+            const 异步函数名 = (参数) => {
+                            return async (dispatch) => {
+                                            const data = await 异步操作
+                                            dispatch( 从 模块名Store.actions 中解构出的函数名(data) )  当通过异步操作得到数据后执行action
+                            }
+            }
+            在App.js中使用异步函数时，通过 dispatch(异步函数名(参数)) 的方式
+    在index.js中编写
+        import { configureStore } from "@reduxjs/toolkit"
+        import 子模块名Redecer from './modules/子模块名Store'  导入子模块
+        store = configureStore({  组合reduser和action、
+                    reducer: {
+                                    子模块名: 子模块名Redecer
+                    }
+        })
+        export default store
 react-redux，用于两者间连接
- npm i react-redux
- 在react的根index.js中编写
-  import { Provider } from 'react-redux'
-  import store from './store'
-  root.render(
-     <Provider store={store}>  将store中数据注入App.js中
-         <App />
-     </Provider>
-  );
- 在App.js中编写
-  import { useSelector, useDispatch } from 'react-redux'
-  import { action的函数名 } from './store/modules/子模块名Store'  导入action、
-  fuction App () {
-     const { 变量名 } = useSelector(state => state.子模块名)  通过useSelector获取state中的变量值
-     const dispatch = useDispatch()  创建dispatch对象
-     return (
-         <div>{ 变量名 }</div>
-         <button onClick={() => dispatch(action的函数名(参数))}></button>  通过dispatch传递action
-     )
-  }
+    npm i react-redux
+    在react的根index.js中编写
+        import { Provider } from 'react-redux'
+        import store from './store'
+        root.render(
+                    <Provider store={store}>  将store中数据注入App.js中
+                                    <App />
+                    </Provider>
+        );
+    在App.js中编写
+        import { useSelector, useDispatch } from 'react-redux'
+        import { action的函数名 } from './store/modules/子模块名Store'  导入action、
+        fuction App () {
+                    const { 变量名 } = useSelector(state => state.子模块名)  通过useSelector获取state中的变量值
+                    const dispatch = useDispatch()  创建dispatch对象
+                    return (
+                                    <div>{ 变量名 }</div>
+                                    <button onClick={() => dispatch(action的函数名(参数))}></button>  通过dispatch传递action
+                    )
+        }
 
 react-router-dom  用于实现前端路由，在访问不同网页时返回不同的jsx进行渲染
- npm i react-router-dom
+    npm i react-router-dom
 统合在同一区域的编写方式
-  在index.js中，
-  import { createBrowserRouter, RouterProvider } form 'react-router-dom'
-  const router = createrBrowserRouter([{ path: '/路径', element: 将要渲染的jsx}, ...])  创建router对象，配置路由
-  root.render(<RouterProvider router={router}></RouterProvider>);  在渲染页面时使用router对象进行路由
+        在index.js中，
+        import { createBrowserRouter, RouterProvider } form 'react-router-dom'
+        const router = createrBrowserRouter([{ path: '/路径', element: 将要渲染的jsx}, ...])  创建router对象，配置路由
+        root.render(<RouterProvider router={router}></RouterProvider>);  在渲染页面时使用router对象进行路由
 模块化的编写方式
- 编写网页jsx
-  在src下新建page文件夹，其下新建 路径名 文件夹，其下有index.js文件，在index.js中有
-  const 路径名 = () == {return jsx}  编写路由对应页面
-  export default 路径名
- 编写网页jsx和网页路径的对应关系
-  在src下新建router文件夹，其下有index.js，在index.js中编写
-  import { createBrowserRouter } from 'react-router-dom'
-  import 路径名 from '../page/路径名'
-  const router = createBrowserRouter([{ path: '/路径', element: {<路径名 />}}, ...])
-  export default router
- 应用路由组件
-  在根index.js中
-  import router from './router'
-  import { RouterProvider } form 'react-router-dom'
-  root.render(<RouterProvider router={router}></RouterProvider>);
+    编写网页jsx
+        在src下新建page文件夹，其下新建 路径名 文件夹，其下有index.js文件，在index.js中有
+        const 路径名 = () == {return jsx}  编写路由对应页面
+        export default 路径名
+    编写网页jsx和网页路径的对应关系
+        在src下新建router文件夹，其下有index.js，在index.js中编写
+        import { createBrowserRouter } from 'react-router-dom'
+        import 路径名 from '../page/路径名'
+        const router = createBrowserRouter([{ path: '/路径', element: {<路径名 />}}, ...])
+        export default router
+    应用路由组件
+        在根index.js中
+        import router from './router'
+        import { RouterProvider } form 'react-router-dom'
+        root.render(<RouterProvider router={router}></RouterProvider>);
 哈希路由
- 将createBrowserRouter替换为createHashRouter
- 当使用哈希路由时，通过url访问网页时，需要用 www.xxx.com/#/main/#/page1 的形式来访问
+    将createBrowserRouter替换为createHashRouter
+    当使用哈希路由时，通过url访问网页时，需要用 www.xxx.com/#/main/#/page1 的形式来访问
 
 路由跳转，在两个网页间跳转
- 标签式跳转
-  import { Link } from 'react-router-dom'
-  <Link to="/路径名"></Link>  相当于创建一个a标签， to='/路径名' 为绝对路径， to='路径名' 为相对路径
-   应该避免使用a标签，因为a标签跳转页面时，会向服务器发送一个新的请求，加载一个新的html页面，然后销毁当前的整个页面
-    即原来的react应用也被销毁，其中的react状态都会丢失，每次加载相当于重新加载react应用
-   而link标签在BrowserRouter中使用时，只更新浏览器地址栏中的url，并通过react应用根据对应的url渲染对应的网页组件，而不是向服务器发送对应网页的请求
-    在HashRouter中使用时，会修改 window.location.hash 的值，并捕获这个值，然后渲染对应的组件，而不是向服务器发送对应网页的请求
-    在hash路由中时to的写法与browser路由一致，并不需要添加#
- 命令式跳转
-  import { useNavigate } from 'react-router-dom'
-  const 路径名 = () == {
-    const navigate = useNavigate()
-    return (<button onClick={() => navigate('/路径名')}></button>)}  当执行 navigate('/路径名') 时立刻进行跳转
- 传参
-  SearchParams
-   传递
-    naigate('/路径名?参数名1=值1&参数名2=值2')
-   接收
-    import { useSearchParams } from 'react-router-dom'
-    const [params] = useSearchParams()  得到所有数据
-    const 参数名 = params.get('参数名')  得到目标参数的值
-  Params
-   声明，在router下的index.js中编写
-    path: '/路径名/:参数名'
-   传递
-    naigate('/路径名/值')
-   接收
-    import { useParams } from 'react-router-dom'
-    const [params] = useParams()  得到所有数据
-    const 参数名 = params.参数名  得到目标参数的值
+    标签式跳转
+        import { Link } from 'react-router-dom'
+        <Link to="/路径名"></Link>  相当于创建一个a标签， to='/路径名' 为绝对路径， to='路径名' 为相对路径
+            应该避免使用a标签，因为a标签跳转页面时，会向服务器发送一个新的请求，加载一个新的html页面，然后销毁当前的整个页面
+                即原来的react应用也被销毁，其中的react状态都会丢失，每次加载相当于重新加载react应用
+            而link标签在BrowserRouter中使用时，只更新浏览器地址栏中的url，并通过react应用根据对应的url渲染对应的网页组件，而不是向服务器发送对应网页的请求
+                在HashRouter中使用时，会修改 window.location.hash 的值，并捕获这个值，然后渲染对应的组件，而不是向服务器发送对应网页的请求
+                在hash路由中时to的写法与browser路由一致，并不需要添加#
+    命令式跳转
+        import { useNavigate } from 'react-router-dom'
+        const 路径名 = () == {
+                const navigate = useNavigate()
+                return (<button onClick={() => navigate('/路径名')}></button>)}  当执行 navigate('/路径名') 时立刻进行跳转
+    传参
+        SearchParams
+            传递
+                naigate('/路径名?参数名1=值1&参数名2=值2')
+            接收
+                import { useSearchParams } from 'react-router-dom'
+                const [params] = useSearchParams()  得到所有数据
+                const 参数名 = params.get('参数名')  得到目标参数的值
+        Params
+            声明，在router下的index.js中编写
+                path: '/路径名/:参数名'
+            传递
+                naigate('/路径名/值')
+            接收
+                import { useParams } from 'react-router-dom'
+                const [params] = useParams()  得到所有数据
+                const 参数名 = params.参数名  得到目标参数的值
 
 二级路由  用于在一个网页的一部分位置中显示其他的网页中的内容
- 配置一个网页的二级路由
-  在router的index.js中编写
-  const router = createBrowserRouter([
-     { path: '/一级路径',
-       element: <一级路径名 />
-       children:[{ path: '二级路径', element: <二级路径名 />}, ...]  通过children指定该路由下的二级路由
-     }, ...
-  ])
- 指明二级路由的渲染位置
-  在 一级路径名 的index.js中编写
-  import { Link, Outlet } from 'react-router-dom'
-  const 一级路径名 = () == {
-      return (
-          <Link to="/二级路径名"></Link>
-          <Outlet />
-  )}
-   <Link>标签处的挑战不会生成一个跳转链接，而是将二级路径的页面在 <Outlet /> 处渲染
-   在配置二级路由后，也可直接通过访问 /二级路径 来直接渲染一级路径和二级路径的网页
- 默认渲染
-  children:[{ index: true, element: <二级路径名 />}  在渲染一级路径的网页时默认在 <Outlet /> 处渲染二级路径的网页
- 404路由，当所路由网页不存在时，统一跳转该网页
-  const router = createBrowserRouter([{ path: '*', element: <路径名 />}, ...])
+    配置一个网页的二级路由
+        在router的index.js中编写
+        const router = createBrowserRouter([
+                    { path: '/一级路径',
+                            element: <一级路径名 />
+                            children:[{ path: '二级路径', element: <二级路径名 />}, ...]  通过children指定该路由下的二级路由
+                    }, ...
+        ])
+    指明二级路由的渲染位置
+        在 一级路径名 的index.js中编写
+        import { Link, Outlet } from 'react-router-dom'
+        const 一级路径名 = () == {
+                        return (
+                                        <Link to="/二级路径名"></Link>
+                                        <Outlet />
+        )}
+            <Link>标签处的挑战不会生成一个跳转链接，而是将二级路径的页面在 <Outlet /> 处渲染
+            在配置二级路由后，也可直接通过访问 /二级路径 来直接渲染一级路径和二级路径的网页
+    默认渲染
+        children:[{ index: true, element: <二级路径名 />}  在渲染一级路径的网页时默认在 <Outlet /> 处渲染二级路径的网页
+    404路由，当所路由网页不存在时，统一跳转该网页
+        const router = createBrowserRouter([{ path: '*', element: <路径名 />}, ...])
 
 路由懒加载  只有在访问对应网页时才加载对应js，而不是在访问第一个网页时就加载全部js
- 在src的router的index.js中编写
- import { lazy, Suspense } from 'react'
- const 网页名 = lazy(() => import('src下的pages下的网页js'))
- const router = createBrowserRouter([
-      {path: "路径名",
-      element: <Suspense fallback={"加载中"}><网页名 /></Suspense>}  fallback为js在加载完成之前网页所显示内容
- ])
+    在src的router的index.js中编写
+    import { lazy, Suspense } from 'react'
+    const 网页名 = lazy(() => import('src下的pages下的网页js'))
+    const router = createBrowserRouter([
+                        {path: "路径名",
+                        element: <Suspense fallback={"加载中"}><网页名 /></Suspense>}  fallback为js在加载完成之前网页所显示内容
+    ])
 
 Ant Design，提供预设的子组件
- npm i antd --save
- 在App.js中，
-  import { Button } from 'antd'
-  function App() { return ( <div className="App">
-      <Button type="primary"></Button>
-  </div>);}
- Card组件，实现小卡片效果
- Form组件，可实现数据校验，可通过给onFinish传参，通过该参数获取到表单数据
-  数据回填，将数据填写统一填写回表单中
-   通过给form组件的标签头中添加属性 form={form}
-   同时 const [form] = Form.useForm()
-   form.setFieldsValue(数据) 实现设置对应input框的value为对应的值
- Upload组件，实现文件上传
-  upload中的onChange会在上传文件时被调用，给其传入参数，可通过在函数体中查看该参数来得到所上传的文件数据
-  action指定上传网址后，上传图片时会向其发送一个 { method: POST, Content-Type: multipart/form-data, data: { file: 文件二进制值 } }
-  的数据，并接收一个网址响应的json数据 { "status": "success", "url": "图片在服务器上的地址" }
+    npm i antd --save
+    在App.js中，
+        import { Button } from 'antd'
+        function App() { return ( <div className="App">
+                        <Button type="primary"></Button>
+        </div>);}
+    Card组件，实现小卡片效果
+    Form组件，可实现数据校验，可通过给onFinish传参，通过该参数获取到表单数据
+        数据回填，将数据填写统一填写回表单中
+            通过给form组件的标签头中添加属性 form={form}
+            同时 const [form] = Form.useForm()
+            form.setFieldsValue(数据) 实现设置对应input框的value为对应的值
+    Upload组件，实现文件上传
+        upload中的onChange会在上传文件时被调用，给其传入参数，可通过在函数体中查看该参数来得到所上传的文件数据
+        action指定上传网址后，上传图片时会向其发送一个 { method: POST, Content-Type: multipart/form-data, data: { file: 文件二进制值 } }
+        的数据，并接收一个网址响应的json数据 { "status": "success", "url": "图片在服务器上的地址" }
 Ant Design Mobile  用于移动端
- npm i --save antd-mobile
+    npm i --save antd-mobile
 
 封装
 axios封装
- 在src下的utils下的request.js中编写
-  import axios from 'axios'
-  const request = axios.create({
-      baseURL: 'xxx'  封装根网址
-      timeout: 5000  封装超时时间
-  })
-  request.intercepetors.request.use((config) => {  请求拦截器
-      return config  config即为请求本身
-                     当需要修改请求头使其携带token时，用 config.headers.Authorization = 'token值'
-  }, (error) => {
-      return Promise.reject(error)
-  })
-  request.intercepetors.response.use((response) => {  响应拦截器
-     return response.data  2xx范围内的状态码触发该函数
-  }, (error) => {
-     return Promise.reject(error)  2xx范围外的状态码触发该函数
-  })
-  export { request }
- 在utils下的index.js中编写，该index.js用于统一导入导出utils下的模块
-  import { request } from './request'
-  export { request }
- 在其他地方可通过导入request，然后 request.post('/网址', 数据) 来进行数据提交
+    在src下的utils下的request.js中编写
+        import axios from 'axios'
+        const request = axios.create({
+                        baseURL: 'xxx'  封装根网址
+                        timeout: 5000  封装超时时间
+        })
+        request.intercepetors.request.use((config) => {  请求拦截器
+                        return config  config即为请求本身
+                                                                                    当需要修改请求头使其携带token时，用 config.headers.Authorization = 'token值'
+        }, (error) => {
+                        return Promise.reject(error)
+        })
+        request.intercepetors.response.use((response) => {  响应拦截器
+                    return response.data  2xx范围内的状态码触发该函数
+        }, (error) => {
+                    return Promise.reject(error)  2xx范围外的状态码触发该函数
+        })
+        export { request }
+    在utils下的index.js中编写，该index.js用于统一导入导出utils下的模块
+        import { request } from './request'
+        export { request }
+    在其他地方可通过导入request，然后 request.post('/网址', 数据) 来进行数据提交
 
 api封装
- 在src下的apis下的 对应模块.js 中编写
-  import { request } from '../utils'
-  export function 函数名API(参数) {
-      return (
-          request({
-              url: '网址'
-              method: 'POST'
-              data: 参数
-          })
-      )
-  }
+    在src下的apis下的 对应模块.js 中编写
+        import { request } from '../utils'
+        export function 函数名API(参数) {
+                        return (
+                                        request({
+                                                        url: '网址'
+                                                        method: 'POST'
+                                                        data: 参数
+                                        })
+                        )
+        }
 
 封装高阶组件
- 通过判断token进行重定向
- 在src的components中的AuthRoute.js中编写
-  import { Navigate } from 'react-router-dom'
-  function AuthRoute ({ children }) {
-      const token = 获取token
-      if (token) {
-          return <>{children}</>  存在token，就返回原页面
-      }else{
-          return <Navigate to={'/路径'} replace />  不存在token，进行重定向
-      }
-  }
- 在src下的router文件夹下的index.js中编写
-  import { AuthRoute } from '../components/AuthRoute'
-  const router = createBrowserRouter([
-      {path: '/路径', element: <AuthRoute><路径名 /></AuthRoute> },  通过组件嵌套写法执行AuthRoute并传参
-      ...
-      ])
+    通过判断token进行重定向
+    在src的components中的AuthRoute.js中编写
+        import { Navigate } from 'react-router-dom'
+        function AuthRoute ({ children }) {
+                        const token = 获取token
+                        if (token) {
+                                        return <>{children}</>  存在token，就返回原页面
+                        }else{
+                                        return <Navigate to={'/路径'} replace />  不存在token，进行重定向
+                        }
+        }
+    在src下的router文件夹下的index.js中编写
+        import { AuthRoute } from '../components/AuthRoute'
+        const router = createBrowserRouter([
+                        {path: '/路径', element: <AuthRoute><路径名 /></AuthRoute> },  通过组件嵌套写法执行AuthRoute并传参
+                        ...
+                        ])
 
 token持久化
- 将token存入redux后，由于redux基于浏览器内存进行存储，所以当浏览器刷新后，redux会初始化，token丢失
- 在将token存入redux时，同时将token存入localstorage
-  localStorage.setItem('token名'，token值)
- 在redux初始化时，即执行 initialState: { 变量名: 值 } 时，
-  initialState: { token名: localStorage.getItem('token名') || '' }  当localstorage中没有值时，使用空值
+    将token存入redux后，由于redux基于浏览器内存进行存储，所以当浏览器刷新后，redux会初始化，token丢失
+    在将token存入redux时，同时将token存入localstorage
+        localStorage.setItem('token名'，token值)
+    在redux初始化时，即执行 initialState: { 变量名: 值 } 时，
+        initialState: { token名: localStorage.getItem('token名') || '' }  当localstorage中没有值时，使用空值
 
 别名路径
- 别名替代
-  npm i @craco/craco -D
-  在根目录的craco.config.js中编写
-   const path = require('path')
-   module.exports = {webpack: {alias: {
-      '@': path.resolve(__dirname, 'src')  配置别名与路径对应关系，常用@作为src的别名
-   }}}
-  在package.json中编写
-   "scripts": {
-      "start": "craco start"  通过craco启动
-      "build": "craco build"
-   }
- 路径提示
-  jsconfig.json中编写
-   {"compilerOptions": {"baseUrl": "./", "paths": {
-      "@/*": ["src/*"]  配置别名与路径对应关系，当输入 @/ 时自动提示 src/ 下的文件
-   }}}
+    别名替代
+        npm i @craco/craco -D
+        在根目录的craco.config.js中编写
+            const path = require('path')
+            module.exports = {webpack: {alias: {
+                        '@': path.resolve(__dirname, 'src')  配置别名与路径对应关系，常用@作为src的别名
+            }}}
+        在package.json中编写
+            "scripts": {
+                        "start": "craco start"  通过craco启动
+                        "build": "craco build"
+            }
+    路径提示
+        jsconfig.json中编写
+            {"compilerOptions": {"baseUrl": "./", "paths": {
+                        "@/*": ["src/*"]  配置别名与路径对应关系，当输入 @/ 时自动提示 src/ 下的文件
+            }}}
 
 配置打包时的排除项，使这些排除项通过cdn获取
- 在craco.config.js中编写
-  const { whenProd, getPlugin, pluginByName } = require('@craco/craco')
-  module.export = { webpack: {
-      configure: (webpackConfig) => {
-          let cdn
-          whenProd(() => {  whenProd用于判断当前环境是否为生产环境
-              webpackConfig.externals = {  数组中的key为dependencies中对应的key名
-                  react: 'React',
-                  'react-dom': 'ReactDOM'
-              }
-          cdn = {
-              js: ['对应cdn地址']
-          }
-          })
-          const { isFound, match } = getPlugin(webpackConfig, pluginByName('HtmlWebpackPlugin'))
-          if (isFound) { match.user.Opation.cdn = cdn }
-          return webpackConfig
-      }
-  }}
- 在public的index.html中body标签的末尾编写
-  <% htmlWebpackPlugin.options.cdn.js.forEach(cdnURL => { <script src="<%= cdnURL %>"></script>})%>
+    在craco.config.js中编写
+        const { whenProd, getPlugin, pluginByName } = require('@craco/craco')
+        module.export = { webpack: {
+                        configure: (webpackConfig) => {
+                                        let cdn
+                                        whenProd(() => {  whenProd用于判断当前环境是否为生产环境
+                                                        webpackConfig.externals = {  数组中的key为dependencies中对应的key名
+                                                                        react: 'React',
+                                                                        'react-dom': 'ReactDOM'
+                                                        }
+                                        cdn = {
+                                                        js: ['对应cdn地址']
+                                        }
+                                        })
+                                        const { isFound, match } = getPlugin(webpackConfig, pluginByName('HtmlWebpackPlugin'))
+                                        if (isFound) { match.user.Opation.cdn = cdn }
+                                        return webpackConfig
+                        }
+        }}
+    在public的index.html中body标签的末尾编写
+        <% htmlWebpackPlugin.options.cdn.js.forEach(cdnURL => { <script src="<%= cdnURL %>"></script>})%>
 
 类组件  通过class编写组件
- import { Compenent } from "react"
- class 类名 extends Component {
-      state = { 变量名: 值 }  创建初始值
-      对state中的变量进行操作的函数名 = (参数) => {
-          this.setState({ 变量名: this.state.变量名 + 1 })  通过this.setState调用对state修改的函数，通过this.state.变量名调用state中的值
-      }
-      render () { return 一个jsx }  创建组价返回的jsx
- }
- 自动执行函数
-  compenentDidMount () { 操作 }  在组件渲染完成后执行一次其中操作
-  compenentWillUnmount () { 操作 }  在组件卸载时执行一次其中操作
- 组件间通信
- class 父组件 extends Component {
-     state = { 变量名: 值 }
-     render () { return <子组件 外部变量名={this.state.变量名} /> }  传入变量
- }
- class 子组件 extends Component {
-     render () { return <div>{this.props.外部变量名}</div> }  使用传入的变量
- }
+    import { Compenent } from "react"
+    class 类名 extends Component {
+                        state = { 变量名: 值 }  创建初始值
+                        对state中的变量进行操作的函数名 = (参数) => {
+                                        this.setState({ 变量名: this.state.变量名 + 1 })  通过this.setState调用对state修改的函数，通过this.state.变量名调用state中的值
+                        }
+                        render () { return 一个jsx }  创建组价返回的jsx
+    }
+    自动执行函数
+        compenentDidMount () { 操作 }  在组件渲染完成后执行一次其中操作
+        compenentWillUnmount () { 操作 }  在组件卸载时执行一次其中操作
+    组件间通信
+    class 父组件 extends Component {
+                    state = { 变量名: 值 }
+                    render () { return <子组件 外部变量名={this.state.变量名} /> }  传入变量
+    }
+    class 子组件 extends Component {
+                    render () { return <div>{this.props.外部变量名}</div> }  使用传入的变量
+    }
 
 react-ts，在react中使用ts
- 创建ts项目
-  npm create vite@latest 项目名 -- --template react-ts
-  在src下保留 App.tsx main.tsx vite-env.d.ts ，在App.tsx中只需保留一个最基本的 function App
-  或 npx create-react-app 项目名 --template typescript
- 或 在js项目中添加ts类型注解文件
-  npm i --save typescript @types/node @types/react @types/react-dom @types/jest
- 在react-ts中不使用 .js 后缀，而是使用 .tsx 后缀
- 类型注解文件彼此的导入
-  /// <reference types="其他的类型声明文件，不带后缀" />  ///用于导入其他的类型声明文件
- tsconfig.json
-  include  用于配置自动加载类型注解文件的目录，将该目录下的类型注解文件自动应用到ts文件上，默认为src
- src下的react-app-env.d.ts
-  导入react所需的类型注解文件
- hook函数
-  const [变量名, set变量名] = useState(参数)  在创建状态时，根据 参数 的数据类型自动指定 变量名 的类型
-  useState类型约束
-   type 类型名 = 类型
-   const [变量名, set变量名] = useState<类型名>(符合类型要求的参数)
-    useState本身是一个泛型函数，可通过 <类型名> 对其传入的参数进行类型约束
+    创建ts项目
+        npm create vite@latest 项目名 -- --template react-ts
+        在src下保留 App.tsx main.tsx vite-env.d.ts ，在App.tsx中只需保留一个最基本的 function App
+        或 npx create-react-app 项目名 --template typescript
+    或 在js项目中添加ts类型注解文件
+        npm i --save typescript @types/node @types/react @types/react-dom @types/jest
+    在react-ts中不使用 .js 后缀，而是使用 .tsx 后缀
+    类型注解文件彼此的导入
+        /// <reference types="其他的类型声明文件，不带后缀" />  ///用于导入其他的类型声明文件
+    tsconfig.json
+        include  用于配置自动加载类型注解文件的目录，将该目录下的类型注解文件自动应用到ts文件上，默认为src
+    src下的react-app-env.d.ts
+        导入react所需的类型注解文件
+    hook函数
+        const [变量名, set变量名] = useState(参数)  在创建状态时，根据 参数 的数据类型自动指定 变量名 的类型
+        useState类型约束
+            type 类型名 = 类型
+            const [变量名, set变量名] = useState<类型名>(符合类型要求的参数)
+                useState本身是一个泛型函数，可通过 <类型名> 对其传入的参数进行类型约束
 '''

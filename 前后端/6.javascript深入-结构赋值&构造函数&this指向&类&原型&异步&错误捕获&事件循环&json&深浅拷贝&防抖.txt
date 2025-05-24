@@ -1,132 +1,132 @@
 '''
 数组解构赋值，基于数组元素的顺序，将数组中的值依次赋值给对应的变量。
- arr = [1,2,3]
- const [a,b,c] = arr  相当于const a = arr[0]; const b ......
- const [a,,c] = arr  跳过2的赋值，相当于const a = arr[0]; const c = arr[2]
- const [a,...rest] = arr  通过 ...剩余运算符 获取剩余元素，相当于const a = arr[0]; const rest = [arr[1], arr[2]]
+    arr = [1,2,3]
+    const [a,b,c] = arr  相当于const a = arr[0]; const b ......
+    const [a,,c] = arr  跳过2的赋值，相当于const a = arr[0]; const c = arr[2]
+    const [a,...rest] = arr  通过 ...剩余运算符 获取剩余元素，相当于const a = arr[0]; const rest = [arr[1], arr[2]]
 对象解构赋值
- const obj = { name: 'Alice', age: 25 }
- const { name, age } = obj  相当于const name = obj.name; const age = obj.age
-  { name, age }由{ name: name, age: age }简写而来
-  新对象中的变量名必须与原对象中的变量名一致
- const { name: a, age: b } = obj  变量重命名，相当于const a = obj.name; const b = obj.age
+    const obj = { name: 'Alice', age: 25 }
+    const { name, age } = obj  相当于const name = obj.name; const age = obj.age
+        { name, age }由{ name: name, age: age }简写而来
+        新对象中的变量名必须与原对象中的变量名一致
+    const { name: a, age: b } = obj  变量重命名，相当于const a = obj.name; const b = obj.age
 
 构造函数
- function 首字母大写函数名(参数) {this.内部参数名 = 参数}  创建构造函数
- const 变量名 = new 函数名(值)  new方法返回一个 { 内部参数名: 值 } 的对象，this指向新的对象
-  构造函数内部无需return，return无效
- 因为 new 返回的是对象，所以可以使用 变量名.键名 = 值/函数 来添加新键
- 静态属性和静态方法
-  在构造函数内通过 函数名.内部参数名=值 来创建的属性或方法
-  在构造函数外通过 函数名.内部参数名 来得到静态属性的值
-  静态方法中的this指向构造函数本身
+    function 首字母大写函数名(参数) {this.内部参数名 = 参数}  创建构造函数
+    const 变量名 = new 函数名(值)  new方法返回一个 { 内部参数名: 值 } 的对象，this指向新的对象
+        构造函数内部无需return，return无效
+    因为 new 返回的是对象，所以可以使用 变量名.键名 = 值/函数 来添加新键
+    静态属性和静态方法
+        在构造函数内通过 函数名.内部参数名=值 来创建的属性或方法
+        在构造函数外通过 函数名.内部参数名 来得到静态属性的值
+        静态方法中的this指向构造函数本身
 
 函数中this指向
- 在通过funcition关键字声明来创建函数时，指向该函数的调用者。另外，当函数在全局被调用时，this指向window，即浏览器窗口，但在严格模式下为undefined
- 在箭头函数中，this不与函数本身关联，不由函数本身产生，而来自于能产生this的上一级
- 改变this指向
-  call
-   函数名1.call(函数名2, 函数1中所需的参数)  将函数名1中的this指向函数名2，并调用函数1
-  apply
-   函数名1.apply(函数名2, [函数1中所需的参数])  同call，只是传参时需要用数组包裹
-  bind
-   const 函数名3 = 函数名1.bind(函数名2)  返回一个将函数名1中的this指向函数名2的新函数，并不修改函数名1
+    在通过funcition关键字声明来创建函数时，指向该函数的调用者。另外，当函数在全局被调用时，this指向window，即浏览器窗口，但在严格模式下为undefined
+    在箭头函数中，this不与函数本身关联，不由函数本身产生，而来自于能产生this的上一级
+    改变this指向
+        call
+            函数名1.call(函数名2, 函数1中所需的参数)  将函数名1中的this指向函数名2，并调用函数1
+        apply
+            函数名1.apply(函数名2, [函数1中所需的参数])  同call，只是传参时需要用数组包裹
+        bind
+            const 函数名3 = 函数名1.bind(函数名2)  返回一个将函数名1中的this指向函数名2的新函数，并不修改函数名1
 
 类，构造函数的一种特定表现
- 创建类
-  class 类名 {
-      constructor(外部传入参数参数) {this.内部参数 = 外部传入参数}  定义类中的初始变量
-      方法名(参数) {操作}  定义类中的方法
-  }
- 创建实例
-  const 实例名 = new 类名(参数)
-  可通过 实例名.内部参数 或 实例名.方法名(函数) 来使用类中的变量和方法
+    创建类
+        class 类名 {
+                        constructor(外部传入参数参数) {this.内部参数 = 外部传入参数}  定义类中的初始变量
+                        方法名(参数) {操作}  定义类中的方法
+        }
+    创建实例
+        const 实例名 = new 类名(参数)
+        可通过 实例名.内部参数 或 实例名.方法名(函数) 来使用类中的变量和方法
 
 原型
- 每个构造函数都有一个原型，可通过 构造函数名.prototype 得到
- 构造函数名.prototype.变量名 = 值  实现在原型中创建变量，所有实例都可通过 实例名.变量名 来调用该变量
- 原型中有constructor属性，指向拥有该原型的构造函数
- 特殊用法
-  因为js中所有数据都是对象，所以可以通过给 Array, Object, String, Number 这些基本数据类型添加 .prototype.函数名 实现给对应的数据添加 .函数名 的操作方法
-  当用构造函数实现面向对象时，每个实例都会产生一次对构造函数中的方法的存储，产生内存浪费，将方法保存在原型中，实现不对方法进行多次复制
+    每个构造函数都有一个原型，可通过 构造函数名.prototype 得到
+    构造函数名.prototype.变量名 = 值  实现在原型中创建变量，所有实例都可通过 实例名.变量名 来调用该变量
+    原型中有constructor属性，指向拥有该原型的构造函数
+    特殊用法
+        因为js中所有数据都是对象，所以可以通过给 Array, Object, String, Number 这些基本数据类型添加 .prototype.函数名 实现给对应的数据添加 .函数名 的操作方法
+        当用构造函数实现面向对象时，每个实例都会产生一次对构造函数中的方法的存储，产生内存浪费，将方法保存在原型中，实现不对方法进行多次复制
 对象原型
- 对象中有 __proto__ 属性，指向该对象所用的构造函数的原型
- __proto__ 中有constructor属性，指向该对象所用的构造函数
+    对象中有 __proto__ 属性，指向该对象所用的构造函数的原型
+    __proto__ 中有constructor属性，指向该对象所用的构造函数
 原型继承
- 构造函数1.prototype = new 构造函数2()
-  new 构造函数2 返回构造函数2创建的对象，相当于 构造函数1.prototype = {构造函数2中变量: 值}
- 构造函数1.prototype.constructor = 构造函数1  将拥有者指回构造函数1本身
+    构造函数1.prototype = new 构造函数2()
+        new 构造函数2 返回构造函数2创建的对象，相当于 构造函数1.prototype = {构造函数2中变量: 值}
+    构造函数1.prototype.constructor = 构造函数1  将拥有者指回构造函数1本身
 原型链
- 构造函数.prototype 也是一个对象，是对象就有 __proto__ 属性，所以 构造函数.prototype.__proto__ 指向创建该构造函数的构造函数的原型
-  不断追溯，最后得到创建所有对象的构造函数 Object() 的原型，即 Object.prototype ，而 Object.prototype.__proto__ 因为没有更上级，所以为null
- 当访问一个对象的属性或方法时，如果没有，就意味着父构造函数中也没有，那么就会顺着原型链去父构造函数的原型中查找，会访问 父构造函数.prototype.__proto__ 来继续向上寻找
- instanceof
-  对象名 instanceof 构造函数名  用于判断构造函数的prototype是否出现在在该对象的原型链上，常用于判断数据类型是否为Array等
+    构造函数.prototype 也是一个对象，是对象就有 __proto__ 属性，所以 构造函数.prototype.__proto__ 指向创建该构造函数的构造函数的原型
+        不断追溯，最后得到创建所有对象的构造函数 Object() 的原型，即 Object.prototype ，而 Object.prototype.__proto__ 因为没有更上级，所以为null
+    当访问一个对象的属性或方法时，如果没有，就意味着父构造函数中也没有，那么就会顺着原型链去父构造函数的原型中查找，会访问 父构造函数.prototype.__proto__ 来继续向上寻找
+    instanceof
+        对象名 instanceof 构造函数名  用于判断构造函数的prototype是否出现在在该对象的原型链上，常用于判断数据类型是否为Array等
 
 异步
- Promise
-  const p = new.Promise((resolve, reject) => {
-   函数体1
-   if 条件 {
-       resolve(返回值1)
-   }else{
-       reject(返回值2)
-   }
-  })
-  p.then(result => {  result为resolve被设置的值
-   函数体2
-   console.log(result)
-  }).catch(error => {  error为reject被设置的值
-   函数体3
-   console.log(error)
-  })
-   在 p.then() 调用时先等待 函数体1 的运行以得到 result ，然后再执行 函数体2 ，以此实现异步
-   p.then()/.catch() 都返回一个promise对象，可实现对自身的不断调用
- async/await，基于Promise
-  async function 函数名1() {
-   const a = await 函数名2()
-  }
-   async关键字，将函数名1声明为一个Promise对象
-   await，用于中断函数执行并等待函数名2的完成
-   async函数总是会返回一个Promise对象，该对象依然拥有 .then() .catch() 这些方法
-   当async函数中运行到await语句时，等待await结束，并同时开始运行async函数外的语句
+    Promise
+        const p = new.Promise((resolve, reject) => {
+            函数体1
+            if 条件 {
+                            resolve(返回值1)
+            }else{
+                            reject(返回值2)
+            }
+        })
+        p.then(result => {  result为resolve被设置的值
+            函数体2
+            console.log(result)
+        }).catch(error => {  error为reject被设置的值
+            函数体3
+            console.log(error)
+        })
+            在 p.then() 调用时先等待 函数体1 的运行以得到 result ，然后再执行 函数体2 ，以此实现异步
+            p.then()/.catch() 都返回一个promise对象，可实现对自身的不断调用
+    async/await，基于Promise
+        async function 函数名1() {
+            const a = await 函数名2()
+        }
+            async关键字，将函数名1声明为一个Promise对象
+            await，用于中断函数执行并等待函数名2的完成
+            async函数总是会返回一个Promise对象，该对象依然拥有 .then() .catch() 这些方法
+            当async函数中运行到await语句时，等待await结束，并同时开始运行async函数外的语句
 
 错误捕获
- try {
-  pass
- } catch (error) {  #当try的命令中出现错误时，获取该错误
-  console.log(error)
- }
+    try {
+        pass
+    } catch (error) {  #当try的命令中出现错误时，获取该错误
+        console.log(error)
+    }
 
 js事件循环机制
- js代码环境分为调用栈，任务队列，宿主环境三部分，同步代码放入调用栈中顺次执行，异步代码先放入宿主环境中等待，当异步代码产生回调函数后放入
- 任务队列中，当调用栈为空后，反复将任务队列中的代码放入调用栈中执行
+    js代码环境分为调用栈，任务队列，宿主环境三部分，同步代码放入调用栈中顺次执行，异步代码先放入宿主环境中等待，当异步代码产生回调函数后放入
+    任务队列中，当调用栈为空后，反复将任务队列中的代码放入调用栈中执行
 
 json，本质是js字符串
- 格式
-  '{"键名": "值"}'
- 转换
-  JSON.parse(json数据)  将字符串格式的json转换为一个js对象
-  JSON.stringify(js对象)  将js对象转换为一个json
+    格式
+        '{"键名": "值"}'
+    转换
+        JSON.parse(json数据)  将字符串格式的json转换为一个js对象
+        JSON.stringify(js对象)  将js对象转换为一个json
 
 浅拷贝，在通过赋值复制一个对象时，新变量会和原对象使用相同的内存，浅拷贝用于创建一个内存地址不同的复制
- const 变量名 = { ...对象名 }  得到对象中的每一项然后进行赋值
- const 变量名 = {}; Object.assign(变量名, 对象名)  返回一个合并后的对象，并对 变量名 进行修改
+    const 变量名 = { ...对象名 }  得到对象中的每一项然后进行赋值
+    const 变量名 = {}; Object.assign(变量名, 对象名)  返回一个合并后的对象，并对 变量名 进行修改
 深拷贝，当一个对象中存在嵌套对象时，浅拷贝中得到的二级对象会和原二级对象使用同一个内存，二级对象没有实现浅拷贝
- 用递归遍历对象实现深拷贝
-  遍历对象中的每一项，当其为对象时，再次调用自身去遍历二级对象中的每一项
- 用lodash库实现
-  npm i --save lodash
-  const 变量名 = _.cloneDeep(对象名)
- 用json实现
-  先将对象转换为json字符串，再将json字符串转换为对象
+    用递归遍历对象实现深拷贝
+        遍历对象中的每一项，当其为对象时，再次调用自身去遍历二级对象中的每一项
+    用lodash库实现
+        npm i --save lodash
+        const 变量名 = _.cloneDeep(对象名)
+    用json实现
+        先将对象转换为json字符串，再将json字符串转换为对象
 
 防抖
- 在一个函数未执行完之前，再次执行该函数时，取消之前的执行进度，并重新开始执行该函数
- 定时器实现
-  当执行函数时，先新建定时器，当再次执行函数时，先判断定时器是否存在，存在则重置定时器
- lodash实现
-  _.dubounce(函数名, [wait=毫秒数], [options=])  在毫秒数内若无再次执行_.dubounce()，则调用函数名
+    在一个函数未执行完之前，再次执行该函数时，取消之前的执行进度，并重新开始执行该函数
+    定时器实现
+        当执行函数时，先新建定时器，当再次执行函数时，先判断定时器是否存在，存在则重置定时器
+    lodash实现
+        _.dubounce(函数名, [wait=毫秒数], [options=])  在毫秒数内若无再次执行_.dubounce()，则调用函数名
 节流
- 在一个函数执行完之前，再次执行该函数时，不再次运行该函数，并且不影响前一次函数的执行进度，直到前一次执行完成才可再次执行
+    在一个函数执行完之前，再次执行该函数时，不再次运行该函数，并且不影响前一次函数的执行进度，直到前一次执行完成才可再次执行
 '''

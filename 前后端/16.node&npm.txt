@@ -1,152 +1,152 @@
 '''
 node.js，一个js代码的运行环境，可直接运行js代码，而不只在浏览器环境中运行
- 无法使用浏览器环境下的DOM和BOM
+    无法使用浏览器环境下的DOM和BOM
 
- 通过安装包安装node
- 在终端中用 node xxx.js 来执行node代码
+    通过安装包安装node
+    在终端中用 node xxx.js 来执行node代码
 
- 导入导出，在js文件中传递数据
-  CommonJS标准
-   导出数据
-    module.exports = {
-        对外变量名: 此js文件内变量名
-    }
-   导入模块
-    const 模块名 = require('js模块')
-     当导入node中内置模块时，用模块名，当导入自定义模块时，用模块路径。
-     返回值为一个 {对外变量名: 值} 的字典，通过 模块名.对外变量名 来调用目标变量
-  ECMAScript标准
-   node.js默认不支持该标准，使用时需在运行的js文件所在目录下创建package.json文件并写入 {'type': 'module'}
-   默认导出导入
-    字典导出
-     导出数据
-      export default {
-         对外变量名: js文件内变量名
-      }
-     导入模块
-      import 模块名 from 'js模块'  返回值与require导入相同
-    变量名导出
-     导出数据
-      export default 变量名
-     导入数据
-      import 变量名2 from 'js模块'  导入数据的本质，就是将导出的数据命名为变量名2
-   命名导出导入  优点为按需导入，只导入需要的变量
-    导出数据
-     export const 变量名 = 值
-    导入数据
-     import { 同名变量名 } from 'js模块'  之后直接通过 同名变量名 来调用变量
+    导入导出，在js文件中传递数据
+        CommonJS标准
+            导出数据
+                module.exports = {
+                                对外变量名: 此js文件内变量名
+                }
+            导入模块
+                const 模块名 = require('js模块')
+                    当导入node中内置模块时，用模块名，当导入自定义模块时，用模块路径。
+                    返回值为一个 {对外变量名: 值} 的字典，通过 模块名.对外变量名 来调用目标变量
+        ECMAScript标准
+            node.js默认不支持该标准，使用时需在运行的js文件所在目录下创建package.json文件并写入 {'type': 'module'}
+            默认导出导入
+                字典导出
+                    导出数据
+                        export default {
+                                    对外变量名: js文件内变量名
+                        }
+                    导入模块
+                        import 模块名 from 'js模块'  返回值与require导入相同
+                变量名导出
+                    导出数据
+                        export default 变量名
+                    导入数据
+                        import 变量名2 from 'js模块'  导入数据的本质，就是将导出的数据命名为变量名2
+            命名导出导入  优点为按需导入，只导入需要的变量
+                导出数据
+                    export const 变量名 = 值
+                导入数据
+                    import { 同名变量名 } from 'js模块'  之后直接通过 同名变量名 来调用变量
 
- fs模块，用于文件读写
-  导入fs模块
-   const fs = require('fs')
-  写入文件
-   fs.writeFile('文件路径', '内容', err => {执行操作})  当有错误时，用err参数保存，没有错误时，err为空
-  读取文件
-   fs.readFile('文件路径', (err, data) => {  err为报错内容，data为读取到的Buffer十六进制数据流对象
-       data.toString()  将Buffer对象转为字符串，返回值为字符串
-   })
+    fs模块，用于文件读写
+        导入fs模块
+            const fs = require('fs')
+        写入文件
+            fs.writeFile('文件路径', '内容', err => {执行操作})  当有错误时，用err参数保存，没有错误时，err为空
+        读取文件
+            fs.readFile('文件路径', (err, data) => {  err为报错内容，data为读取到的Buffer十六进制数据流对象
+                            data.toString()  将Buffer对象转为字符串，返回值为字符串
+            })
 
- path模块，用于路径处理
-  导入path模块
-   const path = require('path')
-  绝对路径
-   __dirname  内置变量，值为当前js文件的父文件夹的绝对路径
-  字符串拼接
-   path.join('路径', '路径')  用当前系统的路劲拼接符将路径拼接，返回一个字符串。可以通过 ../ 向上寻找父文件夹
+    path模块，用于路径处理
+        导入path模块
+            const path = require('path')
+        绝对路径
+            __dirname  内置变量，值为当前js文件的父文件夹的绝对路径
+        字符串拼接
+            path.join('路径', '路径')  用当前系统的路劲拼接符将路径拼接，返回一个字符串。可以通过 ../ 向上寻找父文件夹
 
- http模块，用于创建web服务
-  导入http模块
-   const http = require('http')
-  创建服务器
-   const server = http.createServer()
-  创建页面函数
-   server.on('request', (req, res) => {  设置监听事件为request，req为接收的请求，res为发出的响应
-       if (req.url == '/网页名') {  区分用户当前所访问的网页
-          res.setHeader('Content-Type', 'text/html;charset=utf-8')  设置额外的响应头数据，设置html文本为utf-8编码用于展示返回的字符串
-          res.end('xxx')  设置响应内容为字符串。可通过fs读取html文件返回html字符串，设置响应头的编码为html，即可实现渲染html代码
-       }
-   })
-  启动服务器
-   server.listen(端口号, () => {})
+    http模块，用于创建web服务
+        导入http模块
+            const http = require('http')
+        创建服务器
+            const server = http.createServer()
+        创建页面函数
+            server.on('request', (req, res) => {  设置监听事件为request，req为接收的请求，res为发出的响应
+                            if (req.url == '/网页名') {  区分用户当前所访问的网页
+                                        res.setHeader('Content-Type', 'text/html;charset=utf-8')  设置额外的响应头数据，设置html文本为utf-8编码用于展示返回的字符串
+                                        res.end('xxx')  设置响应内容为字符串。可通过fs读取html文件返回html字符串，设置响应头的编码为html，即可实现渲染html代码
+                            }
+            })
+        启动服务器
+            server.listen(端口号, () => {})
 
- npm  node中的软件包管理器，用于下载和管理软件包
-  npm init -y  在一个目录下运行，生成一个初始化清单文件package.json，使该目录成为一个包
-  包的导入导出
-   导出
-    默认将包文件夹下的index.js导出，当没有该文件时，将package.json中的main字段所指向的js文件导出
-    index.js中将包中的其他模块导入，后再将所需的对外变量名导出
-   导入
-    同模块的导入方法，导入目标包名时等效于导入目标包下的index.js文件
-  npm i 软件包名
-   在包目录下创建node_modules文件夹，将软件包下载到该文件夹中，并在package.json的dependencies字典中写入包名和版本号，
-   在包目录下创建package-lock.json文件，用于固化软件包的版本
-  npm i  在项目复制过程中，一般不会复制node_modules文件夹，该命令根据package.json中记录的包名和版本号去下载对应包
-  npm uni 软件包名  删除软件包
+    npm  node中的软件包管理器，用于下载和管理软件包
+        npm init -y  在一个目录下运行，生成一个初始化清单文件package.json，使该目录成为一个包
+        包的导入导出
+            导出
+                默认将包文件夹下的index.js导出，当没有该文件时，将package.json中的main字段所指向的js文件导出
+                index.js中将包中的其他模块导入，后再将所需的对外变量名导出
+            导入
+                同模块的导入方法，导入目标包名时等效于导入目标包下的index.js文件
+        npm i 软件包名
+            在包目录下创建node_modules文件夹，将软件包下载到该文件夹中，并在package.json的dependencies字典中写入包名和版本号，
+            在包目录下创建package-lock.json文件，用于固化软件包的版本
+        npm i  在项目复制过程中，一般不会复制node_modules文件夹，该命令根据package.json中记录的包名和版本号去下载对应包
+        npm uni 软件包名  删除软件包
 
-  ndoemon，全局软件包，用于替代node命令，当检测到运行中的js程序中代码更改时，自动重启程序
-   npm i nodemon -g  将nodemon安装到全局环境中
-   nodemon js文件  当运行js文件时，并不会在执行完所有语句后结束，而是会开启一个服务来检测js代码的更改，当更改时再次运行js代码
+        ndoemon，全局软件包，用于替代node命令，当检测到运行中的js程序中代码更改时，自动重启程序
+            npm i nodemon -g  将nodemon安装到全局环境中
+            nodemon js文件  当运行js文件时，并不会在执行完所有语句后结束，而是会开启一个服务来检测js代码的更改，当更改时再次运行js代码
 
-  webpack，用于打包静态文件
-   npm i webpack webpack-cli
-   在包目录下的package.json中写入 "scripts":{"build": "webpack"}
-   npm run build  实际上是在执行 npm run webpack
-    运行打包命令，在包目录下生成dist文件夹，将js文件的内容打包到dist下的main.js文件中
+        webpack，用于打包静态文件
+            npm i webpack webpack-cli
+            在包目录下的package.json中写入 "scripts":{"build": "webpack"}
+            npm run build  实际上是在执行 npm run webpack
+                运行打包命令，在包目录下生成dist文件夹，将js文件的内容打包到dist下的main.js文件中
 
-   修改出入口
-    在包目录下新建webpack.config.js文件，写入
-    const path = require('path'); module.exports = {
-      entry: {网页名: '文件路径',}
-      output: {path: '文件夹路径', filename: '文件名或路径'}
-      };
-     可在output字典中添加clean:true使得在打包之前清空path文件夹下的内容
-     filename中可以使用[name]，[name]会在生成时被换成entry中的网页名
+            修改出入口
+                在包目录下新建webpack.config.js文件，写入
+                const path = require('path'); module.exports = {
+                        entry: {网页名: '文件路径',}
+                        output: {path: '文件夹路径', filename: '文件名或路径'}
+                        };
+                    可在output字典中添加clean:true使得在打包之前清空path文件夹下的内容
+                    filename中可以使用[name]，[name]会在生成时被换成entry中的网页名
 
-   html-webpack-plugin插件  用于将html网页打包，并自动在html中导入js路径
-    npm i html-webpack-plugin
-    在webpack.config.js中写入
-    const HtmlWebpackPlugin = require('html-webpack-plugin')
-    module.exports = {
-      plugin:[HtmlWebpackPlugin({
-          template: '被打包的html文件路径',
-          filename: '打包后的html文件路径'
-      })]
-    };
-   css-loader, style-loader加载器  用于将css代码导入js文件中后，将css代码打包在js文件中使得html代码通过导入js文件而得到css代码
-    npm i css-loader style-loader
-    在webpack.config.js中写入
-    module.exports = {module: {rule: [
-      {test: /\.css$/i, use: ["style-loader", "css-loader"]}  test参数用于声明被指定文件的后缀名
-    ]}}
-   mini-css-extract-plugin插件  用于将css跟js文件关联后，在dist下的mian.js的同级目录下打包成main.css文件
-    npm i css-loader mini-css-extract-plugin
-    在webpack.config.js中写入
-    module.exports = {plugins: [new MiniCssExtractPlugin()],
-                     module: {rule: [
-                        {test: /\.css$/i, use: [MiniCssExtractPlugin.loader, "css-loader"]}
-                     ]}
-    }
-   css-minimizer-webpack-plugin插件  用于将mini-css-extract-plugin插件导出的css文件压缩
-    npm i css-loader css-minimizer-webpack-plugin
-    在mini-css-extract-plugin插件的基础上，在module.exports中加入
-    optimization:{minimizer: [..., new CssMinimizerPlugin()]}
-   图片打包
-    在webpack.config.js中写入
-    module.exports = {module: {rule: [
-      {test: /\.(png|jpg|jpeg|gif)$/i, type:'asset', generator: {filename: 'asset/[hash][ext][query]'}}
-    ]}}
-     test，用于设置将要打包时所识别的文件的后缀名
-     type，用于设置打包格式为自动识别，会将大于8kb的文件打包为单独的文件，并将原html中引用该文件的引用路径自动替换，将小于8kb的文件直接通过base64编码写入html中
-     filename，用于设置导出的文件名，以dist为根目录
-      [hash]用于设置对文件内容进行hash计算，对于内容相同的文件输出唯一的一个hash值，以此作为文件名的前缀，
-      [ext]用于设置保留文件名原来的后缀
-      [query]用于设置当html中使用url引用时存在?传递查询数据时，保留该数据传递
+            html-webpack-plugin插件  用于将html网页打包，并自动在html中导入js路径
+                npm i html-webpack-plugin
+                在webpack.config.js中写入
+                const HtmlWebpackPlugin = require('html-webpack-plugin')
+                module.exports = {
+                        plugin:[HtmlWebpackPlugin({
+                                        template: '被打包的html文件路径',
+                                        filename: '打包后的html文件路径'
+                        })]
+                };
+            css-loader, style-loader加载器  用于将css代码导入js文件中后，将css代码打包在js文件中使得html代码通过导入js文件而得到css代码
+                npm i css-loader style-loader
+                在webpack.config.js中写入
+                module.exports = {module: {rule: [
+                        {test: /\.css$/i, use: ["style-loader", "css-loader"]}  test参数用于声明被指定文件的后缀名
+                ]}}
+            mini-css-extract-plugin插件  用于将css跟js文件关联后，在dist下的mian.js的同级目录下打包成main.css文件
+                npm i css-loader mini-css-extract-plugin
+                在webpack.config.js中写入
+                module.exports = {plugins: [new MiniCssExtractPlugin()],
+                                                                                    module: {rule: [
+                                                                                                {test: /\.css$/i, use: [MiniCssExtractPlugin.loader, "css-loader"]}
+                                                                                    ]}
+                }
+            css-minimizer-webpack-plugin插件  用于将mini-css-extract-plugin插件导出的css文件压缩
+                npm i css-loader css-minimizer-webpack-plugin
+                在mini-css-extract-plugin插件的基础上，在module.exports中加入
+                optimization:{minimizer: [..., new CssMinimizerPlugin()]}
+            图片打包
+                在webpack.config.js中写入
+                module.exports = {module: {rule: [
+                        {test: /\.(png|jpg|jpeg|gif)$/i, type:'asset', generator: {filename: 'asset/[hash][ext][query]'}}
+                ]}}
+                    test，用于设置将要打包时所识别的文件的后缀名
+                    type，用于设置打包格式为自动识别，会将大于8kb的文件打包为单独的文件，并将原html中引用该文件的引用路径自动替换，将小于8kb的文件直接通过base64编码写入html中
+                    filename，用于设置导出的文件名，以dist为根目录
+                        [hash]用于设置对文件内容进行hash计算，对于内容相同的文件输出唯一的一个hash值，以此作为文件名的前缀，
+                        [ext]用于设置保留文件名原来的后缀
+                        [query]用于设置当html中使用url引用时存在?传递查询数据时，保留该数据传递
 
-   开发环境，当代码发生变化时，自动再次打包并刷新浏览器网页
-    在module.exports中添加 mode:'development' 参数
-    webpack-dev-server，用于搭建一个可以实时重新加载的服务器
-     npm i webpack-dev-server
-     在module.exports中添加 devServer:{static:./dist',} 参数，设置网页的根目录，将根目录下的html文件作为可访问的网页
-    在package.json的scripts中添加 'dev':'webpack serve --open'
-    启动开发服务器， npm run dev
+            开发环境，当代码发生变化时，自动再次打包并刷新浏览器网页
+                在module.exports中添加 mode:'development' 参数
+                webpack-dev-server，用于搭建一个可以实时重新加载的服务器
+                    npm i webpack-dev-server
+                    在module.exports中添加 devServer:{static:./dist',} 参数，设置网页的根目录，将根目录下的html文件作为可访问的网页
+                在package.json的scripts中添加 'dev':'webpack serve --open'
+                启动开发服务器， npm run dev
 '''

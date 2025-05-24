@@ -1,31 +1,31 @@
 '''
 列表
- 列表格式
-  list=[a,b,c,d]
- 列表方法
-  list[x]  取某个位置的值，x是数字，指向从左往右数的第几个位置的值，从'0'开始数
-  list[x]=a  替换某个位置的值
-  list1.append(a)  在列表末尾添加一个元素
-  list1.insert(a,b)  插入一个元素，新插入的元素b会出现在新list1的list1[a]位置处，b之后的元素依次向后推一个位置
-  list1.extend([4,5,6])  将另一个列表中的值添加到list1的末尾
-  list1.pop()  删除元素，从右边开始删除
-  list1.remove(指定值)  删除匹配项的元素，只删除第一个。但通过循环实现全部匹配项的删除
-  list.index(指定值)  找出匹配项的第一个元素所处位置
-  list.count()  获取该列表中元素的总个数
+    列表格式
+        list=[a,b,c,d]
+    列表方法
+        list[x]  取某个位置的值，x是数字，指向从左往右数的第几个位置的值，从'0'开始数
+        list[x]=a  替换某个位置的值
+        list1.append(a)  在列表末尾添加一个元素
+        list1.insert(a,b)  插入一个元素，新插入的元素b会出现在新list1的list1[a]位置处，b之后的元素依次向后推一个位置
+        list1.extend([4,5,6])  将另一个列表中的值添加到list1的末尾
+        list1.pop()  删除元素，从右边开始删除
+        list1.remove(指定值)  删除匹配项的元素，只删除第一个。但通过循环实现全部匹配项的删除
+        list.index(指定值)  找出匹配项的第一个元素所处位置
+        list.count()  获取该列表中元素的总个数
 
 元组
- 元组格式
-  tuple=(1,2,3,4)
-  元组的元素不能被修改，不过如果元素是一个列表，那么列表里的元素可以被修改
- tuple(list)  将列表转化为元组
+    元组格式
+        tuple=(1,2,3,4)
+        元组的元素不能被修改，不过如果元素是一个列表，那么列表里的元素可以被修改
+    tuple(list)  将列表转化为元组
 
 字典
- 字典格式
-  dic={key1:value,key2:value,key3:value}  key一般为字符串
- 字典方法
-  dic[key]  如果元素不存在字典中会报错
-  dic.get(key)  如果元素不存在字典中会返回空值，前提为key是字符串
-  dic[key4]=value  字典中元素添加
-  dic.pop(key)  字典中元素删除
+    字典格式
+        dic={key1:value,key2:value,key3:value}  key一般为字符串
+    字典方法
+        dic[key]  如果元素不存在字典中会报错
+        dic.get(key)  如果元素不存在字典中会返回空值，前提为key是字符串
+        dic[key4]=value  字典中元素添加
+        dic.pop(key)  字典中元素删除
 '''
 

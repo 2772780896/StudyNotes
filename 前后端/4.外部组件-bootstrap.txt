@@ -1,30 +1,30 @@
 '''
 bootstrap，本质是定义好的css样式表，通过类选择器来提供预设好的各类样式
- 导入
-  在<head>标签中有
-   <link rel='stylesheet' href='../static/plugins/bootstrap-3.4.1-dist/css/bootstrap.css'/>
- 常用模块
-  栅格系统，将页面划分为12个格子，
-   col-xs-数值  当style为此类时，其标签占据 数值/12 的页面，不随页面宽度变化而变化
-   col-sm-数值  当style为此类时，其标签占据 数值/12 的页面，但当页面宽度小于750px时，每一个标签自动向下堆叠
-   col-md-数值  当style为此类时，其标签占据 数值/12 的页面，但当页面宽度小于970px时，每一个标签自动向下堆叠
-   col-lg-数值  当style为此类时，其标签占据 数值/12 的页面，但当页面宽度小于1170px时，每一个标签自动向下堆叠
-   col-md-offset-数值  可以将列向右侧偏移。这个类实际是通过使用 * 选择器为当前元素增加了左侧的外边距（margin）
+    导入
+        在<head>标签中有
+            <link rel='stylesheet' href='../static/plugins/bootstrap-3.4.1-dist/css/bootstrap.css'/>
+    常用模块
+        栅格系统，将页面划分为12个格子，
+            col-xs-数值  当style为此类时，其标签占据 数值/12 的页面，不随页面宽度变化而变化
+            col-sm-数值  当style为此类时，其标签占据 数值/12 的页面，但当页面宽度小于750px时，每一个标签自动向下堆叠
+            col-md-数值  当style为此类时，其标签占据 数值/12 的页面，但当页面宽度小于970px时，每一个标签自动向下堆叠
+            col-lg-数值  当style为此类时，其标签占据 数值/12 的页面，但当页面宽度小于1170px时，每一个标签自动向下堆叠
+            col-md-offset-数值  可以将列向右侧偏移。这个类实际是通过使用 * 选择器为当前元素增加了左侧的外边距（margin）
 
-  container，常用于创建一个居中的<div>窄框架
-   相当于width: 1170px; padding-left: 15px; padding-right: 15px; margin-left: auto; margin-right: auto
-  container-fluid，常用于创建一个居中的<div>宽框架
-   相当于width: 1700px; padding-left: 15px; padding-right: 15px; margin-left: auto; margin-right: auto
+        container，常用于创建一个居中的<div>窄框架
+            相当于width: 1170px; padding-left: 15px; padding-right: 15px; margin-left: auto; margin-right: auto
+        container-fluid，常用于创建一个居中的<div>宽框架
+            相当于width: 1700px; padding-left: 15px; padding-right: 15px; margin-left: auto; margin-right: auto
 
-  图标
-   也可用Font Awesome提供的图标
+        图标
+            也可用Font Awesome提供的图标
 
-  modal，弹出对话框
-   存在 datta-bs-toggle="modal" 的按钮指向该弹框使得点击时弹框出现
-   存在 class="btn-close" data-bs-dismiss="modal" 的按钮使得点击时弹框消失
+        modal，弹出对话框
+            存在 datta-bs-toggle="modal" 的按钮指向该弹框使得点击时弹框出现
+            存在 class="btn-close" data-bs-dismiss="modal" 的按钮使得点击时弹框消失
 
-  分页系统
-   设计思路
-    通过设置当前页数和每页元素数，在查询某一页时，通过元素数*页数快速得到所请求元素的起始值
-    通过对页数加减一进行相邻页数切换
+        分页系统
+            设计思路
+                通过设置当前页数和每页元素数，在查询某一页时，通过元素数*页数快速得到所请求元素的起始值
+                通过对页数加减一进行相邻页数切换
 '''
