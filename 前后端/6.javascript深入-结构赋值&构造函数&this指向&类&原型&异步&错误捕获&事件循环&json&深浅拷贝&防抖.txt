@@ -88,6 +88,8 @@
   }
    async关键字，将函数名1声明为一个Promise对象
    await，用于中断函数执行并等待函数名2的完成
+   async函数总是会返回一个Promise对象，该对象依然拥有 .then() .catch() 这些方法
+   当async函数中运行到await语句时，等待await结束，并同时开始运行async函数外的语句
 
 错误捕获
  try {

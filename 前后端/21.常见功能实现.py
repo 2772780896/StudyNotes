@@ -30,15 +30,34 @@
 
 #组件
  #导航栏
-  #<div style={{ display: 'flex', alignItems: 'center' }}>
-  #  <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} style={{ flex: 1, minWidth: 0 }}/>
-  #</div>
-   #通过用设定了flex的div包裹menu，实现menu稳定的flex实现
+  #const items = [
+  # {
+  #   label: (<div></div>),
+  #   key: 'icon',
+  # },
+  # {
+  #   label: (<div></div>),
+  #   key: 'main'
+  # }
+  #]
+  #<Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items}/>
+ #或者
+  #<Menu onClick={onClick} selectedKeys={[current]} mode="horizontal">
+  # <Menu.item key: 'icon'><Menu.item key: 'icon'>
+  #     <div></div>
+  # </Menu.item>
+  # <Menu.item key: 'main'>
+  #     <div></div>
+  # </Menu.item>
+  #</Menu>
+
  #布局
   #<Layout>
   #  <Header>
   #      <MenuApp />  直接调用封装好的menu即可
   #  </Header>
+
+
 
 #布局
  #水平排列
@@ -60,6 +79,10 @@
    #    <div style={{ width: '30%' }}></div>
    #    <div style={{ width: '70%' }}></div>
    #</Flex>
+  #Flex设置其中元素的宽度
+   #<Flex>
+   #    <div style={{ flex: '1 1 100px' }}></div>
+   #</Flex>
  #图片上显示文字
   #<div style={{position:'relative'}}>
   #     <img
@@ -75,3 +98,12 @@
   #         播放量 弹幕量
   #     </div>
   #</div>
+ #响应式布局
+  #纯css中通过媒体查询动态变更style属性值来实现响应式
+  #Flex封装了媒体查询，自动进行响应式布局
+  #Grid也可以自动进行响应式布局，也能通过断点手动设置响应式布局
+
+
+#按钮函数传参
+ #将函数的传参执行嵌入一个箭头函数中
+  #<Button onclick={() => 函数名(参数)}></Button>

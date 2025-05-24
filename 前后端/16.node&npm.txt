@@ -18,12 +18,18 @@ node.js，一个js代码的运行环境，可直接运行js代码，而不只在
   ECMAScript标准
    node.js默认不支持该标准，使用时需在运行的js文件所在目录下创建package.json文件并写入 {'type': 'module'}
    默认导出导入
-    导出数据
-     export default {
-        对外变量名: js文件内变量名
-     }
-    导入模块
-     import 模块名 from 'js模块'  返回值与require导入相同
+    字典导出
+     导出数据
+      export default {
+         对外变量名: js文件内变量名
+      }
+     导入模块
+      import 模块名 from 'js模块'  返回值与require导入相同
+    变量名导出
+     导出数据
+      export default 变量名
+     导入数据
+      import 变量名2 from 'js模块'  导入数据的本质，就是将导出的数据命名为变量名2
    命名导出导入  优点为按需导入，只导入需要的变量
     导出数据
      export const 变量名 = 值

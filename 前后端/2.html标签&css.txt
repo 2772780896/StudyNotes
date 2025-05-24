@@ -94,8 +94,36 @@ html标签
    border: 数值px solid 颜色  设置边框的厚度，边框线，颜色
    cursor: point  当鼠标移至该标签时变为用手指着的样式
    vertical-align: top  当一个图片有着和他同行的元素时，默认该图片与另一个元素的底部对齐，该设置修改为顶部对齐
-   aspectRatio: '16/9'  自动设置宽高比
-
+   aspectRatio: 16/9  自动设置宽高比
+   flex父标签
+    display: flex  该标签下的子标签使用flex布局
+    flex-direction: row/column  子标签使用水平或垂直排列
+    justify-content: space-between/start/end  子标签对齐方式
+    flex-wrap: wrap/nowrap  子标签是否自动换行
+   flex子标签
+    flex-grow: 1/0  是否可响应式的增大，默认为0
+    flex-shrink: 1/0  是否可响应式的缩小，默认为1
+    flex-basis: 100px  基础宽度，默认为auto
+    flex: 0 1 auto  为同时设置三种属性的简写
+    flex: 3  为 flex: 3 1 auto 的简写，当与 flex: 1 同时作为子标签时，表示自动占据 3/4 的空间
+   grid父标签
+    display: grid  该标签下的子标签使用grid布局
+    grid-template-columns: 200px 100px 200px  一行中的三个子标签的宽度
+    grid-template-rows: 50px 60px  两行的高度
+    grid-template-rows: repeat(2, 50px)  指定行数的高度，相当于 grid-template-rows: 50px 50px
+    grid-template-columns: repeat(auto-fill, 200px)  当行宽度变化时，尽可能以指定宽度来容纳子标签
+    grid-template-columns: 1fr 2fr  一行中按比例设置两个子标签的宽度
+    grid-template-columns: 1fr minmax(100px 2fr)  设置子标签的最小和最大的宽度
+    grid-template-columns: 100px auto 100px  设置当有剩余空间时，子标签占据所有剩余空间
+    row-gap: 10px  子标签之间的上下间距
+    column-gap: 20px  子标签之间的左右间距
+    gap: 10px 20px  简写，设置左右和上下间距
+    justify-items: start/end/center  同一行的子标签的水平对齐方式
+    align-items: start/end/center  不同行之间的垂直对齐方式
+   grid子标签
+    grid-column: 1/3  设置子标签在该行的开始位和结束位
+    grid-column: span 2  设置子标签占据的位数
+    justify-self: start/end/center  设置子标签在该行的水平对齐方式
 
 css，Cascading Style Sheets，层叠式样式表，统一设置标签的样式
  直接写在html文件内

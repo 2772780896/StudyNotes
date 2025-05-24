@@ -70,7 +70,7 @@
 #os模块
  #import os
  #os.getcwd()  返回当前工作目录的绝对路径
- #os.listdir(path=r'.')  返回指定目录下的所有文件为元素组成的列表
+ #os.listdir(r'.')  返回指定目录下的所有文件为元素组成的列表
  #os.remove(r'path')  删除指定文件 。创建文件用 open(path, mode='w')
  #os.mkdir(r'path')  创建指定目录
  #os.rmdir(r'path')  删除指定空目录

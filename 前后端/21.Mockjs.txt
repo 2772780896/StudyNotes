@@ -1,0 +1,57 @@
+npm i mockjs
+
+在react的入口文件，根index.js中 import 'mock' 以启动mock
+
+src下创建mock文件夹，创建index.js
+    import Mock from 'mock'
+    export const response = Mock.mock(
+        '前端所请求的网页路径',
+        'get/post',
+        {响应数据}
+        )
+
+响应数据格式
+    // 随机生成一到十个列表
+    "list|1-10": [] // 返回的数据为 list: [[],[],...]
+    // 随机生成一到十个字符
+    "string|1-10": ""
+    // 随机生成1-100之间的任意整数
+    "number|1-100": 1
+    // 随机生成一个浮点数，整数部分为1-100，小数部分为1到10位。
+    "floatNumber|1-100.1-10": 1
+    // 随机生成一个布尔值
+    "boolean|1": true
+    // 随机生成一个布尔值，值为false的概率是 2/(2+5) ，值为true的概率是 5/(2+5)
+    'bool|2-5': false
+    // 随机生成一个对象，随机选取2-4个元素作为对象的元素
+    "object|2-4": {1, 2, 3, 4}
+
+随机生成
+    const Random = Mock.Random
+    响应数据格式
+        // 生成随机字符串，长度为5
+        Random.string(5)/'@string(5)'
+        // 生成随机邮箱地址，xxx@163.com
+        Random.email('163.com')/"@email('163.com')"
+        // 生成随机的布尔值
+        Random.boolean()/'@boolean()'
+        // 生成随机随机整数，值为60-100
+        Random.integer(60, 100)/'@integer(60, 100)'
+        // 生成随机浮点数，整数部分为1-100，小数部分位数为3-5
+        Random.float(1, 100, 3, 5)/'@float(1, 100, 3, 5)'
+        // 生成随机日期
+        Random.datetime('yyyy-MM-dd')/"@datetime('yyyy-MM-dd')"
+        // 生成随机时间
+        Random.time()/"@time()"
+        // 生成随机图片url，参数为 (尺寸, 背景色, 文字颜色, 图片格式, 图片上文字)，返回值为 "http://dummyimage.com/200x100/16d46b/fff.png&text=Hello"
+        Random.image('200x100', '#16d46b', '#fff', 'png/jpg/gif', 'Hello')
+        // 生成随机 Base64 图片编码，参数为 (尺寸, 图片上文字)
+        Random.dataImage( '200x100', 'Hello' )
+        // 生成随机元素，该元素随机从数组中选取
+        Random.pick(['a', 'e', 'i', 'o', 'u'])/'@pick(["a", "e", "i", "o", "u"])'
+        // 生成随机列表，列表中元素为打乱后的列表元素
+        Random.shuffle(['a', 'e', 'i', 'o', 'u'])/'@shuffle(["a", "e", "i", "o", "u"])'
+
+
+
+

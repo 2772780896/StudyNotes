@@ -46,35 +46,41 @@ create-react-app  快速创建react环境
      在调用子组件时通过 return <Son setVar={setVar} /> 将修改函数传入子组件，
      后在子组件中通过 setVar(变量名) 修改变量的值，使得父组件可通过var获取子组件中变量名的值
     跨多层组件中通信
-     function Top() {const 变量名1 = 'xxx'; return (<MsgContext.Provider value={变量名1}> <Bottom/> <MsgContext.Provider>)}
-      在顶层组件中用<MsgContext.Provider>将要传递变量的底层组件包裹，并在标签头中通过value传入变量
-     function Bottom() {const 变量名2 = useContext(MsgContext); return ({变量名2})}
+     function Top() {const 变量名1 = 'xxx'; return (<ValueContext.Provider value={变量名1}> <Bottom/> <ValueContext.Provider>)}
+      在顶层组件中用<ValueContext.Provider>将要传递变量的底层组件包裹，并在标签头中通过value传入变量
+     function Bottom() {const 变量名2 = useContext(ValueContext); return ({变量名2})}
       通过 useContext(MsgContext) 获取传递的变量
 
   hook函数  只能在组件中或其他hook函数中使用使用，也不能在if或for语句中使用
    useState
     import {useState} from 'react'
-    const [count, setConst] = useState(状态变量)
+    const [count, setCoust] = useState(状态变量)
      useState()返回一个数组，数组中第一个值为状态变量，第二个值为可设置状态变量的函数，用结构赋值来接收这两个变量
-    setConst(新值)  会将新值赋值给count
-     当count在组件函数的jsx的模板文本中被调用时，用此函数会导致jsx的重新渲染，直接用赋值的方式修改count的值并不会引发重新渲染
+    setCount(新值)  会将新值赋值给count
+     state的值只可通过setCount进行修改，如 state[0]=新值 等直接修改state的方式会报错
+     setCount设置新的state值时必须传递一个新的内存引用以引起state的组件的动态更新
+     当setCount执行后，会导致整个组件的重新渲染，同时记录该值，当组件重新渲染时运行到useState时，不会使用初始的状态变量，而是拿到上次记录的值，将其作为新的状态变量
     useState与input绑定，用于动态获取输入内容
      const [value,setValue] = useState('')
      <input type="text" value={value} onChange={(e) => setValue(e.target.value)}/>
       通过e.target.value获取到当前输入的值，并通过setValue改变value实现动态渲染
+
    useRef  绑定标签，可用于替代dom中的获取标签
     const 变量名Ref = useRef(null)  创建一个绑定对象，默认值为空
     <div ref={变量名Ref}></div>  在jsx中的标签的标签头中设置该属性
     可通过 变量名Ref.current 获取到该标签
+
    useEffect  用于在当网页渲染完成后执行函数
     import { useEffect } from 'react'
     useEffect(() => {}, 参数2)
      第一个参数为页面渲染完成后执行的函数
      参数2为空时表示函数会在初始渲染和组件更新后执行，为空列表时表示只在初始渲染后执行，当列表中元素为由useState创建的变量名时，当初始渲染和该变量发生改变后执行
      当第一个参数的函数体的返回值为一个函数时，该函数会在组件中的jsx的渲染被取消时被执行
+
    useLocation  获取当前url信息
     const location = useLocation()
     path = location.pathname  获取url中主机之后的路径
+
    自定义hook函数  本质就是一个js函数，但在其中使用其他hook函数实现业务逻辑
     function use首字母大写函数名 () { const [value, setValue] = useState();
       return {value, setValue}
