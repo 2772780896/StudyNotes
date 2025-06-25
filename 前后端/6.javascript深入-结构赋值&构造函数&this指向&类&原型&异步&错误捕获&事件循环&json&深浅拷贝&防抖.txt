@@ -10,6 +10,8 @@
         { name, age }由{ name: name, age: age }简写而来
         新对象中的变量名必须与原对象中的变量名一致
     const { name: a, age: b } = obj  变量重命名，相当于const a = obj.name; const b = obj.age
+    const { name = 1, age = 2 ,height = 180} = obj  当obj中没有height时，使用=设置的默认的值
+        对象解构赋值中的属性名的顺序不要求一一对应
 
 构造函数
     function 首字母大写函数名(参数) {this.内部参数名 = 参数}  创建构造函数
@@ -82,8 +84,13 @@
         })
             在 p.then() 调用时先等待 函数体1 的运行以得到 result ，然后再执行 函数体2 ，以此实现异步
             p.then()/.catch() 都返回一个promise对象，可实现对自身的不断调用
+
     async/await，基于Promise
         async function 函数名1() {
+            const a = await 函数名2()
+        }
+        或箭头函数：
+        const 函数名1 = async () {
             const a = await 函数名2()
         }
             async关键字，将函数名1声明为一个Promise对象

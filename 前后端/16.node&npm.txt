@@ -9,7 +9,7 @@ node.js，一个js代码的运行环境，可直接运行js代码，而不只在
         CommonJS标准
             导出数据
                 module.exports = {
-                                对外变量名: 此js文件内变量名
+                    对外变量名: 此js文件内变量名
                 }
             导入模块
                 const 模块名 = require('js模块')
@@ -21,7 +21,7 @@ node.js，一个js代码的运行环境，可直接运行js代码，而不只在
                 字典导出
                     导出数据
                         export default {
-                                    对外变量名: js文件内变量名
+                            对外变量名: js文件内变量名
                         }
                     导入模块
                         import 模块名 from 'js模块'  返回值与require导入相同
@@ -31,10 +31,16 @@ node.js，一个js代码的运行环境，可直接运行js代码，而不只在
                     导入数据
                         import 变量名2 from 'js模块'  导入数据的本质，就是将导出的数据命名为变量名2
             命名导出导入  优点为按需导入，只导入需要的变量
-                导出数据
-                    export const 变量名 = 值
-                导入数据
-                    import { 同名变量名 } from 'js模块'  之后直接通过 同名变量名 来调用变量
+                命名时导出
+                    导出数据
+                        export const 变量名 = 值
+                    导入数据
+                        import { 同名变量名 } from 'js模块'  之后直接通过 同名变量名 来调用变量
+                统一导出
+                    导出数据
+                        export {变量名}
+                    导入数据
+                        import { 同名变量名 } from 'js模块'
 
     fs模块，用于文件读写
         导入fs模块
@@ -43,7 +49,7 @@ node.js，一个js代码的运行环境，可直接运行js代码，而不只在
             fs.writeFile('文件路径', '内容', err => {执行操作})  当有错误时，用err参数保存，没有错误时，err为空
         读取文件
             fs.readFile('文件路径', (err, data) => {  err为报错内容，data为读取到的Buffer十六进制数据流对象
-                            data.toString()  将Buffer对象转为字符串，返回值为字符串
+                data.toString()  将Buffer对象转为字符串，返回值为字符串
             })
 
     path模块，用于路径处理

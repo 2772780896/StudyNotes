@@ -107,3 +107,20 @@
 #按钮函数传参
     #将函数的传参执行嵌入一个箭头函数中
         #<Button onclick={() => 函数名(参数)}></Button>
+
+#Cookie设置与获取
+    #document.cookie
+        #设置
+            #document.cookie = `my_token=${sessionToken}; expires=${expires}; path=/; SameSite=Lax; Secure`
+        #获取
+            #document.cookie // 返回值为 'my_token=F961286D-b5ac-6d67-4Bcf-A2b5AeB9C6Ed; uid=797; ...'
+            #当需要获取特定名字的cookie时需要手动解析字符串
+    #js-cookie
+        #npm install js-cookie
+        #import Cookies from 'js-cookie'
+        #设置
+            #Cookies.set('my_token', sessionToken, { expires: 7, path: '/', sameSite: 'Lax', secure: true })
+        #获取
+            #Cookies.get() // 返回值为 {uid: '157', my_token: 'fA7C08cA-AEd8-f2dE-d25A-604C01eCb4FF'}
+            #当需要获取特定名字的cookie时，
+                #Cookies.get('my_token')

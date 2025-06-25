@@ -15,5 +15,21 @@
 @app.route('/show/info', methods=['GET'])
                 def index(): return
     关键字参数methods表明网站接收数据的方式，默认为GET，一个网址可以同时存在多种接收数据的方式
+
+localstorage与cookie
+    cookie
+        在浏览器响应头中包含Set-Cookie信息，浏览器自动设置cookie，
+            如，Set-Cookie: JSESSIONID=abcde12345; Expires=Fri, 13 Jun 2026 05:53:02 GMT; Path=/; HttpOnly; SameSite=Lax
+        浏览器会在访问目标网站时在请求头中包含Cookie数据
+            如，Cookie: JSESSIONID=abcde12345
+        可以通过document.cookie访问和修改cookie，但设置了httponly的cookie不可被访问
+    localstorage
+        保存在localstorage中，无过期时间
+        通过localStorage.setItem(), localStorage.getItem(), localStorage.removeItem()来修改数据
+        若存储token，可通过在请求头中设置Authorization:token 来发送数据
+
+RestFul Api
+    URL 路径 (/api/videos/{vid})： 标识唯一资源。它应该指向一个特定的、可独立存在的实体。
+    查询参数 (?key=value)： 用于对资源集合进行过滤、排序、分页或提供非必要的参数。
 '''
 
