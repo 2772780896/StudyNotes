@@ -99,7 +99,7 @@
         #     </div>
         #</div>
     #响应式布局
-        #纯css中通过媒体查询动态变更style属性值来实现响应式
+        #纯css中通过媒体查询限定特定条件下的style属性值来实现响应式
         #Flex封装了媒体查询，自动进行响应式布局
         #Grid也可以自动进行响应式布局，也能通过断点手动设置响应式布局
 
@@ -124,3 +124,47 @@
             #Cookies.get() // 返回值为 {uid: '157', my_token: 'fA7C08cA-AEd8-f2dE-d25A-604C01eCb4FF'}
             #当需要获取特定名字的cookie时，
                 #Cookies.get('my_token')
+
+#滚动
+    #创建一个滚动区域
+        #<div ref={divRef} style={{ height: '400px', overflowY: 'auto',  position: 'relative' }}>
+            #通过overflowY设置实现滚动条
+            #通过height设置滚动区域的内容的高度
+            #通过position设置滚动区域的定位
+    #创建滚动区域中的内容，用于撑开滚动区域
+        #<div style={{ height: '1000px' }}>
+            #通过height设置内容的高度
+            #内容高度大于滚动区域的高度时，滚动条才会出现
+    #获取当前滚轮的位置
+        #const divRef = useRef(null)
+        #const [scrollTop, setScrollTop] = useState(0);  #动态更新滚动位置
+        #useEffect(() => {  #使用useEffect来添加和移除滚动事件监听器
+        #   const scrollElement = divRef.current;
+        #   if (!scrollElement) {  #如果元素不存在，返回
+        #       return;
+        #   }
+        #   const handleScroll = () => {  #定义滚动事件函数，setScrollTop更新滚动位置
+        #       setScrollTop(scrollElement.scrollTop);  #通过scrollElement.scrollTop获取已滚动的像素数
+        #   };
+        #   scrollElement.addEventListener('scroll', handleScroll);  #添加滚动事件监听器，滚动时触发handleScroll函数
+        #   return () => {
+        #       scrollElement.removeEventListener('scroll', handleScroll);  #返回一个清理函数，移除事件监听器，防止内存泄漏
+        #   };
+        #}, []);
+            #可滚动的最大像素数为1000px-400px=600px
+            #可将scrollTop进行防抖处理，避免频繁更新
+    #设置实际展示的内容
+        #const itemHeight = 50 
+            #设置每一个子项的高度
+        #const itemCount = Math.ceil(400 / itemHeight)
+            #设置子项数量
+        #const startIndex = Math.floor(scrollTop / itemHeight)
+            #计算已经滚动的子项数量
+        #const sliceList = list.slice(startIndex, startIndex + itemCount)
+            #通过slice方法获取当前展示的子项
+    #创建实际展示的内容区域
+        #<div style={{ position: 'absolute', top: {scrollTop}, width: '100%' }}>
+        #    {sliceList.map(item => (
+        #        <div key={item.id} style={{ height: itemHeight }}>
+        #</div>
+            #通过position与top设置实际内容的位置

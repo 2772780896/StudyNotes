@@ -277,6 +277,12 @@ api封装
                         ...
                         ])
 
+高阶组件
+    React.memo 
+        如果组件在接收相同的props的情况下渲染出相同的结果，那么用React.memo包裹该组件，React将会跳过对这个组件的重新渲染，并复用上次渲染的结果
+        const 组件名 = React.memo(({ props }) => { return }）
+
+
 token持久化
     将token存入redux后，由于redux基于浏览器内存进行存储，所以当浏览器刷新后，redux会初始化，token丢失
     在将token存入redux时，同时将token存入localstorage

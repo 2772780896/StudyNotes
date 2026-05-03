@@ -1,0 +1,145 @@
+'''
+环境搭建
+    npm install -g @vue/cli # 全局安装Vue CLI
+    vue create my-vue # 创建项目，项目名只能小写并用-连接
+    src下的main.js为项目的的入口文件，默认导入App.vue
+    App.vue可导入项目所需的组件代码
+
+
+组件，vue中的组件存放于components文件夹，以 .vue 为文件名后缀
+    模板，定义组件的HTML结构
+        格式
+            <template>
+                <div></div>
+            </template>
+        模板语法
+            变量展示
+                {{ 变量名 }} # 展示变量的值
+                <img :src="imageUrl" :alt="imageAlt" /> 属性绑定 (v-bind: 或 :)
+            条件渲染
+                <p v-if="isLoggedIn">欢迎，用户！</p>
+                <p v-else-if="isLoading">加载中...</p>
+                <p v-else>请登录。</p>
+                    基于条件判断决定元素是否被渲染到 DOM。v-if 具有惰性渲染的特性，只有当条件为真时才创建元素。
+                <p v-show="isVisible">这是一个可见的段落。</p>
+                    基于条件判断切换元素的 CSS display 属性。元素始终存在于 DOM 中
+            遍历渲染
+                <ul>
+                    <li v-for="item in items" :key="item.id">
+                    {{ item.text }}
+                    </li>
+                </ul>
+                    遍历数组或对象的指令，为每个项目渲染一个元素或组件。需要使用 :key 属性来提供一个唯一标识，以帮助 Vue 高效地更新列表
+            事件处理
+                <button @click="handleClick">点击我</button>
+                    v-on: 或 @： 监听 DOM 事件或自定义组件事件，并执行相应的方法
+
+    脚本，定义组件的JavaScript逻辑
+        Options API，导出一个默认的js对象，这个对象包含了各种选项
+            格式
+                <script>
+                    export default {
+                        属性名1: 值1,
+                        属性名2: 值2,
+                        ...
+                    };
+                </script>
+            js对象的属性，核心功能
+                组件名
+                    name: 'MyComponent'
+                参数接收
+                    props: {
+                        initialCount: {
+                            type: Number,
+                            default: 0
+                        }
+                    },
+                        声明组件接收的外部数据。父组件通过属性（Props）向子组件传递数据，实现单向数据流（父到子）
+                响应式状态
+                    data() {
+                        return {
+                            count: 0,
+                            message: 'Hello Vue!'
+                        };
+                    }
+                        data 是一个函数，返回一个对象，其中包含组件的响应式状态。当这些数据改变时，视图会自动更新
+                组件方法
+                    methods: {
+                        increment() {
+                            this.count++;
+                        },
+                        greet(name) {
+                            console.log(`Hello, ${name}`);
+                        }
+                    }
+                        一个对象，包含组件可以调用的函数，通常用于事件处理或业务逻辑
+                缓存
+                    computed: {
+                        fullName() {
+                        return this.firstName + ' ' + this.lastName;
+                        }
+                    }
+                        一个对象，定义基于响应式数据派生出来的新数据。它们具有缓存性，只有在依赖的数据改变时才会重新计算
+                响应式状态监听
+                    watch: {
+                        question(newQuestion, oldQuestion) {
+                            console.log(`问题从 "${oldQuestion}" 变为 "${newQuestion}"`);
+                            // perform some async operation
+                        }
+                    }
+                        一个对象，用于侦听特定响应式数据的变化，并在变化时执行副作用（例如异步操作、DOM 操作等）
+                生命周期钩子
+                    created() {
+                        console.log('组件实例已创建');
+                    },
+                    mounted() {
+                        console.log('组件已挂载到DOM');
+                    }
+                        在组件生命周期的特定阶段自动执行的函数，例如 created (组件实例创建后)、mounted (组件挂载到 DOM 后)、updated (组件更新后)、unmounted (组件卸载后)
+
+        Composition API
+            格式
+                <script setup>
+                </script>
+                    自动暴露： 在 <script setup> 中声明的变量、函数、导入的组件等，都会自动暴露给 <template> 使用，无需手动 return
+            核心功能                  
+                响应式状态
+                    import { ref, reactive } from 'vue';
+                    const count = ref(0); // 响应式基本类型
+                    const user = reactive({ name: 'Alice', age: 30 });
+                        ref()：用于创建包含原始值（string, number, boolean）或对象的响应式引用。访问其值需要 .value。
+                        reactive()：用于创建对象的深度响应式代理。可以直接访问和修改其属性
+                缓存
+                    import { ref, computed } from 'vue';
+                    const count = ref(0);
+                    const doubledCount = computed(() => count.value * 2);
+                        作为函数导入和使用，接收一个 getter 函数，返回一个响应式引用
+                响应式状态监听
+                    import { ref, watch, watchEffect } from 'vue';
+                    const count = ref(0);
+                    watch(count, (newVal) => {
+                        console.log('Count changed:', newVal);
+                    });
+                    watchEffect(() => {
+                        console.log('Count is now:', count.value); // 自动侦听 count.value
+                    });
+                        watch()：与 Options API 类似，显式指定要侦听的数据。
+                        watchEffect()：立即执行一个函数，并响应式地追踪其依赖，当依赖改变时重新执行。
+                生命周期钩子
+                    import { onMounted, onUnmounted } from 'vue';
+                    onMounted(() => {
+                        console.log('组件已挂载 (Composition API)');
+                    });
+                    onUnmounted(() => {
+                        console.log('组件已卸载 (Composition API)');
+                    });
+                        通过 on 前缀的函数形式导入和使用，如 onMounted、onUpdated、onUnmounted
+
+
+    样式，定义html标签的样式，语法同css
+        <style>
+            div {
+                color: red;
+            }
+        </style>
+'''

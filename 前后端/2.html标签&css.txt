@@ -64,8 +64,9 @@ html标签
         如<div style="样式属性1: 值1; 样式属性2: 值2"></div>
         style的各项属性
             height: 数值px  高度
+            height: 数值%  元素占据父元素的百分比
+            height: 数值vh  元素占据屏幕的百分比
             width: 数值px  宽度
-            width: 数值%  宽度
             display: inline  强制将该标签视为内联标签，高度与宽度的修改对其不可用，内外边距的修改对其不可用
             display: block  强制将该标签视为块级标签，即使宽度不占用整块屏幕，空出来的右半部分也不可用
             display: inline-block  强制将该标签具有内联与块级标签的特点，高度与宽度的修改可用，空出来的右半部分可用

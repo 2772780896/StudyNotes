@@ -79,6 +79,7 @@ App.js，项目的根组件
             const 变量名Ref = useRef(null)  创建一个绑定对象，默认值为空
             <div ref={变量名Ref}></div>  在jsx中的标签的标签头中设置该属性
             可通过 变量名Ref.current 获取到该标签
+            Ref.current的值可以是任意Js值，且在设置后不会在组件重新渲染时重置
 
         useEffect  用于在当网页渲染完成后执行函数。用于处理副作用，包括数据获取、订阅事件、手动改变DOM、设置定时器等
             import { useEffect } from 'react'
@@ -92,9 +93,16 @@ App.js，项目的根组件
 
         useMemo  用于在渲染中缓存一个值
             import { useMemo } from 'react'
-            useEffect(() => {}, 参数2)
+            const 变量名 = useEffect(() => {}, 参数2)
                 第一个参数中的函数用于return一个值作为缓存值
                 第二个参数作为依赖项，类似useEffect中的依赖项，当依赖项中的state没有变化时，直接返回缓存值，当依赖项变化时，重新执行函数，返回新的缓存值
+	
+	    useCallback 用于在渲染中缓存一个函数
+            import { useCallback } from 'react'
+            const 函数名 = useCallback(() => {函数体}, 参数2)
+                第一个参数中的函数体会作为函数名的函数体
+                第二个参数作为依赖项，当依赖项不变化时，不会重新创建该函数。
+                    因为一般情况下每次组件重新渲染时都会重新定义组件顶层中的函数，并将函数名作为一个新的引用传递
 
         useLocation  获取当前url信息
             const location = useLocation()
