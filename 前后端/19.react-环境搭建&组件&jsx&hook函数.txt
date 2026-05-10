@@ -5,6 +5,7 @@ npx create-react-app react项目名
     npx用于下载该包并运行，在运行文件夹下创建 react项目名 的包文件夹
     其中存在src文件夹，用于存放静态文件，只需保留App.js和index.js，存在public文件夹中有index.html
 npm start  在react包文件夹下执行，启动web服务在3000端口
+npm run dev
 
 index.js  项目入口，从此开始运行项目
     import React from 'react'; import ReactDOM from 'react-dom/client';  导入核心包

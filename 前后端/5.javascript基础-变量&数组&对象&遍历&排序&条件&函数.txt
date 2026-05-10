@@ -109,6 +109,9 @@ JavaScript代码的注释为 /* ... */ 或 //...
         console.log();
     });
         遍历数组中的每个值，对该值进行操作，返回undefined
+    
+    数组.some(i => { return })
+        遍历数组，当目标项的值使返回值为真时，返回true，并停止遍历
 
     Object.keys(对象)  返回对象中的键组成的数组
     Object.values(对象)  返回对象中的值组成的数组
