@@ -1,0 +1,222 @@
+{
+  "main": {
+    "id": "f890883ee4fb459b",
+    "type": "split",
+    "children": [
+      {
+        "id": "4cb1d02fc468964e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f0cf9bca5ff9331d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "前后端-md/18.git.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "18.git"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "4335f5a66edff937",
+    "type": "split",
+    "children": [
+      {
+        "id": "5fdfc02d56ab4acd",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "590643afd2601a73",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "84fd471f125d238f",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "5260debb3bd64ad1",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "1ea92958a3425564",
+    "type": "split",
+    "children": [
+      {
+        "id": "8a37544759921c83",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "444d8874cc6a6028",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "反向链接"
+            }
+          },
+          {
+            "id": "8e426c6eafd5f578",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "前后端-md/16.node-全栈手册.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "16.node-全栈手册 的出链列表"
+            }
+          },
+          {
+            "id": "33716d516681d367",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "d53a436f9f7f6ee9",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "8e1aaf6aa47c66ed",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "大纲"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false
+    }
+  },
+  "active": "f0cf9bca5ff9331d",
+  "lastOpenFiles": [
+    "前后端-md/21.Mockjs.md",
+    "前后端-md/19.react-优化版.md",
+    "前后端-md/16.node-全栈手册.md",
+    "前后端-md/17.Express-核心框架.md",
+    "环境初始化说明.md",
+    "未命名 3.base",
+    "未命名 2.base",
+    "未命名 1.base",
+    "未命名.base",
+    "未命名.md",
+    "未命名 3",
+    "未命名 2",
+    "未命名 1",
+    "未命名",
+    "前后端-md/18.git.md",
+    "环境初始化说明 1.md",
+    "前后端-md/2.html标签&css.md",
+    "前后端-md/22.vue-优化版.md",
+    "前后端-md/22.vue.md",
+    "前后端-md/18.typescript.md",
+    "前后端-md/1.Flask.md",
+    "前后端-md/1.Flask_20260603_230732_542.md",
+    "python基础-md/11.PEP8编码规范.md",
+    "python基础-md/7.Tkinter模块.md",
+    "python基础-md/1.字符串-格式化字符串&字符串切片.md",
+    "前后端-md/3.数据提交与接收_20260603_230732_274.md",
+    "前后端-md/20.react-进阶教程.md",
+    "前后端-md/5.javascript基础-变量&数组&对象&遍历&排序&条件&函数.md",
+    "前后端-md/6.javascript深入-结构赋值&构造函数&this指向&类&原型&异步&错误捕获&事件循环&json&深浅拷贝&防抖.md",
+    "前后端-md/12.Django-Form&ModelForm&中间件.md",
+    "python基础-md/2.列表,元组,字典.md",
+    "python基础-md/3.条件语句,循环语句.md",
+    "python基础-md/10.正则表达式&Re模块.md",
+    "未命名.canvas"
+  ]
+}
